@@ -12,10 +12,10 @@ Our semester project will be creating our version of PasteBin. The reason we cho
   * MongoDB
   
 ## Collaborators ##  
-Archana Dhyani
-Sudhanshu Tarale
-Blas Kojusner
-Param Gupta
+Archana Dhyani  
+Sudhanshu Tarale  
+Blas Kojusner  
+Param Gupta  
 
 
 
