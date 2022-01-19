@@ -10,6 +10,9 @@ Our semester project will be creating a new version of PasteBin. The reason we c
 * Back-end:
   * Golang
   * MongoDB
+
+## Word Doc For More Information ##
+https://docs.google.com/document/d/1wpndziD9usKK1w3tSYDVwXILQrnTILIcoLz_GQofw1A/edit?usp=sharing
   
 ## Collaborators ##  
 Archana Dhyani  
