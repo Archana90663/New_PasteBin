@@ -9,7 +9,9 @@ Our semester project will be creating a new version of PasteBin. The reason we c
      Libraries to use: Angular material - https://material.angular.io/
 * Back-end:
   * Golang
-  * MongoDB
+  * Embed
+  * Gorm
+  * SQLite
 
 ## Word Doc For More Information ##
 https://docs.google.com/document/d/1wpndziD9usKK1w3tSYDVwXILQrnTILIcoLz_GQofw1A/edit?usp=sharing
