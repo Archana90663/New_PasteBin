@@ -5,7 +5,7 @@ import { SubmitpageComponent } from './submitpage/submitpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
-  {path: 'homepage', component: HomepageComponent},
+  {path: '', component: HomepageComponent},
   {path: 'submitpage', component: SubmitpageComponent},
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
