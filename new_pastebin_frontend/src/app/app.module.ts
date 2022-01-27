@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubmitpageComponent } from './submitpage/submitpage.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     NavbarComponent,
-    SubmitpageComponent
+    SubmitpageComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
