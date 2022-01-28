@@ -10,6 +10,7 @@ import (
 type Text struct {
 	Id        string    `json:"id"`
 	Body      string    `json:"body"`
+	Title     string    `json:"title"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
