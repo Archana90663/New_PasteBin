@@ -68,6 +68,10 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Cannot post text with empty body")
 		return
 	}
+	if text.Title == "" {
+		sendErr(w, http.StatusBadRequest, "Cannot post text with title")
+		return
+	}
 	err = postText(a.db, text)
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
