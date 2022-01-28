@@ -28,6 +28,7 @@ func (a *App) start() {
 
 	a.r.HandleFunc("/test", a.test).Methods("GET")
 	a.r.HandleFunc("/api/submitText", a.addText).Methods("POST")
+	a.r.HandleFunc("/api/allTexts", a.allTexts).Methods("GET")
 	webapp, err := fs.Sub(static, "static")
 	if err != nil {
 		fmt.Println(err)
@@ -78,6 +79,17 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.WriteHeader(http.StatusCreated)
 	}
+}
+func (a *App) allTexts(w http.ResponseWriter, r *http.Request) {
+	var response AllTextsResponse
+	texts := allTexts(a.db)
+	response.Texts = texts
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.Write(jsonResponse)
 }
 func sendErr(w http.ResponseWriter, code int, message string) {
 	resp, _ := json.Marshal(map[string]string{"error": message})
