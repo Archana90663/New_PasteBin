@@ -83,7 +83,7 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 func (a *App) allTexts(w http.ResponseWriter, r *http.Request) {
 	var response AllTextsResponse
 	texts := allTexts(a.db)
-	response.Texts = texts
+	response.TextListings = texts
 	jsonResponse, err := json.Marshal(response)
 	if err != nil {
 		sendErr(w, http.StatusInternalServerError, err.Error())
