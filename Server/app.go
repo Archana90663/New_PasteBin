@@ -104,7 +104,7 @@ func (a *App) getText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusNotFound, "text not found")
 		return
 	}
-	jsonResponse, err := json.Marshal(text)
+	jsonResponse, err := json.Marshal(text[0])
 	if err != nil {
 		sendErr(w, http.StatusInternalServerError, err.Error())
 		return
