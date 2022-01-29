@@ -3,10 +3,11 @@ package main
 import (
 	"embed"
 	"encoding/json"
-	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -19,7 +20,48 @@ type App struct {
 	db *gorm.DB
 	r  *mux.Router
 }
+type spaHandler struct {
+	staticFS   embed.FS
+	staticPath string
+	indexPath  string
+}
 
+// Solution by https://github.com/gorilla/mux/issues/637
+func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	// get the absolute path to prevent directory traversal
+	path, err := filepath.Abs(r.URL.Path)
+	if err != nil {
+		// if we failed to get the absolute path respond with a 400 bad request and stop
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	// prepend the path with the path to the static directory
+	path = filepath.Join(h.staticPath, path)
+
+	_, err = h.staticFS.Open(path)
+	if os.IsNotExist(err) {
+		// file does not exist, serve index.html
+		index, err := h.staticFS.ReadFile(filepath.Join(h.staticPath, h.indexPath))
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.WriteHeader(http.StatusAccepted)
+		w.Write(index)
+		return
+	} else if err != nil {
+		// if we got an error (that wasn't that the file doesn't exist) stating the
+		// file, return a 500 internal server error and stop
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// get the subdirectory of the static dir
+	statics, err := fs.Sub(h.staticFS, h.staticPath)
+	// otherwise, use http.FileServer to serve the static dir
+	http.FileServer(http.FS(statics)).ServeHTTP(w, r)
+}
 func (a *App) start() {
 	a.db.AutoMigrate(&Person{}, &Text{})
 
@@ -30,12 +72,9 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/submitText", a.addText).Methods("POST")
 	a.r.HandleFunc("/api/allTexts", a.allTexts).Methods("GET")
 	a.r.HandleFunc("/api/getText", a.getText).Methods("POST")
-	webapp, err := fs.Sub(static, "static")
-	if err != nil {
-		fmt.Println(err)
-	}
 
-	a.r.PathPrefix("/").Handler(http.FileServer(http.FS(webapp)))
+	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
+	a.r.PathPrefix("/").Handler(spa)
 
 	log.Fatal(http.ListenAndServe(":8080", a.r))
 
