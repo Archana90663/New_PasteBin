@@ -29,6 +29,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/test", a.test).Methods("GET")
 	a.r.HandleFunc("/api/submitText", a.addText).Methods("POST")
 	a.r.HandleFunc("/api/allTexts", a.allTexts).Methods("GET")
+	a.r.HandleFunc("/api/getText", a.getText).Methods("POST")
 	webapp, err := fs.Sub(static, "static")
 	if err != nil {
 		fmt.Println(err)
@@ -85,6 +86,25 @@ func (a *App) allTexts(w http.ResponseWriter, r *http.Request) {
 	texts := allTexts(a.db)
 	response.TextListings = texts
 	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.Write(jsonResponse)
+}
+func (a *App) getText(w http.ResponseWriter, r *http.Request) {
+	var req getTextRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if req.Id == "" {
+		sendErr(w, http.StatusBadRequest, "No Id given")
+		return
+	}
+	text := getText(a.db, req.Id)
+	if text == nil {
+		sendErr(w, http.StatusNotFound, "text not found")
+		return
+	}
+	jsonResponse, err := json.Marshal(text)
 	if err != nil {
 		sendErr(w, http.StatusInternalServerError, err.Error())
 		return
