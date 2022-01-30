@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
 )
@@ -76,7 +77,7 @@ func (a *App) start() {
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
-	log.Fatal(http.ListenAndServe(":8080", a.r))
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS()(a.r)))
 
 }
 func (a *App) test(w http.ResponseWriter, r *http.Request) {
