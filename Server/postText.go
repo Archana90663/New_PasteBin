@@ -14,9 +14,9 @@ type Text struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-func postText(db *gorm.DB, text Text) error {
+func postText(db *gorm.DB, text Text) (error, string) {
 	text.Id = uuid.New().String()
 	text.CreatedAt = time.Now()
 	err := db.Create(&text).Error
-	return err
+	return err, text.Id
 }
