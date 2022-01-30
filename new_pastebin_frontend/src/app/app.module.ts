@@ -9,6 +9,7 @@ import { SubmitpageComponent } from './submitpage/submitpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TestpageComponent } from './testpage/testpage.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ViewpageComponent } from './viewpage/viewpage.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     SubmitpageComponent,
     PagenotfoundComponent,
     TestpageComponent,
+    ViewpageComponent,
     
   ],
   imports: [

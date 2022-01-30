@@ -4,11 +4,13 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SubmitpageComponent } from './submitpage/submitpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TestpageComponent } from './testpage/testpage.component';
+import { ViewpageComponent } from './viewpage/viewpage.component';
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'submitpage', component: SubmitpageComponent},
   {path: 'testpage', component: TestpageComponent},
+  {path: 'viewpage', component: ViewpageComponent},
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
 
