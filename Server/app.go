@@ -113,11 +113,18 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Cannot post text with title")
 		return
 	}
-	err = postText(a.db, text)
+	err, id := postText(a.db, text)
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
 	} else {
+		response := map[string]string{"id": id}
+		jsonResponse, err := json.Marshal(response)
+		if err != nil {
+			sendErr(w, http.StatusInternalServerError, err.Error())
+			return
+		}
 		w.WriteHeader(http.StatusCreated)
+		w.Write(jsonResponse)
 	}
 }
 func (a *App) allTexts(w http.ResponseWriter, r *http.Request) {
