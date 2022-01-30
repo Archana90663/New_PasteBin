@@ -1,6 +1,11 @@
-<p>testpage works!</p>
-<div *ngFor = "let d in data">
+<h1>Test page to test GET request</h1>
+<div>
+    <button type = "button" (click)="getRequest()">Get request</button>
+</div>
+
+<div *ngFor="let p of Person">
     <ul>
-        <li>{{d.first_name}}</li>
+        <li>{{p.id}} {{p.first_name}} {{p.last_name}}</li>
     </ul>
+
 </div>
