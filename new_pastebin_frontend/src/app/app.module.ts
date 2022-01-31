@@ -10,6 +10,8 @@ import { SubmitpageComponent } from './submitpage/submitpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TestpageComponent } from './testpage/testpage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule, 
+    RichTextEditorAllModule
   ],
   providers: [],
   bootstrap: [AppComponent]
