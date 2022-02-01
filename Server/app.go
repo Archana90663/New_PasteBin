@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -151,6 +152,11 @@ func (a *App) getText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusNotFound, "text not found")
 		return
 	}
+	if text[0].Expire_at != nil && text[0].Expire_at.Before(time.Now()) {
+		sendErr(w, http.StatusGone, "Expired text")
+		return
+	}
+
 	jsonResponse, err := json.Marshal(text[0])
 	if err != nil {
 		sendErr(w, http.StatusInternalServerError, err.Error())
