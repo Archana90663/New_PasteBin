@@ -8,10 +8,11 @@ import (
 )
 
 type Text struct {
-	Id        string    `json:"id"`
-	Body      string    `json:"body"`
-	Title     string    `json:"title"`
-	CreatedAt time.Time `json:"created_at"`
+	Id        string     `json:"id"`
+	Body      string     `json:"body"`
+	Title     string     `json:"title"`
+	CreatedAt time.Time  `json:"created_at"`
+	Expire_at *time.Time `json:"expire_at"`
 }
 
 func postText(db *gorm.DB, text Text) (error, string) {
