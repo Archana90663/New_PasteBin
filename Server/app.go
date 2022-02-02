@@ -118,6 +118,18 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Cannot post text with title")
 		return
 	}
+	if len(text.Title) > 260 {
+		sendErr(w, http.StatusBadRequest, "Cannot post text title of more than 260 characters")
+		return
+	}
+	if len(text.Body) > 10000 {
+		sendErr(w, http.StatusBadRequest, "Cannot post text title of more than 10,000 characters")
+		return
+	}
+	if text.Expire_at != nil && text.Expire_at.Before(time.Now()) {
+		sendErr(w, http.StatusBadRequest, "Text expiry cannot be before current time")
+		return
+	}
 	err, id := postText(a.db, text)
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
