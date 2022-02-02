@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/go-co-op/gocron"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -66,7 +67,9 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 func (a *App) start() {
 	a.db.AutoMigrate(&Person{}, &Text{})
-
+	s := gocron.NewScheduler(time.UTC)
+	s.Every(300).Seconds().Do(removeExpired, a.db)
+	s.StartAsync()
 	// Add test data into db
 	a.db.Create(&Person{Id: 1, FirstName: "fn", LastName: "ln"})
 
