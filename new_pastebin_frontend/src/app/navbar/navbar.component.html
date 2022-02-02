@@ -1,17 +1,14 @@
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li>
-                    <a routerLink="/">Home </a>
-                </li>
-                <li>
-                    <a routerLink="/submitpage">Submit</a>
-                </li>
-                <li>
-                    <a routerLink="/testpage">Test Route</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-</body>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <!-- <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button> -->
+      <h1>PasteBin 2.0</h1>
+      <span class="menu-spacer"></span>
+      <div>
+        <a mat-button [routerLink]="'/'"> Home </a>
+        <a mat-button [routerLink]="'/submitpage'">Submit</a>
+        <a mat-button [routerLink]="'/testpage'">Test</a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
