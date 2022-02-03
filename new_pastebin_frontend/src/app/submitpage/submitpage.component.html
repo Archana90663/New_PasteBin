@@ -2,12 +2,27 @@
     <title>
         Submit page
     </title>
+    <!--<style>
+        p {
+            /*Here we can modify the spacing of the text editor relative to the p tag*/
+            margin: 100px;
+            border: 1px solid #4CAF50;
+        }
+    </style>-->
 </head>
 <body>
     <div>
-        <h1 style="text-align: center;">Submit your text here!</h1>
-        <h3>Input your text in the box below: </h3>
-        <textarea rows=30, cols=70></textarea>
+        <h1 style="text-align: center; margin-top: 15px;">Submit your text here!</h1>
+        <h3 style = "margin-top: 5px;">Input your text in the box below: </h3>
+        <div>
+        <label>Title: </label>
+        </div>
+        <p>
+        <input type = "text" size = "100" style="margin-bottom: 10px;">
+        </p>
+        <p>
+            <label>Body: </label>
+            <ejs-richtexteditor></ejs-richtexteditor></p>
     </div>
     <div>
         <button style="margin-top: 5px;">Submit</button>

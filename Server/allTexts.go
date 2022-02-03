@@ -19,7 +19,7 @@ type TextListing struct {
 
 func allTexts(db *gorm.DB) []TextListing {
 	var texts []TextListing
-	err := db.Model(&Text{}).Limit(10).Find(&texts).Error
+	err := db.Model(&Text{}).Find(&texts, "expire_at > ? or expire_at is null", time.Now()).Error
 	if err != nil {
 		panic("Could not fetch from db")
 	}

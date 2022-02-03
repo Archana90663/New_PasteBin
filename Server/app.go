@@ -8,7 +8,9 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 
+	"github.com/go-co-op/gocron"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
@@ -65,7 +67,9 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 func (a *App) start() {
 	a.db.AutoMigrate(&Person{}, &Text{})
-
+	s := gocron.NewScheduler(time.UTC)
+	s.Every(300).Seconds().Do(removeExpired, a.db)
+	s.StartAsync()
 	// Add test data into db
 	a.db.Create(&Person{Id: 1, FirstName: "fn", LastName: "ln"})
 
@@ -114,6 +118,19 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Cannot post text with title")
 		return
 	}
+
+	if len(text.Title) > 260 {
+		sendErr(w, http.StatusBadRequest, "Cannot post text title of more than 260 characters")
+		return
+	}
+	if len(text.Body) > 10000 {
+		sendErr(w, http.StatusBadRequest, "Cannot post text title of more than 10,000 characters")
+		return
+	}
+	if text.Expire_at != nil && text.Expire_at.Before(time.Now()) {
+		sendErr(w, http.StatusBadRequest, "Text expiry cannot be before current time")
+		return
+	}
 	err, id := postText(a.db, text, GetIP(r))
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
@@ -151,6 +168,11 @@ func (a *App) getText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusNotFound, "text not found")
 		return
 	}
+	if text[0].Expire_at != nil && text[0].Expire_at.Before(time.Now()) {
+		sendErr(w, http.StatusGone, "Expired text")
+		return
+	}
+
 	jsonResponse, err := json.Marshal(text[0])
 	if err != nil {
 		sendErr(w, http.StatusInternalServerError, err.Error())

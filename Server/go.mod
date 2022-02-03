@@ -9,9 +9,11 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.10 // indirect
 	github.com/oschwald/maxminddb-golang v1.8.0 // indirect
 	golang.org/x/sys v0.0.0-20191224085550-c709ea063b76 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
 )
 
 require (
+	github.com/go-co-op/gocron v1.11.0
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/jinzhu/inflection v1.0.0 // indirect

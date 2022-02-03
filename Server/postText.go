@@ -12,13 +12,14 @@ import (
 )
 
 type Text struct {
-	Id          string    `json:"id"`
-	Body        string    `json:"body"`
-	Title       string    `json:"title"`
-	CreatedAt   time.Time `json:"created_at"`
-	TextLength  int       `json:"TextLength"`
-	IpAddress   string    `json:"IpAddress"`
-	UserCountry string    `json:"UserCountry"`
+	Id          string     `json:"id"`
+	Body        string     `json:"body"`
+	Title       string     `json:"title"`
+	CreatedAt   time.Time  `json:"created_at"`
+	Expire_at   *time.Time `json:"expire_at"`
+	IpAddress   string     `json:"IpAddress"`
+	UserCountry string     `json:"UserCountry"`
+	TextLength  int        `json:"TextLength"`
 }
 
 func postText(db *gorm.DB, text Text, ip string) (error, string) {
