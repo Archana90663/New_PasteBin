@@ -11,9 +11,10 @@ import (
 	"time"
 
 	"github.com/go-co-op/gocron"
-	"github.com/gorilla/handlers"
+	//"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"gorm.io/gorm"
+	"github.com/rs/cors"
 )
 
 //go:embed static
@@ -81,7 +82,11 @@ func (a *App) start() {
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
-	log.Fatal(http.ListenAndServe(":8080", handlers.CORS()(a.r)))
+	//headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	//originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	//methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+	handler := cors.Default().Handler(a.r)
+	log.Fatal(http.ListenAndServe(":8080", handler)) //handlers.CORS(originsOk, headersOk, methodsOk)(a.r)))
 
 }
 func (a *App) test(w http.ResponseWriter, r *http.Request) {
