@@ -31,16 +31,16 @@ func postText(db *gorm.DB, text Text, ip string) (error, string) {
 
 	dbIp, errIP := geoip2.Open("GeoIP2-City.mmdb")
 	if errIP != nil {
-		log.Fatal(errIP)
+		log.Print(errIP)
 	}
 	ipParsed := net.ParseIP(ip)
 	defer dbIp.Close()
 	record, errRecord := dbIp.Country(ipParsed)
 	if errRecord != nil {
-		log.Fatal(errRecord)
+		log.Print(errRecord)
+	} else {
+		text.UserCountry = record.Country.Names["en"]
 	}
-	text.UserCountry = record.Country.Names["en"]
-
 	err := db.Create(&text).Error
 	return err, text.Id
 }
