@@ -118,6 +118,7 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Cannot post text with title")
 		return
 	}
+
 	if len(text.Title) > 260 {
 		sendErr(w, http.StatusBadRequest, "Cannot post text title of more than 260 characters")
 		return
@@ -130,7 +131,7 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Text expiry cannot be before current time")
 		return
 	}
-	err, id := postText(a.db, text)
+	err, id := postText(a.db, text, GetIP(r))
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
 	} else {
@@ -182,4 +183,13 @@ func (a *App) getText(w http.ResponseWriter, r *http.Request) {
 func sendErr(w http.ResponseWriter, code int, message string) {
 	resp, _ := json.Marshal(map[string]string{"error": message})
 	http.Error(w, string(resp), code)
+}
+
+//getting IP address for postText function
+func GetIP(r *http.Request) string {
+	forwarded := r.Header.Get("X-FORWARDED-FOR")
+	if forwarded != "" {
+		return forwarded
+	}
+	return r.RemoteAddr
 }

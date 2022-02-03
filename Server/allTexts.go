@@ -13,6 +13,8 @@ type TextListing struct {
 	Id        string    `json:"id"`
 	Title     string    `json:"title"`
 	CreatedAt time.Time `json:"created_at"`
+	TextLength int      `json:"TextLength"`
+	IpAddress  string   `json:"IpAddress"`
 }
 
 func allTexts(db *gorm.DB) []TextListing {
