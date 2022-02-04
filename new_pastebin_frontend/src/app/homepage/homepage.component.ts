@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Paste } from './pastestype';
+import { Paste } from '../types/pastestype';
 
 @Component({
   selector: 'app-homepage',
