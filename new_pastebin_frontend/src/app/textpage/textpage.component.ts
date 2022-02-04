@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Paste } from '../types/pastestype';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import getExpireInText from '../util/getExireIn'
 
 @Component({
@@ -14,7 +14,8 @@ export class TextpageComponent implements OnInit {
   getExpireIn = getExpireInText
   constructor(
     private httpClient: HttpClient,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +28,11 @@ export class TextpageComponent implements OnInit {
       response => {
         this.paste = response
         console.log(this.paste)
+      },
+      error => {
+        if(error.status == 404){
+          this.router.navigateByUrl('/404');
+        }
       }
     );
   });
