@@ -17,6 +17,13 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import {MatNativeDateModule} from '@angular/material/core';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+
 
 
 @NgModule({
@@ -26,7 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
     NavbarComponent,
     SubmitpageComponent,
     PagenotfoundComponent,
-    TestpageComponent
+    TestpageComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +46,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatButtonModule
-
-    
+    MatButtonModule,
+    MatFormFieldModule,
+    NgxMaterialTimepickerModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
