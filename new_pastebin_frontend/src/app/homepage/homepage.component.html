@@ -25,7 +25,7 @@
               </p>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button>READ</button>
+              <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:paste.id}">READ</button>
             </mat-card-actions>
           </mat-card>
 
