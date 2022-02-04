@@ -27,6 +27,7 @@ import { MatCardModule } from "@angular/material/card"
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TextpageComponent } from './textpage/textpage.component';
 import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
+import { ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
     MatNativeDateModule,
     MatMomentDateModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

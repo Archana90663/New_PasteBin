@@ -12,20 +12,25 @@
 </head>
 <body>
     <div>
-        <h1 style="text-align: center; margin-top: 15px;">Submit your text here!</h1>
-        <h3 style = "margin-top: 24px;">Input your text in the box below: </h3>
+        <h1 style="text-align: center; margin-top: 15px;">Make a New Paste!</h1>
     </div>  
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width" appearance="outline" [style.fontSize.px]="16">
           <mat-label>Title</mat-label>
-          <input matInput type="text" placeholder="Title" [(ngModel)]="textModel.title">
+          <input #titleText matInput type="text" placeholder="Title" [(ngModel)]="textModel.title" [formControl]="title" autocomplete="off" required>
+          <mat-hint align="start"><strong>Add a title to your paste</strong> </mat-hint>
+        <mat-hint align="end">{{titleText.value.length}} / 260</mat-hint>
+          <mat-error *ngIf="title.invalid">Title cannot be empty</mat-error>
         </mat-form-field>
-    <div>
-            <label>Body: </label>
+        <br>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+
             <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor>
-        </div>
-    <div style="margin-top: 35px;">
-        <label style = "margin-right: 10px;">Choose text expiration date: </label>
-        <mat-form-field appearance="outline" floatLabel="always" style = "font-size: 12.5px;">
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+        <mat-form-field appearance="outline" floatLabel="always" style = "font-size: 16px;width:300px;">
             <mat-label>Expiration Date</mat-label>
             <input 
               matInput
@@ -33,9 +38,9 @@
               placeholder="Expiration Date"
               [(ngModel)]="textModel.expire_at"
             >
+            <mat-hint align="start"><strong>Add an expiration to your paste</strong> </mat-hint>
           </mat-form-field>
-    </div>
-    <div>
+          <br>
+          <br>
         <button mat-raised-button color="primary" style="margin-top: 5px;" (click)="postText()">Submit</button>
-    </div>
 </body>
