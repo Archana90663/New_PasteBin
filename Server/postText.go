@@ -24,7 +24,7 @@ type Text struct {
 
 func postText(db *gorm.DB, text Text, ip string) (error, string) {
 	text.Id = uuid.New().String()
-	text.CreatedAt = time.Now()
+	text.CreatedAt = time.Now().UTC()
 	var bodyText = text.Body
 	text.TextLength = utf8.RuneCountInString(bodyText)
 	text.IpAddress = ip
