@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Paste } from '../types/pastestype';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import {Router} from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
 
 interface SubmitTextPayload{
   "title": string,
@@ -22,6 +23,7 @@ export class SubmitpageComponent implements OnInit {
     private router: Router
   ) { }
   textModel = new Paste("","","","","")
+  title = new FormControl('', [Validators.required]);
   ngOnInit(): void {
   }
   postText(){
