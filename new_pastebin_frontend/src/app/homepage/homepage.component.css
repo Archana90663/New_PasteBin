@@ -1,0 +1,11 @@
+.pb-text-avatar-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+  .pg-subtitle-icon{
+    vertical-align: text-top;
+    font-size: 16px;
+  }
+  .pb-text-listing-card{
+      margin-bottom: 20px;
+  }
