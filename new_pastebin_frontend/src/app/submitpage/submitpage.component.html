@@ -18,11 +18,11 @@
         <label>Title: </label>
         </div>
         <p>
-        <input type = "text" size = "100" style="margin-bottom: 10px;">
+        <input type = "text" size = "100" style="margin-bottom: 10px;" [(ngModel)]="textModel.title">
         </p>
         <p>
             <label>Body: </label>
-            <ejs-richtexteditor></ejs-richtexteditor></p>
+            <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor></p>
     </div>
     <div style="margin-top: 35px;">
         <label style = "margin-right: 10px;">Choose text expiration date: </label>
@@ -32,10 +32,11 @@
               matInput
               type="datetime-local" 
               placeholder="Expiration Date"
+              [(ngModel)]="textModel.expire_at"
             >
           </mat-form-field>
     </div>
     <div>
-        <button style="margin-top: 5px;">Submit</button>
+        <button style="margin-top: 5px;" (click)="postText()">Submit</button>
     </div>
 </body>
