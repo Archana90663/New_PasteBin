@@ -5,11 +5,12 @@ import { SubmitpageComponent } from './submitpage/submitpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TestpageComponent } from './testpage/testpage.component';
 import { TextpageComponent } from './textpage/textpage.component';
-
+import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
 const routes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'submitpage', component: SubmitpageComponent},
   {path: 'textpage', component: TextpageComponent},
+  {path: 'expiredpage', component: ExpiredpageComponent},
   {path: 'testpage', component: TestpageComponent},
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
