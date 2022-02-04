@@ -9,5 +9,5 @@ import (
 
 func removeExpired(db *gorm.DB) {
 	fmt.Println("removing expired")
-	db.Model(&Text{}).Where("expire_at < ?", time.Now().UTC()).Updates(map[string]interface{}{"Title": "", "Body": "", "created_at": ""})
+	db.Model(&Text{}).Where("expire_at < ?", time.Now().UTC()).Updates(map[string]interface{}{"Title": "", "Body": "", "created_at": "", "IpAddress": "", "UserCountry": "", "TextLength": ""})
 }
