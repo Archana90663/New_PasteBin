@@ -21,7 +21,8 @@
         </mat-form-field>
     <div>
             <label>Body: </label>
-            <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor></div>
+            <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor>
+        </div>
     <div style="margin-top: 35px;">
         <label style = "margin-right: 10px;">Choose text expiration date: </label>
         <mat-form-field appearance="outline" floatLabel="always" style = "font-size: 12.5px;">
@@ -36,6 +37,5 @@
     </div>
     <div>
         <button mat-raised-button color="primary" style="margin-top: 5px;" (click)="postText()">Submit</button>
-        <!-- <button style="margin-top: 5px;" (click)="postText()">Submit</button> -->
     </div>
 </body>
