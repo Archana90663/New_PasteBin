@@ -25,7 +25,7 @@ export class SubmitpageComponent implements OnInit {
   ngOnInit(): void {
   }
   postText(){
-  const payload:SubmitTextPayload = {"title":this.textModel.title,"body":this.textModel.body}
+  const payload:SubmitTextPayload = {"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, '')}
   if(this.textModel.expire_at != ""){
     payload.expire_at =  (new Date(Date.parse(this.textModel.expire_at))).toISOString()
   }
