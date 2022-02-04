@@ -10,11 +10,10 @@ type AllTextsResponse struct {
 	TextListings []TextListing `json:"texts"`
 }
 type TextListing struct {
-	Id        string    `json:"id"`
-	Title     string    `json:"title"`
-	CreatedAt time.Time `json:"created_at"`
-	TextLength int      `json:"TextLength"`
-	IpAddress  string   `json:"IpAddress"`
+	Id        string     `json:"id"`
+	Title     string     `json:"title"`
+	CreatedAt time.Time  `json:"created_at"`
+	Expire_at *time.Time `json:"expire_at"`
 }
 
 func allTexts(db *gorm.DB) []TextListing {
