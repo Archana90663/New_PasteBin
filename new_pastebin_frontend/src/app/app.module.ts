@@ -25,6 +25,7 @@ import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { MatCardModule } from "@angular/material/card"
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TextpageComponent } from './textpage/textpage.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SubmitpageComponent,
     PagenotfoundComponent,
     TestpageComponent,
+    TextpageComponent,
   ],
   imports: [
     BrowserModule,

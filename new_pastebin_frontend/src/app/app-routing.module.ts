@@ -4,10 +4,12 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SubmitpageComponent } from './submitpage/submitpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TestpageComponent } from './testpage/testpage.component';
+import { TextpageComponent } from './textpage/textpage.component';
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
   {path: 'submitpage', component: SubmitpageComponent},
+  {path: 'textpage', component: TextpageComponent},
   {path: 'testpage', component: TestpageComponent},
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
@@ -19,5 +21,6 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents=[
   HomepageComponent,
-  SubmitpageComponent
+  SubmitpageComponent,
+  TextpageComponent
 ];
