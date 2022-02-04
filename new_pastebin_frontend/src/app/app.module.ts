@@ -23,7 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatMomentDateModule } from "@angular/material-moment-adapter";
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-
+import { MatCardModule } from "@angular/material/card"
 
 
 @NgModule({
@@ -53,6 +53,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatInputModule,
     MatNativeDateModule,
     MatMomentDateModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
