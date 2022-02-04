@@ -13,8 +13,8 @@ import (
 	"github.com/go-co-op/gocron"
 	//"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"gorm.io/gorm"
 	"github.com/rs/cors"
+	"gorm.io/gorm"
 )
 
 //go:embed static
@@ -120,7 +120,7 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if text.Title == "" {
-		sendErr(w, http.StatusBadRequest, "Cannot post text with title")
+		sendErr(w, http.StatusBadRequest, "Cannot post text with empty title")
 		return
 	}
 
