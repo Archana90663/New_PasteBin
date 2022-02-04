@@ -13,17 +13,15 @@
 <body>
     <div>
         <h1 style="text-align: center; margin-top: 15px;">Submit your text here!</h1>
-        <h3 style = "margin-top: 5px;">Input your text in the box below: </h3>
-        <div>
-        <label>Title: </label>
-        </div>
-        <p>
-        <input type = "text" size = "100" style="margin-bottom: 10px;" [(ngModel)]="textModel.title">
-        </p>
-        <p>
+        <h3 style = "margin-top: 24px;">Input your text in the box below: </h3>
+    </div>  
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput type="text" placeholder="Title" [(ngModel)]="textModel.title">
+        </mat-form-field>
+    <div>
             <label>Body: </label>
-            <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor></p>
-    </div>
+            <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor></div>
     <div style="margin-top: 35px;">
         <label style = "margin-right: 10px;">Choose text expiration date: </label>
         <mat-form-field appearance="outline" floatLabel="always" style = "font-size: 12.5px;">
@@ -37,6 +35,7 @@
           </mat-form-field>
     </div>
     <div>
-        <button style="margin-top: 5px;" (click)="postText()">Submit</button>
+        <button mat-raised-button color="primary" style="margin-top: 5px;" (click)="postText()">Submit</button>
+        <!-- <button style="margin-top: 5px;" (click)="postText()">Submit</button> -->
     </div>
 </body>
