@@ -1,0 +1,9 @@
+.pb-expired-message{
+    width: fit-content;
+}
+.pb-expired-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 104px);
+}

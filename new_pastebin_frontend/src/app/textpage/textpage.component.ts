@@ -33,6 +33,9 @@ export class TextpageComponent implements OnInit {
         if(error.status == 404){
           this.router.navigateByUrl('/404');
         }
+        else if(error.status == 410){
+          this.router.navigateByUrl('/expiredpage');
+        }
       }
     );
   });
