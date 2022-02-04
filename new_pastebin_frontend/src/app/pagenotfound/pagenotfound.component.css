@@ -1,0 +1,9 @@
+.pb-404-message{
+    width: fit-content;
+}
+.pb-404-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 104px);
+}
