@@ -6,10 +6,15 @@ import (
 	"time"
 	"unicode/utf8"
 
+	"embed"
+
 	"github.com/google/uuid"
 	"github.com/oschwald/geoip2-golang"
 	"gorm.io/gorm"
 )
+
+//go:embed GeoIP2-City.mmdb
+var db_fs embed.FS
 
 type Text struct {
 	Id          string     `json:"id"`
@@ -28,8 +33,8 @@ func postText(db *gorm.DB, text Text, ip string) (error, string) {
 	var bodyText = text.Body
 	text.TextLength = utf8.RuneCountInString(bodyText)
 	text.IpAddress = ip
-
-	dbIp, errIP := geoip2.Open("GeoIP2-City.mmdb")
+	b, _ := db_fs.ReadFile("GeoIP2-City.mmdb")
+	dbIp, errIP := geoip2.FromBytes(b)
 	if errIP != nil {
 		log.Print(errIP)
 	}
