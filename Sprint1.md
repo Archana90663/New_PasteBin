@@ -1,3 +1,4 @@
+## Accomplishments
 We were able to successfully create many aspects of our application for Sprint 1. They are listed as follows:
 
 1. Created a home-page which is the basis of our application. It consists of all the posts/texts that users have uploaded.
@@ -17,3 +18,6 @@ We were able to successfully create many aspects of our application for Sprint 1
 15. We also implemented a routing system to be able to create a sharable link of a post/text with proper error handling (due to expired posts)
 16. We created a detailed documentation of the back-end route
 17. We created a detailed documentation of the application's usage with GIF's and text. 
+
+## Video Demonstration
+[Video Demo](https://drive.google.com/file/d/1cNelQ5xukwUrIN_9YJmbhiUHPT5e4uPO/view?usp=sharing)
