@@ -9,5 +9,5 @@ run:
 build:
 	cd new_pastebin_frontend; ng build
 	find Server/static -type f -not -name '.gitkeep' -delete
-	cp new_pastebin_frontend/dist/new_pastebin_frontend/* Server/static
+	cp -r new_pastebin_frontend/dist/new_pastebin_frontend/* Server/static
 	cd Server; go build
