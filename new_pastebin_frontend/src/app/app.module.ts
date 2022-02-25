@@ -28,7 +28,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TextpageComponent } from './textpage/textpage.component';
 import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
 import { ReactiveFormsModule} from '@angular/forms';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -61,6 +61,7 @@ import { ReactiveFormsModule} from '@angular/forms';
     MatMomentDateModule,
     MatCardModule,
     MatSnackBarModule,
+    Ng2SearchPipeModule,
     ReactiveFormsModule
   ],
   providers: [],

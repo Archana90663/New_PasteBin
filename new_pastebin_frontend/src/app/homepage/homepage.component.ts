@@ -9,6 +9,8 @@ import getExpireInText from '../util/getExireIn'
 })
 export class HomepageComponent implements OnInit {
   pastes: Paste[] =[];
+  searchTerm : string='';
+  term: string = '';
   getExpireIn = getExpireInText
   constructor(
     private httpClient: HttpClient
