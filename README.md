@@ -31,7 +31,9 @@ The current PasteBin has gotten too bulky and doesn't have any searching capabil
   - [How to share the created paste](#How-to-share-the-created-paste)
   - [What if you try to open an expired paste link](#What-if-you-try-to-open-an-expired-paste-link)
  - [How to run the app](#How-to-run-the-app)
+    - [Build app without make on windows](#Build-app-without-make-on-windows)
 - [Run the app without building](#Run-the-app-without-building)
+  - [Run without make on windows](#Run-without-make-on-windows)
 - [Backend API documentation](https://github.com/Archana90663/New_PasteBin/wiki/Routes)
 ## Features
 
@@ -94,24 +96,32 @@ Golang<br/>
 To build the app open your terminal and run the following
 ```
 cd New_PasteBin
-make insall
+make install
 make build
 ```
 This will create an executable file in the directory `New_PasteBin/Server`. The file will be named `server`. 
 
+### Build app without make on windows.
+First, we have to install all node dependencies
+```
+cd new_pastebin_frontend
+npm install
+cd ..
+```
+Then we run the powershell script :- `build.ps1`
 ## How to run the app
-After you build the app or download it from realeases, simply execute the executable. This will run the server that will listen to request on port `8080`.
+After you build the app or download it from releases, simply execute the executable. This will run the server that will listen to requests on port `8080`.
 The homepage of the app will be at `localhost:8080/`
 
 ### Run the app without building
-If you want run the app without building (useful in development process), do the following.
-First make sure you have all the requirements installed.
+If you want to run the app without building (useful in the development process), do the following.
+First, make sure you have all the requirements installed.
 >Requirements:-<br/>
 NodeJs<br/>
 @angular/cli<br/>
 Golang<br/>
 
-The execute the following commands in terminal(one time setup)
+The execute the following commands in terminal(one-time setup)
 ```
 cd New_PasteBin
 make install
@@ -121,7 +131,16 @@ Finally to run the app, execute
 make run
 ```
 This will host the front end on port `4200`. The homepage will be at `localhost:4200`.
-The backend will run parallely on the port `8080`
+The backend will run parallelly on the port `8080`
+
+#### Run without make on windows
+First, we have to install all node dependencies
+```
+cd new_pastebin_frontend
+npm install
+cd ..
+```
+Then we run the powershell script :- `run.ps1`
 
 ## Back-End
 Refer [this](https://github.com/Archana90663/New_PasteBin/wiki/Routes) for the API documentation
