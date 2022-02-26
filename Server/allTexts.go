@@ -15,7 +15,6 @@ type TextListing struct {
 	CreatedAt time.Time  `json:"created_at"`
 	Expire_at *time.Time `json:"expire_at"`
 	Body      string     `json:"body"`
-	Tag       string     `json:"tag"`
 }
 
 func allTexts(db *gorm.DB) []TextListing {
