@@ -37,6 +37,9 @@ describe('Pastes Test', function () {
 
         // Submit paste
         cy.get('#submitButton').click()
+
+        // Refresh page to prove persistance
+        cy.reload()
     })
 
     it('Creates an Unlisted Paste', function () {
@@ -57,5 +60,18 @@ describe('Pastes Test', function () {
 
         // Submit paste
         cy.get('#submitButton').click()
+
+        // Refresh page to prove persistance
+        cy.reload()
+    })
+
+    it('Verifies Home Page just shows Public Pastes', function () {
+        cy.visit('http://localhost:4200')
+
+        // See if there are any Unlisted Pastes in the Home Page
+        cy.contains('This is an unlisted paste').should("not.exist")
+
+        // See if there are any Private Pastes in the Home Page
+        cy.contains('This is an private paste').should("not.exist")
     })
 })
