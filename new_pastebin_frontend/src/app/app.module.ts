@@ -30,6 +30,10 @@ import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
 import { ReactiveFormsModule} from '@angular/forms';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { LoginpageComponent } from './loginpage/loginpage.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +44,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     TestpageComponent,
     TextpageComponent,
     ExpiredpageComponent,
+    LoginpageComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,9 +67,25 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MatCardModule,
     MatSnackBarModule,
     Ng2SearchPipeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '1034579701724-528o8e1fg6tp9shf1qj0ius2o09as4i4.apps.googleusercontent.com'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
