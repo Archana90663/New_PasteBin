@@ -2,4 +2,5 @@ Server/static/*
 Server/Server
 !Server/static/.gitkeep
 !Server/static/test.html
+Server/test.db
 .DS_Store
