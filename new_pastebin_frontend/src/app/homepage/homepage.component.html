@@ -9,6 +9,20 @@
     <h1 style="text-align: center;">Welcome to PasteBin 2.0!</h1>
     <br>
     <br>
+    <mat-form-field appearance="fill" style="float: right">
+      <mat-label>Filter</mat-label>
+      <mat-select>
+        <mat-option #option1 [value]="'Newest'" (click)="onChange('newest', option1.selected)">
+          Newest
+        </mat-option>
+        <mat-option #option2 [value]="'Oldest'" (click)="onChange('oldest', option2.selected)">
+          Oldest
+        </mat-option>
+        <mat-option #option3 [value]="'Alphabetical'" (click)="onChange('alpha', option3.selected)">
+          Alphabetical
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="m-3">
       <div class="wrap">
         <mat-form-field>
@@ -57,7 +71,7 @@
 
     <h1 style="text-align: center">Pastes</h1>
     
-    <div style="margin-top: 30px;"*ngFor="let paste of pastes">
+    <div style="margin-top: 30px;"*ngFor="let paste of pastes">      
         <mat-card class="pb-text-listing-card" matRipple>
             <mat-card-header>
               <div mat-card-avatar class="pb-text-avatar-image"></div>
@@ -80,6 +94,5 @@
               <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:paste.id}">READ</button>
             </mat-card-actions>
           </mat-card>
-
-    </div>
+        </div>
 </body>
