@@ -1,0 +1,1 @@
+cd Server; go test
