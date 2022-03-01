@@ -78,7 +78,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/submitText", a.addText).Methods("POST")
 	a.r.HandleFunc("/api/allTexts", a.allTexts).Methods("GET")
 	a.r.HandleFunc("/api/getText", a.getText).Methods("POST")
-
+	a.r.HandleFunc("/api/getUserInfo", a.getUserInfo).Methods("POST")
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
@@ -179,6 +179,26 @@ func (a *App) getText(w http.ResponseWriter, r *http.Request) {
 	}
 
 	jsonResponse, err := json.Marshal(text[0])
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.Write(jsonResponse)
+}
+func (a *App) getUserInfo(w http.ResponseWriter, r *http.Request) {
+	var req UserInfoRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if req.IdToken == "" {
+		sendErr(w, http.StatusBadRequest, "No Id given")
+		return
+	}
+	userInfo, err := verifyIdToken(a.db, req.IdToken)
+	if err != nil {
+		sendErr(w, http.StatusUnauthorized, "could not verify given token")
+		return
+	}
+
+	jsonResponse, err := json.Marshal(userInfo)
 	if err != nil {
 		sendErr(w, http.StatusInternalServerError, err.Error())
 		return
