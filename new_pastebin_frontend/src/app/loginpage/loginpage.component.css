@@ -1,0 +1,4 @@
+.button-text {
+    padding-left: 10px;
+    padding-right: 1px; /* Add 24px to align the text in the center since the icon's width is 24px */
+}
