@@ -5,8 +5,12 @@
 </head>
 <body>
   
-    
-    <h1 style="text-align: center;">Welcome to PasteBin 2.0!</h1>
+    <div *ngIf="logged === true">
+      <h1 style="text-align: center;">Welcome to PasteBin 2.0, {{user_name}}!</h1>
+    </div>
+    <div *ngIf="logged === false">
+      <h1 style="text-align: center;">Welcome to PasteBin 2.0!</h1>
+    </div>
     <br>
     <br>
     <mat-form-field appearance="fill" style="float: right">
