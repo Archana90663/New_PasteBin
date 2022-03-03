@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -53,4 +54,34 @@ func TestPostText(t *testing.T) {
 		t.Error("Incorrect user country")
 	}
 	db.Delete(&text)
+}
+
+func TestPostTextCreateAt(t *testing.T) {
+	currTime := time.Now()
+	expire_at_time := currTime.Add(time.Second * 100)
+	db, err := gorm.Open(sqlite.Open("test.db"))
+	db.AutoMigrate(&Text{})
+	uploadText := &Text{
+		Body:      "Body of a testing post",
+		Title:     "Title of a testing post",
+		CreatedAt: time.Now().UTC(),
+		Expire_at: &expire_at_time,
+		Tag:       "public"}
+	err, id := postText(db, *uploadText, "206.71.50.230")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	var textResponse []Text
+	text := textResponse[0]
+
+	if text.CreatedAt.IsZero() {
+		fmt.Printf("Created at time not set")
+	}
+
+	var timeDiff = text.CreatedAt.Sub(currTime)
+
+	fmt.Printf("The time difference between the calling of test function and creation of a post is %v", timeDiff)
+
 }
