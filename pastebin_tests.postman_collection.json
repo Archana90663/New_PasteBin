@@ -63,6 +63,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Post Text 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"public_post_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"bbb\",\n    \"body\": \"dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadfdfad\",\n    \"tag\": \"public\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/submitText",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submitText"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
