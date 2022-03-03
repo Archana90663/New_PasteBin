@@ -41,5 +41,27 @@ export class TextpageComponent implements OnInit {
   });
     
     }
+
+
+    deleteText(){
+      this.activatedRoute.queryParams.subscribe(params => {
+        let id = params['id'];
+        this.httpClient.post<any>("http://localhost:8080/api/deletePost",{"id":id}).subscribe(
+        response => {
+          this.paste = response
+          console.log(this.paste)
+        },
+        error => {
+          if(error.status == 404){
+            this.router.navigateByUrl('/404');
+          }
+          else if(error.status == 410){
+            this.router.navigateByUrl('/expiredpage');
+          }
+        }
+      );
+    });
+      
+      }
 }
 
