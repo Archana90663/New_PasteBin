@@ -136,6 +136,11 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Text expiry cannot be before current time")
 		return
 	}
+	if (text.Tag != "private") && (text.Tag != "public") && (text.Tag != "unlisted") && (text.Tag != "") {
+		sendErr(w, http.StatusBadRequest, "Post does not have an appropriate tag")
+		return
+	}
+
 	err, id := postText(a.db, text, GetIP(r))
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
