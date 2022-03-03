@@ -57,10 +57,11 @@ func TestPostText(t *testing.T) {
 }
 
 func TestPostTextCreateAt(t *testing.T) {
-	currTime := time.Now()
-	expire_at_time := currTime.Add(time.Second * 100)
 	db, err := gorm.Open(sqlite.Open("test.db"))
 	db.AutoMigrate(&Text{})
+	currTime := time.Now()
+	expire_at_time := currTime.Add(time.Second * 100)
+
 	uploadText := &Text{
 		Body:      "Body of a testing post",
 		Title:     "Title of a testing post",
@@ -68,20 +69,21 @@ func TestPostTextCreateAt(t *testing.T) {
 		Expire_at: &expire_at_time,
 		Tag:       "public"}
 	err, id := postText(db, *uploadText, "206.71.50.230")
-
+	var textResponse []Text
+	err = db.Model(&Text{}).First(&textResponse, "id=?", id).Error
 	if err != nil {
 		panic(err.Error())
 	}
-
-	var textResponse []Text
 	text := textResponse[0]
 
-	if text.CreatedAt.IsZero() {
-		fmt.Printf("Created at time not set")
+	if text.CreatedAt == time.Now().UTC() {
+		t.Error("Created at time not set for the post")
 	}
 
 	var timeDiff = text.CreatedAt.Sub(currTime)
 
-	fmt.Printf("The time difference between the calling of test function and creation of a post is %v", timeDiff)
+	if timeDiff.Seconds() == 1 {
+		t.Error("The time difference between the calling of test function and creation of a post is not 4 seconds.")
+	}
 
 }
