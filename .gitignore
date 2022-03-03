@@ -4,3 +4,4 @@ Server/Server
 !Server/static/test.html
 Server/test.db
 .DS_Store
+cypress/videos
