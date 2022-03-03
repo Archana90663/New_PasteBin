@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "466b8d70-7bac-4e46-891d-04e96262121b",
+		"name": "pastebin_tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Text",
+			"item": [
+				{
+					"name": "Post Text 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var t = new Date();",
+									"t.setSeconds(t.getSeconds() + 30);",
+									"expiry = t.toISOString()",
+									"pm.environment.set('expiry', expiry)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"expired_post_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"bbb\",\n    \"body\": \"dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadf dsdsds sdsdsdsdsd sdsdsadascf fwerfergesg ergsergsgsg sfafafdaf asdfadfdfad\",\n    \"expire_at\": \"{{expiry}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/submitText",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submitText"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
