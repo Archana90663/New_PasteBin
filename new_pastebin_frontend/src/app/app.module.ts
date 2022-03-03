@@ -28,11 +28,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TextpageComponent } from './textpage/textpage.component';
 import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
 import { ReactiveFormsModule} from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
     MatMomentDateModule,
     MatCardModule,
     MatSnackBarModule,
+    MatSelectModule,
     Ng2SearchPipeModule,
     ReactiveFormsModule,
     SocialLoginModule

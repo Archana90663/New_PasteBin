@@ -9,6 +9,7 @@ interface SubmitTextPayload{
   "title": string,
   "body": string,
   "expire_at"? : string
+  "tag" : string
 }
 @Component({
   selector: 'app-submitpage',
@@ -22,12 +23,13 @@ export class SubmitpageComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router
   ) { }
-  textModel = new Paste("","","","","")
+  textModel = new Paste("","","","","","")
+  tagGlobal: string="";
   title = new FormControl('', [Validators.required]);
   ngOnInit(): void {
   }
   postText(){
-  const payload:SubmitTextPayload = {"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, '')}
+  const payload:SubmitTextPayload = {"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
   if(this.textModel.expire_at != ""){
     payload.expire_at =  (new Date(Date.parse(this.textModel.expire_at))).toISOString()
   }
@@ -47,5 +49,12 @@ export class SubmitpageComponent implements OnInit {
   }
   showMessage(message: string) {
     this.snackBar.open(message, "OK");
+  }
+
+  onChange(tag: string, isChecked: boolean){
+    if(isChecked){
+      this.tagGlobal = tag;
+      console.log("TAG: " + this.tagGlobal);
+    }
   }
 }

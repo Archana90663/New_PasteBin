@@ -19,7 +19,7 @@ type TextListing struct {
 
 func allTexts(db *gorm.DB) []TextListing {
 	var texts []TextListing
-	err := db.Model(&Text{}).Find(&texts, "expire_at > ? or expire_at is null", time.Now().UTC()).Error
+	err := db.Order("created_at desc").Model(&Text{}).Find(&texts, "(expire_at > ? or expire_at is null) and (tag='public' or tag = '')", time.Now().UTC()).Error
 	if err != nil {
 		panic("Could not fetch from db")
 	}
