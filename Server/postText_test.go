@@ -76,14 +76,14 @@ func TestPostTextCreateAt(t *testing.T) {
 	}
 	text := textResponse[0]
 
-	if text.CreatedAt == time.Now().UTC() {
+	if text.CreatedAt.IsZero() == true {
 		t.Error("Created at time not set for the post")
 	}
 
-	var timeDiff = text.CreatedAt.Sub(currTime)
+	var timeDiff = text.CreatedAt.Sub(time.Now())
 
-	if timeDiff.Seconds() == 1 {
-		t.Error("The time difference between the calling of test function and creation of a post is not 4 seconds.")
+	if timeDiff.Seconds() > 1 {
+		t.Error("The time difference between the calling of test function and creation of a post is more than 1 seconds.")
 	}
 
 }
