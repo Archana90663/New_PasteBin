@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+// import { LoginpageComponent } from '../loginpage/loginpage.component';
+import { SocialAuthService} from 'angularx-social-login';
+
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  // @ViewChild(LoginpageComponent) login:any;
+
+  logged:boolean = false;
+
+  constructor(private auth: SocialAuthService) {
+   }
 
   ngOnInit(): void {
+    this.auth.authState.subscribe(user=>{
+      if(user){
+        this.logged = true;
+      }
+      else{
+        this.logged = false;
+      }
+    });
+
   }
+
+  // ngAfterViewInit(){
+  //   this.logged = this.login.isLoggedin;
+  //   console.log("navbar Log: " + this.logged);
+  // }
 
 }

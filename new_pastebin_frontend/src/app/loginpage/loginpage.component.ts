@@ -12,7 +12,8 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-soc
 export class LoginpageComponent implements OnInit {
 
   loginForm: FormGroup | undefined;
-  socialUser!: SocialUser;
+  // socialUser!: SocialUser;
+  public socialUser: SocialUser = new SocialUser;
   isLoggedin: boolean = false;  
   
   constructor(
@@ -22,32 +23,31 @@ export class LoginpageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    /*
-    // init the react form object
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-    });    
-    
-    this.socialAuthService.authState.subscribe((user) => {
+    this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
-      this.isLoggedin = (user != null);
-      console.log("User:" + this.socialUser);
-    });*/
+      console.log("user: " + user.email);
+      this.isLoggedin = true;
+      console.log("LOGGED: " + this.isLoggedin);
+    })
   }
 
-  // Initial implicite flow using OAuth2 protocol
-  loginWithGoogle(): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
-      localStorage.setItem('google_auth', JSON.stringify(data));
-      this.router.navigateByUrl('/testpage').then();
-    });
-      //.then(() => this.router.navigateByUrl('/loginpage'));
+  // loginWithGoogle(): void {
+  //   this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
+  //     localStorage.setItem('google_auth', JSON.stringify(data));
+  //     this.isLoggedin = true;
+  //     this.router.navigateByUrl('/').then();
+  //     console.log("LOGGED: " + this.isLoggedin);
+  //   });
+  // }
+
+  public loginWithGoogle(): void{
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.router.navigateByUrl('/');
   }
 
-  // Logout the current session
   logOut(): void {
     this.socialAuthService.signOut();
+    this.isLoggedin = false;
   }
 
 }
