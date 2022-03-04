@@ -8,7 +8,7 @@
     </div>-->
 
    
-    <div *ngIf="isLoggedin === false">
+    <!--<div *ngIf="isLoggedin === false">-->
       <!--<button class="btn btn-block btn-primary">Login</button>
     <p class="horizontal-line-text">
       <span>or</span>
@@ -24,14 +24,14 @@
       <div>
       </div>
     </div>
-  </div>
+  <!--</div>-->
 </div>
 
 
 <div class="container" style="max-width: 550px">  
 
   <!--{{ (isLoggedin) }}-->
-  <div *ngIf="isLoggedin === true">
+  <!--<div *ngIf="isLoggedin === true">-->
     <div class="form-group">
       <label>First Name</label>
       <input type="text" class="form-control" [value]="socialUser.firstName" id="firstname" readonly>
@@ -45,8 +45,11 @@
       <input type="text" class="form-control" [value]="socialUser.email" id="email" readonly>
     </div>
     <br/>
-    <button type="button" (click)="logOut()" class="btn btn-primary">Logout from Google</button>
+    <button mat-raised-button color="primary" type="button" (click)="logOut()" class="btn btn-primary">
+      <mat-icon>logout</mat-icon>
+      <span class="button-text">Logout from Google</span>
+    </button>
 
     
-  </div>
+  <!--</div>-->
 </div>
