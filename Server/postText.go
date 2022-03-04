@@ -17,6 +17,7 @@ import (
 var db_fs embed.FS
 
 type Text struct {
+	UserID      string     `json:"userID"`
 	Id          string     `json:"id"`
 	Body        string     `json:"body"`
 	Title       string     `json:"title"`
@@ -29,6 +30,7 @@ type Text struct {
 }
 
 func postText(db *gorm.DB, text Text, ip string) (error, string) {
+
 	text.Id = uuid.New().String()
 	text.CreatedAt = time.Now().UTC()
 	var bodyText = text.Body
