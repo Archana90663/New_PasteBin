@@ -1,70 +1,39 @@
 <div class="container-fluid">
   <div class="custom-card">
-    <!--<div class="form-group">
-      <input type="email"
-        placeholder="Email Here"
-        class="form-control"
-      />
-    </div>-->
-
-   
-    <!--<div *ngIf="isLoggedin === false">-->
-      <!--<button class="btn btn-block btn-primary">Login</button>
-    <p class="horizontal-line-text">
-      <span>or</span>
-    </p>-->
+    <div *ngIf="isLoggedin === false">
     <button mat-raised-button color="primary" #button1 class="btn btn-block google-sign-in" (click)="loginWithGoogle()">
       <mat-icon>login</mat-icon>
       <span class="button-text">Continue With Google</span>
     </button>
-
-    <!--<button mat-button #button1 class="btn btn-block google-sign-in" (click)="loginWithGoogle()">
-      <span>Continue With Google</span>
-    </button>-->
       <div>
       </div>
     </div>
-  <!--</div>-->
+  </div>
 </div>
 
 
 <div class="container" style="max-width: 550px">  
 
   <!--{{ (isLoggedin) }}-->
-  <!--<div *ngIf="isLoggedin === true">-->
+  <div *ngIf="isLoggedin === true">
     <mat-form-field>
       <label><b><h3>First Name</h3></b></label>
       <input matInput readonly type="text" class="form-control" [value]="socialUser.firstName" id="firstname">
     </mat-form-field>
-
+    <br>
     <mat-form-field>
       <label><b><h3>Last Name</h3></b></label>
       <input matInput readonly type="text" class="form-control" [value]="socialUser.lastName" id="lastname">
     </mat-form-field> 
-    
+    <br>
     <mat-form-field>
       <label><b><h3>Email</h3></b></label>
       <input matInput readonly type="text" class="form-control" [value]="socialUser.email" id="email">
     </mat-form-field> 
-
+    <br>
     <button mat-raised-button color="primary" type="button" (click)="logOut()" class="btn btn-primary">
       <mat-icon>logout</mat-icon>
       <span class="button-text">Logout from Google</span>
     </button>
-
-    <!--<div class="form-group">
-      <label>First Name</label>
-      <input type="text" class="form-control" [value]="socialUser.firstName" id="firstname" readonly>
-    </div>
-    <div class="form-group">
-      <label>Last Name</label>
-      <input type="text" class="form-control" [value]="socialUser.lastName" id="lastname" readonly>
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="text" class="form-control" [value]="socialUser.email" id="email" readonly>
-    </div>
-    <br/>
-    
-  </div>-->
+  </div>
 </div>
