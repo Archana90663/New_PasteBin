@@ -32,7 +32,27 @@
 
   <!--{{ (isLoggedin) }}-->
   <!--<div *ngIf="isLoggedin === true">-->
-    <div class="form-group">
+    <mat-form-field>
+      <label><b><h3>First Name</h3></b></label>
+      <input matInput readonly type="text" class="form-control" [value]="socialUser.firstName" id="firstname">
+    </mat-form-field>
+
+    <mat-form-field>
+      <label><b><h3>Last Name</h3></b></label>
+      <input matInput readonly type="text" class="form-control" [value]="socialUser.lastName" id="lastname">
+    </mat-form-field> 
+    
+    <mat-form-field>
+      <label><b><h3>Email</h3></b></label>
+      <input matInput readonly type="text" class="form-control" [value]="socialUser.email" id="email">
+    </mat-form-field> 
+
+    <button mat-raised-button color="primary" type="button" (click)="logOut()" class="btn btn-primary">
+      <mat-icon>logout</mat-icon>
+      <span class="button-text">Logout from Google</span>
+    </button>
+
+    <!--<div class="form-group">
       <label>First Name</label>
       <input type="text" class="form-control" [value]="socialUser.firstName" id="firstname" readonly>
     </div>
@@ -45,11 +65,6 @@
       <input type="text" class="form-control" [value]="socialUser.email" id="email" readonly>
     </div>
     <br/>
-    <button mat-raised-button color="primary" type="button" (click)="logOut()" class="btn btn-primary">
-      <mat-icon>logout</mat-icon>
-      <span class="button-text">Logout from Google</span>
-    </button>
-
     
-  <!--</div>-->
+  </div>-->
 </div>
