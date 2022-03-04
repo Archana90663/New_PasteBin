@@ -57,4 +57,13 @@ export class SubmitpageComponent implements OnInit {
       console.log("TAG: " + this.tagGlobal);
     }
   }
+
+  isPastePublic(paste: Paste){ //for testing purposes
+    if(paste.tag === 'public'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 }
