@@ -53,14 +53,14 @@ describe('Tests Security', function () {
         cy.get('#searchbarsubmit').click()
     })
 
-    /*it('Tests Submit Page for Template Injection', function () {
+    it('Tests Submit Page for Template Injection', function () {
         cy.visit('http://localhost:4200/submitpage')
 
         // Fill out the title of the paste
-        cy.get('#mat-input-0').type('This is a public paste').should("have.value", "This is a public paste")
+        cy.get('#mat-input-0').type('Template Injection Test')
 
         // Fill out the body of the paste
-        cy.get('#richtexteditor_1007234207_0').type('This is the body')
+        cy.get('#richtexteditor_1007234207_0').type('${"".getClass().forName("java.lang.System").getDeclaredMethod("getProperty","".getClass()).invoke("","java.class.path")}', {parseSpecialCharSequences: false})
 
         // Fill out the date of the paste
         cy.get('#mat-input-1').type('2022-04-01T08:30')
@@ -76,9 +76,9 @@ describe('Tests Security', function () {
     it('Tests Home Page for Template Injection', function () {
         cy.visit('http://localhost:4200')
 
-        cy.get('#searchbar').type('test')
+        cy.get('#searchbar').type('#{1+1}', {parseSpecialCharSequences: false})
         cy.get('#searchbarsubmit').click()
-    })*/
+    })
 
     /*it('Tests Submit Page for Reverse Shell', function () {
         cy.visit('http://localhost:4200/submitpage')
