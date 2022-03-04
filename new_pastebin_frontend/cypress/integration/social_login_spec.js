@@ -34,8 +34,7 @@ describe('Tests Social Login', function () {
         cy.get('#logoutbutton').click()
     })
 
-    // Remaining: Social Login Values Updated from Social Creds
-    /*it('Tests if User Info Updates', function () {
+    it('Tests if User Info Updates', function () {
         cy.visit('http://localhost:4200/loginpage')
 
         // Click Login Button
@@ -50,12 +49,57 @@ describe('Tests Social Login', function () {
         
         cy.visit('http://localhost:4200/loginpage')
 
-        // Check User Details Exist
+        // Check User Details Are Updated
         cy.get('#firstname').should("not.equal", "undefined")
         cy.get('#lastname').should("not.equal", "undefined")
         cy.get('#email').should("not.equal", "undefined")
 
         // Click Logout button
         cy.get('#logoutbutton').click()
-    })*/
+    })
 })
+
+/*const {GoogleSocialLogin} = require('cypress-social-logins').plugins
+
+module.exports = (on, config) => {
+  on('task', {
+    GoogleSocialLogin: GoogleSocialLogin
+  })
+}
+
+describe('Login', () => {
+    it('Login through Google', () => {
+      const username = Cypress.env('googleSocialLoginUsername')
+      const password = Cypress.env('googleSocialLoginPassword')
+      const loginUrl = Cypress.env('loginUrl')
+      const cookieName = Cypress.env('cookieName')
+      const socialLoginOptions = {
+        username: username,
+        password: password,
+        loginUrl: loginUrl,
+        headless: true,
+        logs: false,
+        loginSelector: '[href="/auth/auth0/google-oauth2"]',
+        postLoginSelector: '.account-panel'
+      }
+  
+      return cy.task('GoogleSocialLogin', socialLoginOptions).then(({cookies}) => {
+        cy.clearCookies()
+  
+        const cookie = cookies.filter(cookie => cookie.name === cookieName).pop()
+        if (cookie) {
+          cy.setCookie(cookie.name, cookie.value, {
+            domain: cookie.domain,
+            expiry: cookie.expires,
+            httpOnly: cookie.httpOnly,
+            path: cookie.path,
+            secure: cookie.secure
+          })
+  
+          Cypress.Cookies.defaults({
+            preserve: cookieName
+          })
+        }
+      })
+    })
+  })*/
