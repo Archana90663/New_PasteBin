@@ -13,7 +13,7 @@
     <p class="horizontal-line-text">
       <span>or</span>
     </p>-->
-    <button mat-raised-button color="primary" #button1 class="btn btn-block google-sign-in" (click)="loginWithGoogle()">
+    <button id='loginbutton' mat-raised-button color="primary" #button1 class="btn btn-block google-sign-in" (click)="loginWithGoogle()">
       <mat-icon>login</mat-icon>
       <span class="button-text">Continue With Google</span>
     </button>
@@ -45,7 +45,7 @@
       <input type="text" class="form-control" [value]="socialUser.email" id="email" readonly>
     </div>
     <br/>
-    <button type="button" (click)="logOut()" class="btn btn-primary">Logout from Google</button>
+    <button id='logoutbutton' type="button" (click)="logOut()" class="btn btn-primary">Logout from Google</button>
 
     
   </div>
