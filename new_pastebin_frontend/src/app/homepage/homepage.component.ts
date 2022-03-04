@@ -55,7 +55,7 @@ export class HomepageComponent implements OnInit {
           response => {
             this.pastes = response.texts
             this.pastes = this.onNewest();
-            console.log(this.pastes)
+            console.log(this.pastes);
           }
         );
       }
@@ -73,7 +73,10 @@ export class HomepageComponent implements OnInit {
           }
         );
       }
+
     }
+    return choice;
+
   }
 
   onNewest(){
@@ -81,6 +84,7 @@ export class HomepageComponent implements OnInit {
       return <any>new Date(b.created_at) - <any>new Date(a.created_at);
     });
   }
+
   
 
 }
