@@ -4,8 +4,11 @@ import { Paste } from '../types/pastestype';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import {Router} from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+
 
 interface SubmitTextPayload{
+  "UserID": string,
   "title": string,
   "body": string,
   "expire_at"? : string
@@ -17,19 +20,27 @@ interface SubmitTextPayload{
   styleUrls: ['./submitpage.component.css']
 })
 export class SubmitpageComponent implements OnInit {
-
+  public socialUser: SocialUser = new SocialUser;
   constructor(
     private httpClient: HttpClient,
     private snackBar: MatSnackBar,
+    private socialAuthService: SocialAuthService,
     private router: Router
   ) { }
   textModel = new Paste("","","","","","")
   tagGlobal: string="";
   title = new FormControl('', [Validators.required]);
   ngOnInit(): void {
+    this.socialAuthService.authState.subscribe(user =>{
+      this.socialUser = user;
+      localStorage.setItem('UserID', user.id);
+      // console.log("id: "+ user.id)
+    })
   }
   postText(){
-  const payload:SubmitTextPayload = {"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
+  const getID= localStorage.getItem('UserID')
+  console.log(getID)
+  const payload:SubmitTextPayload = {"UserID":String(getID),"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
   if(this.textModel.expire_at != ""){
     payload.expire_at =  (new Date(Date.parse(this.textModel.expire_at))).toISOString()
   }
