@@ -83,6 +83,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/getText", a.getText).Methods("POST")
 	a.r.HandleFunc("/api/verifyToken", a.verifyToken).Methods("POST")
 	a.r.HandleFunc("/api/login", a.userLogin).Methods("POST")
+	a.r.HandleFunc("/api/userInfo", a.userInfo).Methods("GET")
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
@@ -248,7 +249,26 @@ func (a *App) userLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+func (a *App) userInfo(w http.ResponseWriter, r *http.Request) {
+	session, err := cookieStore.Get(r, cookie)
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
 
+	userId := session.Values["user"]
+	if userId == nil {
+		sendErr(w, http.StatusUnauthorized, "Not logged in")
+		return
+	}
+	userInfo := getUser(a.db, userId.(string))[0]
+	jsonResponse, err := json.Marshal(userInfo)
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.Write(jsonResponse)
+}
 func sendErr(w http.ResponseWriter, code int, message string) {
 	resp, _ := json.Marshal(map[string]string{"error": message})
 	http.Error(w, string(resp), code)
