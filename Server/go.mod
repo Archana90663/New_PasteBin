@@ -10,6 +10,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.1.1 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
 	github.com/mattn/go-sqlite3 v1.14.10 // indirect
 	github.com/oschwald/maxminddb-golang v1.8.0 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
@@ -29,6 +30,7 @@ require (
 	github.com/go-co-op/gocron v1.11.0
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/handlers v1.5.1
+	github.com/gorilla/sessions v1.2.1
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/oschwald/geoip2-golang v1.6.1
