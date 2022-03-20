@@ -13,6 +13,7 @@ import (
 	"github.com/go-co-op/gocron"
 	//"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/sessions"
 	"github.com/rs/cors"
 	"gorm.io/gorm"
 )
@@ -29,6 +30,9 @@ type spaHandler struct {
 	staticPath string
 	indexPath  string
 }
+
+var cookieStore = sessions.NewCookieStore([]byte("pb-secret"))
+var cookie = "pb-login-token"
 
 // Solution by https://github.com/gorilla/mux/issues/637
 func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -67,18 +71,18 @@ func (h spaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.FileServer(http.FS(statics)).ServeHTTP(w, r)
 }
 func (a *App) start() {
-	a.db.AutoMigrate(&Person{}, &Text{})
+	a.db.AutoMigrate(&Person{}, &Text{}, &UserInfo{})
 	s := gocron.NewScheduler(time.UTC)
 	s.Every(300).Seconds().Do(removeExpired, a.db)
 	s.StartAsync()
 	// Add test data into db
 	a.db.Create(&Person{Id: 1, FirstName: "fn", LastName: "ln"})
-
 	a.r.HandleFunc("/test", a.test).Methods("GET")
 	a.r.HandleFunc("/api/submitText", a.addText).Methods("POST")
 	a.r.HandleFunc("/api/allTexts", a.allTexts).Methods("GET")
 	a.r.HandleFunc("/api/getText", a.getText).Methods("POST")
-	a.r.HandleFunc("/api/getUserInfo", a.getUserInfo).Methods("POST")
+	a.r.HandleFunc("/api/verifyToken", a.verifyToken).Methods("POST")
+	a.r.HandleFunc("/api/login", a.userLogin).Methods("POST")
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
@@ -190,7 +194,8 @@ func (a *App) getText(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write(jsonResponse)
 }
-func (a *App) getUserInfo(w http.ResponseWriter, r *http.Request) {
+
+func (a *App) verifyToken(w http.ResponseWriter, r *http.Request) {
 	var req UserInfoRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if req.IdToken == "" {
@@ -210,6 +215,40 @@ func (a *App) getUserInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Write(jsonResponse)
 }
+
+func (a *App) userLogin(w http.ResponseWriter, r *http.Request) {
+	var req UserInfoRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	if req.IdToken == "" {
+		sendErr(w, http.StatusBadRequest, "No Id given")
+		return
+	}
+	userId, err := verifyIdToken(a.db, req.IdToken)
+	if err != nil {
+		sendErr(w, http.StatusUnauthorized, "could not verify given token")
+		return
+	}
+	user := getUser(a.db, userId.Id)
+	if user == nil {
+		sendErr(w, http.StatusNotFound, "User doesn't exist")
+		return
+	}
+	session, err := cookieStore.New(r, cookie)
+	if err == nil {
+		session.Values["user"] = user[0].Id
+		err = session.Save(r, w)
+	}
+	if err != nil {
+		print(err.Error())
+		sendErr(w, http.StatusConflict, "Could not setup session for user")
+		return
+	}
+}
+
 func sendErr(w http.ResponseWriter, code int, message string) {
 	resp, _ := json.Marshal(map[string]string{"error": message})
 	http.Error(w, string(resp), code)
