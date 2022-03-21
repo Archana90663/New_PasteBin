@@ -34,6 +34,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { ProfilepageComponent } from './profilepage/profilepage.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
     TextpageComponent,
     ExpiredpageComponent,
     LoginpageComponent,
+    ProfilepageComponent,
   ],
   imports: [
     BrowserModule,

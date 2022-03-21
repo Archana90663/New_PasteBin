@@ -17,6 +17,7 @@
           <a mat-button [routerLink]="'/loginpage'">Logout</a>
         </div>-->
         <a *ngIf="logged === false" mat-button [routerLink]="'/loginpage'">Login</a>
+        <a *ngIf="logged === true" mat-button [routerLink]="'/profilepage'">Account Profile</a>
         <a *ngIf="logged === true" mat-button [routerLink]="'/loginpage'">Logout</a>
       </div>
     </mat-toolbar-row>
