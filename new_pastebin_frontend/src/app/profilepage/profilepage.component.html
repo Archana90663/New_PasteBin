@@ -1,0 +1,30 @@
+<div *ngIf="isLoggedin === true">
+    <mat-form-field>
+      <label><b><h3>First Name</h3></b></label>
+      <input matInput readonly type="text" class="form-control" [value]="socialUser.firstName" id="firstname">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <label><b><h3>Last Name</h3></b></label>
+      <input matInput readonly type="text" class="form-control" [value]="socialUser.lastName" id="lastname">
+    </mat-form-field> 
+    <br>
+    <mat-form-field>
+      <label><b><h3>Email</h3></b></label>
+      <input matInput readonly type="text" class="form-control" [value]="socialUser.email" id="email">
+    </mat-form-field> 
+    <br>
+    <mat-form-field>
+        <label><b><h3>Username</h3></b></label>
+        <input matInput readonly type="text" class="form-control" [value]="socialUser.email.split('@')[0]" id="username">
+      </mat-form-field> 
+      <br>
+    <mat-form-field>
+        <img src="{{socialUser.photoUrl}}">
+      </mat-form-field> 
+      <br>
+    <!-- <button mat-raised-button color="primary" type="button" (click)="logOut()" class="btn btn-primary">
+      <mat-icon>logout</mat-icon>
+      <span class="button-text">Logout from Google</span>
+    </button> -->
+  </div>
