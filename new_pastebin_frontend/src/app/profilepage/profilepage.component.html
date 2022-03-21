@@ -1,5 +1,7 @@
-<div *ngIf="isLoggedin === true">
-  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div *ngIf="isLoggedin === true" style="margin: auto;
+width: 50%;
+padding: 10px;">
+  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center" style="text-align:center">
     <mat-card class="box">
       <mat-card-header>
         <mat-card-title>Account Profile</mat-card-title>
@@ -24,9 +26,6 @@
             <mat-label style="color: black">Email</mat-label>
             <input matInput [value]="socialUser.email" disabled style="color: black">
           </mat-form-field>
-
-          <mat-label>done</mat-label>
-
               
         </mat-card-content>
     
