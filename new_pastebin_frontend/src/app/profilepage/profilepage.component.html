@@ -1,13 +1,12 @@
 <div *ngIf="isLoggedin === true" style="margin: auto;
-width: 50%;
-padding: 10px;">
-  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center" style="text-align:center">
+width: 38%;">
+  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center" style="text-align:center;">
     <mat-card class="box">
       <mat-card-header>
         <mat-card-title>Account Profile</mat-card-title>
       </mat-card-header>
 
-      <img src="{{socialUser.photoUrl}}">
+      <img src="{{socialUser.photoUrl}}" style="object-fit: cover;margin-top: 20px; margin-bottom: 30px;border-radius:50%; width:200px; height:200px;">
       <form class="example-form">
   
         <mat-card-content>
