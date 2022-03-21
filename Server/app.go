@@ -84,6 +84,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/verifyToken", a.verifyToken).Methods("POST")
 	a.r.HandleFunc("/api/login", a.userLogin).Methods("POST")
 	a.r.HandleFunc("/api/userInfo", a.userInfo).Methods("GET")
+	a.r.HandleFunc("/api/logout", a.userLogout).Methods("GET")
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
@@ -268,6 +269,15 @@ func (a *App) userInfo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(jsonResponse)
+}
+func (a *App) userLogout(w http.ResponseWriter, r *http.Request) {
+	session, err := cookieStore.Get(r, cookie)
+	if err == nil {
+		session.Options.MaxAge = -1
+		session.Save(r, w)
+	} else {
+		sendErr(w, http.StatusNotFound, "No session found")
+	}
 }
 func sendErr(w http.ResponseWriter, code int, message string) {
 	resp, _ := json.Marshal(map[string]string{"error": message})
