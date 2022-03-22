@@ -198,9 +198,21 @@ func (a *App) getText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "No Id given")
 		return
 	}
+	userIdString := ""
+	session, err := cookieStore.Get(r, cookie)
+	if err == nil {
+		userId := session.Values["user"]
+		if userId != nil {
+			userIdString = session.Values["user"].(string)
+		}
+	}
 	text := getText(a.db, req.Id)
 	if text == nil {
 		sendErr(w, http.StatusNotFound, "text not found")
+		return
+	}
+	if text[0].Tag == "private" && userIdString != text[0].UserID {
+		sendErr(w, http.StatusUnauthorized, "Access to paste denied.")
 		return
 	}
 	if text[0].Expire_at != nil && text[0].Expire_at.Before(time.Now()) {
