@@ -87,6 +87,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/userInfo", a.userInfo).Methods("GET")
 	a.r.HandleFunc("/api/logout", a.userLogout).Methods("GET")
 	a.r.HandleFunc("/api/signup", a.userRegister).Methods("POST")
+	a.r.HandleFunc("/api/verifyLogin", a.verifyLogin).Methods("GET")
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
@@ -318,6 +319,26 @@ func (a *App) userRegister(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func (a *App) verifyLogin(w http.ResponseWriter, r *http.Request) {
+	session, err := cookieStore.Get(r, cookie)
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	jsonResponse, err := json.Marshal(VerifyLoginResponse{LoggedIn: true})
+	userId := session.Values["user"]
+	if userId == nil {
+		jsonResponse, err = json.Marshal(VerifyLoginResponse{LoggedIn: false})
+	}
+
+	if err != nil {
+		sendErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.Write(jsonResponse)
+}
+
 func sendErr(w http.ResponseWriter, code int, message string) {
 	resp, _ := json.Marshal(map[string]string{"error": message})
 	http.Error(w, string(resp), code)
