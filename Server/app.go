@@ -160,7 +160,10 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 			handle = userInfo.Handle
 		}
 	}
-
+	if (text.Tag == "private") && userIdString == "" {
+		sendErr(w, http.StatusBadRequest, "Anonymous user cannot create private paste")
+		return
+	}
 	text.UserID = userIdString
 	text.Handle = handle
 	err, id := postText(a.db, text, GetIP(r))
