@@ -21,6 +21,9 @@ type UserRegisterRequest struct {
 type UserId struct {
 	Id string `json:"id"`
 }
+type VerifyLoginResponse struct {
+	LoggedIn bool `json:"loggedIn"`
+}
 
 var httpClient = &http.Client{}
 
