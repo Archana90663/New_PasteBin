@@ -11,6 +11,8 @@ type AllTextsResponse struct {
 }
 type TextListing struct {
 	Id        string     `json:"id"`
+	UserID    string     `json:"userID"`
+	Handle    string     `json:"handle"`
 	Title     string     `json:"title"`
 	CreatedAt time.Time  `json:"created_at"`
 	Expire_at *time.Time `json:"expire_at"`
