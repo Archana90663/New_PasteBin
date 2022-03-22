@@ -78,7 +78,6 @@ func (a *App) start() {
 	s.StartAsync()
 	// Add test data into db
 	a.db.Create(&Person{Id: 1, FirstName: "fn", LastName: "ln"})
-	a.r.HandleFunc("/test", a.test).Methods("GET")
 	a.r.HandleFunc("/api/submitText", a.addText).Methods("POST")
 	a.r.HandleFunc("/api/allTexts", a.allTexts).Methods("GET")
 	a.r.HandleFunc("/api/getText", a.getText).Methods("POST")
@@ -98,24 +97,7 @@ func (a *App) start() {
 	log.Fatal(http.ListenAndServe(":8080", handler)) //handlers.CORS(originsOk, headersOk, methodsOk)(a.r)))
 
 }
-func (a *App) test(w http.ResponseWriter, r *http.Request) {
-	var response Response
 
-	//Retrieve person details
-	persons := allPersons(a.db)
-	response.Persons = persons
-
-	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "application/json")
-
-	//convert struct to JSON
-	jsonResponse, err := json.Marshal(response)
-	if err != nil {
-		sendErr(w, http.StatusInternalServerError, err.Error())
-		return
-	}
-	w.Write(jsonResponse)
-}
 func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var text Text
