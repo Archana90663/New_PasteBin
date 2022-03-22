@@ -8,7 +8,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubmitpageComponent } from './submitpage/submitpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { TestpageComponent } from './testpage/testpage.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { FormsModule }   from '@angular/forms';
@@ -44,7 +44,6 @@ import { ProfilepageComponent } from './profilepage/profilepage.component';
     NavbarComponent,
     SubmitpageComponent,
     PagenotfoundComponent,
-    TestpageComponent,
     TextpageComponent,
     ExpiredpageComponent,
     LoginpageComponent,
