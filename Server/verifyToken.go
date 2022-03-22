@@ -9,11 +9,14 @@ import (
 
 type UserInfo struct {
 	Id     string `json:"id"`
-	Email  string `json:"email"`
-	Handle string `json:"handle"`
+	Handle string `json:"handle" gorm:"uniqueIndex"`
 }
 type UserInfoRequest struct {
-	IdToken string `json:"idToken`
+	IdToken string `json:"idToken"`
+}
+type UserRegisterRequest struct {
+	IdToken string `json:"idToken"`
+	Handle  string `json:"handle"`
 }
 type UserId struct {
 	Id string `json:"id"`
