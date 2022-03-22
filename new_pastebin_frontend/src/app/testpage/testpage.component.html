@@ -1,0 +1,12 @@
+<h1 style="margin-top: 15px;">Test Page</h1>
+<div *ngFor="let person of people">
+    <h2>{{person.id}}</h2>
+    <p>
+        {{person.first_name}} {{person.last_name}}
+    </p>
+    <p>
+        {{userDetails?.email}}
+        {{userDetails?.name}}
+    </p>
+    <button class="btn btn-block btn-danger mt-4" (click)="signOut()">Sign Out</button>
+</div>
