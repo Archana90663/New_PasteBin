@@ -149,17 +149,20 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Post does not have an appropriate tag")
 		return
 	}
-	session, err := cookieStore.Get(r, cookie)
-	if err != nil {
-		sendErr(w, http.StatusInternalServerError, err.Error())
-		return
-	}
 	userIdString := ""
-	userId := session.Values["user"]
-	if userId != nil {
-		userIdString = session.Values["user"].(string)
+	handle := ""
+	session, err := cookieStore.Get(r, cookie)
+	if err == nil {
+		userId := session.Values["user"]
+		if userId != nil {
+			userIdString = session.Values["user"].(string)
+			userInfo := getUser(a.db, userId.(string))[0]
+			handle = userInfo.Handle
+		}
 	}
+
 	text.UserID = userIdString
+	text.Handle = handle
 	err, id := postText(a.db, text, GetIP(r))
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())

@@ -17,8 +17,9 @@ import (
 var db_fs embed.FS
 
 type Text struct {
-	UserID      string     `json:"userID"`
 	Id          string     `json:"id"`
+	UserID      string     `json:"userID"`
+	Handle      string     `json:"handle"`
 	Body        string     `json:"body"`
 	Title       string     `json:"title"`
 	CreatedAt   time.Time  `json:"created_at"`
