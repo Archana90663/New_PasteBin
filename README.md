@@ -3,13 +3,13 @@
 The current PasteBin has gotten too bulky and doesn't have any searching capabilities. Pastebin 2.0 is a less clunky (minimalistic) version.
 
 ## Collaborators
-[Archana Dhyani](https://github.com/Archana90663)
+[Archana Dhyani](https://github.com/Archana90663) (Front-end)
 
-[Blas Kojusner](https://github.com/bkojusner)
+[Blas Kojusner](https://github.com/bkojusner) (Front-end)
 
-[Param Gupta](https://github.com/paramgupta107)
+[Param Gupta](https://github.com/paramgupta107) (Back-end)
 
-[Sudhanshu Tarale](https://github.com/SudhanshuTarale)
+[Sudhanshu Tarale](https://github.com/SudhanshuTarale) (Back-end)
 
 ## Tech Stack ##
 * Front-end:
