@@ -27,7 +27,7 @@ export class SubmitpageComponent implements OnInit {
     private socialAuthService: SocialAuthService,
     private router: Router
   ) { }
-  textModel = new Paste("","","","","","")
+  textModel = new Paste("","","","","","","")
   tagGlobal: string="";
   logged:boolean = false;
   title = new FormControl('', [Validators.required]);
