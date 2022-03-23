@@ -32,18 +32,18 @@ describe('SubmitpageComponent', () => {
   });
 
   it('Paste tag is "public" so it should return as true', () =>{
-    const paste = new Paste("","","","","","public");
+    const paste = new Paste("","","","","","","public");
     const res = component.isPastePublic(paste);
     expect(res).toBeTruthy();
   });
 
   it('Paste tag is "private" so it should return as false', () =>{
-    const paste = new Paste("","","","","","private");
+    const paste = new Paste("","","","","","","private");
     const res = component.isPastePublic(paste);
     expect(res).toBeFalsy();
   });
   it('Paste tag is "unlisted" so it should return as false', () =>{
-    const paste = new Paste("","","","","","unlisted");
+    const paste = new Paste("","","","","","","unlisted");
     const res = component.isPastePublic(paste);
     expect(res).toBeFalsy();
   });

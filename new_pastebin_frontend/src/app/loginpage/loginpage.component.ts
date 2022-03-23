@@ -45,6 +45,13 @@ export class LoginpageComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  login(): SocialUser{
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.router.navigateByUrl('/');
+    this.isLoggedin = true;
+    return this.socialUser;
+  }
+
   logOut(): void {
     this.socialAuthService.signOut();
     this.isLoggedin = false;
