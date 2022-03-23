@@ -29,10 +29,12 @@ export class SubmitpageComponent implements OnInit {
   ) { }
   textModel = new Paste("","","","","","")
   tagGlobal: string="";
+  logged:boolean = false;
   title = new FormControl('', [Validators.required]);
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
+      this.logged = true;
       localStorage.setItem('UserID', user.id);
       // console.log("id: "+ user.id)
     })

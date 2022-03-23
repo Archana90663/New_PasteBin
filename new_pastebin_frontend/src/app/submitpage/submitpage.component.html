@@ -48,9 +48,11 @@
               <mat-option #option1 [value]="'Public'" (click)="onChange('public', option1.selected)">
                 Public
               </mat-option>
-              <mat-option #option2 [value]="'Private'" (click)="onChange('private', option2.selected)">
-                Private
-              </mat-option>
+              <div *ngIf="logged===true">
+                <mat-option #option2 [value]="'Private'" (click)="onChange('private', option2.selected)">
+                  Private
+                </mat-option>
+              </div>
               <mat-option #option3 [value]="'Unlisted'" (click)="onChange('unlisted', option3.selected)">
                 Unlisted
               </mat-option>
