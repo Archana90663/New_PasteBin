@@ -1,5 +1,38 @@
-<div *ngIf="isLoggedin === true">
-    <mat-form-field>
+<div *ngIf="isLoggedin === true" style="margin: auto;
+width: 38%;">
+  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center" style="text-align:center;">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Account Profile</mat-card-title>
+      </mat-card-header>
+
+      <img src="{{socialUser.photoUrl}}" style="object-fit: cover;margin-top: 20px; margin-bottom: 30px;border-radius:50%; width:200px; height:200px;">
+      <form class="example-form">
+  
+        <mat-card-content>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label style="color: black">Username</mat-label>
+            <input matInput [value]="socialUser.email.split('@')[0]" disabled style="color: black">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label style="color: black">Name</mat-label>
+            <input matInput [value]="socialUser.name" disabled style="color: black">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-label style="color: black">Email</mat-label>
+            <input matInput [value]="socialUser.email" disabled style="color: black">
+          </mat-form-field>
+              
+        </mat-card-content>
+    
+      </form>
+    </mat-card>
+  </div>
+  
+    <!-- <mat-form-field>
       <label><b><h3>First Name</h3></b></label>
       <input matInput readonly type="text" class="form-control" [value]="socialUser.firstName" id="firstname">
     </mat-form-field>
@@ -22,9 +55,5 @@
     <mat-form-field>
         <img src="{{socialUser.photoUrl}}">
       </mat-form-field> 
-      <br>
-    <!-- <button mat-raised-button color="primary" type="button" (click)="logOut()" class="btn btn-primary">
-      <mat-icon>logout</mat-icon>
-      <span class="button-text">Logout from Google</span>
-    </button> -->
+      <br> -->
   </div>
