@@ -46,7 +46,7 @@ export class SubmitpageComponent implements OnInit {
   if(this.textModel.expire_at != ""){
     payload.expire_at =  (new Date(Date.parse(this.textModel.expire_at))).toISOString()
   }
-    this.httpClient.post<any>("http://localhost:8080/api/submitText", payload).subscribe(
+    this.httpClient.post<any>("http://localhost:8080/api/submitText", payload, {withCredentials: true}).subscribe(
       response => {
         this.showMessage("TEXT POSTED")
         this.router.navigateByUrl('/textpage?id='+response.id);

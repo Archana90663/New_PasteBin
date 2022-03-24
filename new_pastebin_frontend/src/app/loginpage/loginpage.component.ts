@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
@@ -9,40 +9,50 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-soc
   templateUrl: './loginpage.component.html',
   styleUrls: ['./loginpage.component.css']
 })
+
 export class LoginpageComponent implements OnInit {
 
   loginForm: FormGroup | undefined;
-  // socialUser!: SocialUser;
   public socialUser: SocialUser = new SocialUser;
   isLoggedin: boolean = false;  
   
   constructor(
     private formBuilder: FormBuilder, 
     private socialAuthService: SocialAuthService,
-    private router: Router
+    private router: Router,
+    private httpClient: HttpClient,
   ) { }
+
+
 
   ngOnInit() {
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
-      console.log("user: " + user.email);
+      let headers = new HttpHeaders({'Content-Type': 'application/json'});
+      this.httpClient.post<any>("http://localhost:8080/api/login", {"idToken": this.socialUser.idToken}, {headers: headers, withCredentials: true}).subscribe(
+        res=>{
+          console.log("logged: " + res);
+        }
+      );
+      this.httpClient.get<any>("http://localhost:8080/api/verifyLogin", {withCredentials:true}).subscribe(
+        response=>{
+          console.log("response: " + response.loggedIn);
+        }
+      );      
+      console.log("email: " + this.socialUser.email);
       this.isLoggedin = true;
-      console.log("LOGGED: " + this.isLoggedin);
-    })
-  }
-
-  // loginWithGoogle(): void {
-  //   this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
-  //     localStorage.setItem('google_auth', JSON.stringify(data));
-  //     this.isLoggedin = true;
-  //     this.router.navigateByUrl('/').then();
-  //     console.log("LOGGED: " + this.isLoggedin);
-  //   });
-  // }
+    });
+  }  
 
   public loginWithGoogle(): void{
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.router.navigateByUrl('/');
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    this.httpClient.post<any>("http://localhost:8080/api/signup", {"idToken": this.socialUser.idToken, "handle":"blah"}, {headers: headers, withCredentials: true}).subscribe(
+        res=>{
+          console.log("signedup: " + res);
+        }
+      );
   }
 
   login(): SocialUser{
