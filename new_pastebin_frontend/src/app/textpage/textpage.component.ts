@@ -24,7 +24,7 @@ export class TextpageComponent implements OnInit {
   getText(){
     this.activatedRoute.queryParams.subscribe(params => {
       let id = params['id'];
-      this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}).subscribe(
+      this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(
       response => {
         this.paste = response
         console.log(this.paste)
