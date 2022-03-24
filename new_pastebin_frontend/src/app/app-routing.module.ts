@@ -7,6 +7,7 @@ import { TextpageComponent } from './textpage/textpage.component';
 import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { ViewpageComponent } from './viewpage/viewpage.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'expiredpage', component: ExpiredpageComponent},
   {path: 'loginpage', component: LoginpageComponent},
   {path: 'profilepage', component: ProfilepageComponent},
+  {path: 'viewpage', component: ViewpageComponent},
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
 
