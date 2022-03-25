@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { Paste } from '../types/pastestype';
 import { HttpClient } from '@angular/common/http';
+import getExpireInText from '../util/getExireIn'
 
 
 @Component({
@@ -13,6 +14,8 @@ export class ViewpageComponent implements OnInit {
 
   public socialUser: SocialUser = new SocialUser;
   pastes: Paste[] = [];
+  getExpireIn = getExpireInText
+
 
   constructor(
     private socialAuthService: SocialAuthService,
