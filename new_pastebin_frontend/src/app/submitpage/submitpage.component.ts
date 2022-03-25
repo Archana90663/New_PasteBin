@@ -8,7 +8,7 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-soc
 
 
 interface SubmitTextPayload{
-  "userID": string,
+  "UserID": string,
   "title": string,
   "body": string,
   "expire_at"? : string
@@ -35,14 +35,14 @@ export class SubmitpageComponent implements OnInit {
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
       this.logged = true;
-      localStorage.setItem('userID', user.id);
+      localStorage.setItem('UserID', user.id);
       // console.log("id: "+ user.id)
     })
   }
   postText(){
-  const getID= localStorage.getItem('userID')
+  const getID= localStorage.getItem('UserID')
   console.log(getID)
-  const payload:SubmitTextPayload = {"userID":String(getID),"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
+  const payload:SubmitTextPayload = {"UserID":String(getID),"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
   if(this.textModel.expire_at != ""){
     payload.expire_at =  (new Date(Date.parse(this.textModel.expire_at))).toISOString()
   }
