@@ -35,6 +35,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-logi
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { ViewpageComponent } from './viewpage/viewpage.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ProfilepageComponent } from './profilepage/profilepage.component';
     ExpiredpageComponent,
     LoginpageComponent,
     ProfilepageComponent,
+    ViewpageComponent,
   ],
   imports: [
     BrowserModule,
