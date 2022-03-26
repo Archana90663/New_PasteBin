@@ -68,6 +68,13 @@ describe('LoginpageComponent', () => {
     expect(value).toBe(true);
   });
 
+  it('Should return true as user has logged out', () => {
+    fixture = TestBed.createComponent(LoginpageComponent);
+    component = fixture.componentInstance;
+    const value = component.TestBooleanLogout();
+    expect(value).toBe(false);
+  });
+
   it('Should return true as user has logged in and information is correctly extracted', () => {
     fixture = TestBed.createComponent(LoginpageComponent);
     component = fixture.componentInstance;

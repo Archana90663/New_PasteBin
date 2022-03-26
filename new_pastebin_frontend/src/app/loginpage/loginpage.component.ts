@@ -80,6 +80,12 @@ export class LoginpageComponent implements OnInit {
     return this.isLoggedin;
   }
 
+  TestBooleanLogout(): boolean{
+    this.socialAuthService.signOut();
+    this.isLoggedin = false;
+    return this.isLoggedin;
+  }
+
   logOut(): void {
     this.socialAuthService.signOut();
     this.isLoggedin = false;
