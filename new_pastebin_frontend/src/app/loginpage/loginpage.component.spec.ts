@@ -61,10 +61,17 @@ describe('LoginpageComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('Should return true as user has logged in', () => {
+    fixture = TestBed.createComponent(LoginpageComponent);
+    component = fixture.componentInstance;
+    const value = component.TestBooleanLogin();
+    expect(value).toBe(true);
+  });
+
   it('Should return true as user has logged in and information is correctly extracted', () => {
     fixture = TestBed.createComponent(LoginpageComponent);
     component = fixture.componentInstance;
-    const user = component.login();
+    const user = component.Testlogin();
     var res = true;
     var user_info: boolean[]=[];
     
