@@ -79,4 +79,17 @@ export class SubmitpageComponent implements OnInit {
       return false;
     }
   }
+
+  submitPasteTest(paste: Paste):boolean{
+    this.socialUser.id = "10624190371723279782";
+    var value= false;
+    if(paste.userID === this.socialUser.id){
+      value = true;
+    }
+    else{
+      value = false;
+    }
+    return value;
+  }
+
 }
