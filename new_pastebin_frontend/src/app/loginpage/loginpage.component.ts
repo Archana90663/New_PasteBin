@@ -28,16 +28,13 @@ export class LoginpageComponent implements OnInit {
 
 
   ngOnInit() {
-    
-    const value = sessionStorage.getItem('isLoggedIn');
-      console.log(value);
-      if(value==="true"){
-        // this.router.navigateByUrl('/');
-      }
-      // let headers = new HttpHeaders({'Content-Type': 'application/json'});     
-      console.log("email: " + this.socialUser.email);
+    this.socialAuthService.authState.subscribe(user=>{
+      this.socialUser = user;
       this.isLoggedin = true;
+      
+    });
     
+    // this.router.navigateByUrl('/');    
       
   }  
 
@@ -45,6 +42,8 @@ export class LoginpageComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
+      console.log("ID: " + this.socialUser.id);
+
       let headers = new HttpHeaders({'Content-Type': 'application/json'});
     this.httpClient.post<any>("http://localhost:8080/api/signup", {"idToken": this.socialUser.idToken, "handle":"blah"}, {headers: headers, withCredentials: true}).subscribe(
         res=>{
@@ -63,9 +62,14 @@ export class LoginpageComponent implements OnInit {
       );
     });
     
-    sessionStorage.setItem("isLoggedIn", "true");
-    // this.loggedIn.next(true);
     this.router.navigateByUrl('/');
+    this.isLoggedin = true;
+
+  }
+
+  logOut(): void {
+    this.socialAuthService.signOut();
+    this.isLoggedin = false;
   }
 
   Testlogin(): SocialUser{
@@ -86,11 +90,5 @@ export class LoginpageComponent implements OnInit {
     return this.isLoggedin;
   }
 
-  logOut(): void {
-    this.socialAuthService.signOut();
-    this.isLoggedin = false;
-    sessionStorage.setItem("isLoggedIn", "false");
-    console.log(sessionStorage.getItem('isLoggedIn'));
-  }
 
 }

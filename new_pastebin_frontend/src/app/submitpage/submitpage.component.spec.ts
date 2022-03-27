@@ -4,6 +4,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SubmitpageComponent } from './submitpage.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+
 
 describe('SubmitpageComponent', () => {
   let component: SubmitpageComponent;
@@ -15,8 +18,24 @@ describe('SubmitpageComponent', () => {
         HttpClientTestingModule, 
         RouterTestingModule,
         MatSnackBarModule,
+        SocialLoginModule,
+
       ],
       declarations: [ SubmitpageComponent ],
+      providers: [{
+        provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '1034579701724-528o8e1fg6tp9shf1qj0ius2o09as4i4.apps.googleusercontent.com'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+      }]
     })
     .compileComponents();
   });
@@ -45,6 +64,19 @@ describe('SubmitpageComponent', () => {
   it('Paste tag is "unlisted" so it should return as false', () =>{
     const paste = new Paste("","","","","","","unlisted");
     const res = component.isPastePublic(paste);
+    expect(res).toBeFalsy();
+  });
+
+
+  it('Should return TRUE as user created the paste', () =>{
+    const paste = new Paste("","10624190371723279782","Hello World","","","This is body","unlisted");
+    const res = component.submitPasteTest(paste);
+    expect(res).toBeTruthy();
+  });
+
+  it('Should return FALSE as user did not create the paste', () =>{
+    const paste = new Paste("","4321","Hello World","","","This is body","unlisted");
+    const res = component.submitPasteTest(paste);
     expect(res).toBeFalsy();
   });
 
