@@ -92,4 +92,10 @@ describe('SubmitpageComponent', () => {
     expect(res).toBeTruthy();
   });
 
+  it('Return FALSE as user is not logged in but makes a "Private" paste', () =>{
+    const paste = new Paste("","","Hello World","","","This is body","private");
+    const res = component.chooseTagTest(paste);
+    expect(res).toBeFalsy();
+  });
+
 });
