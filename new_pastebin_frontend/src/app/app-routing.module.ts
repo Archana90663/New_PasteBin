@@ -8,6 +8,7 @@ import { ExpiredpageComponent } from './expiredpage/expiredpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { ViewpageComponent } from './viewpage/viewpage.component';
+import { AboutpageComponent } from './aboutpage/aboutpage.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'loginpage', component: LoginpageComponent},
   {path: 'profilepage', component: ProfilepageComponent},
   {path: 'viewpage', component: ViewpageComponent},
+  {path: 'aboutpage', component:AboutpageComponent},
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
 
@@ -28,6 +30,7 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents=[
   HomepageComponent,
+  AboutpageComponent,
   SubmitpageComponent,
   TextpageComponent
 ];

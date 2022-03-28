@@ -36,6 +36,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { ViewpageComponent } from './viewpage/viewpage.component';
+import { AboutpageComponent } from './aboutpage/aboutpage.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { ViewpageComponent } from './viewpage/viewpage.component';
     LoginpageComponent,
     ProfilepageComponent,
     ViewpageComponent,
+    AboutpageComponent,
   ],
   imports: [
     BrowserModule,
