@@ -10,5 +10,18 @@ If one wanted to find a list of interesting books to read or links for online fo
 Although Pastebin is a great and useful website, we feel that removing the search feature has been detrimental to the user experience.
 As a result,we have decided to re-create Pastebin and give it its search feature again. The website should still behave the same as the original Pastebin in terms of functionality. A user can still create anonymous pastes, set expiration dates, create private or unlisted pastes, and share pastes as they wish.
 The main differences are that the home page and the aesthetic of the website. The home page allows a user to search for pastes that have been created on the site. The newest public pastes will pop up at the top of the site, and any older pastes can be searched for through the search bar.
-The site itself does look different to the original Pastebin since it uses Angular Material.
+The site itself does look different to the original Pastebin since it uses Angular material. It would be worth adding that the current Pastebin has also gotten bloated with a plethora of features that we feel do not necessarily enhance user experience, such as the addition of folders.
 </p>
+<br>
+<h1>How is it Done</h1>
+<p>
+The tech stack is Angular for the front end, using TypeScript libraries and Angular material. The back end consists of Goland, Embed, Gorm, and SQLite to keep track of the API and also paste management information to know who a paste is from and how long it has until it expires.
+Some of the features the project has currently implemented are the home page which lists all public pastes so a user can explore, the ability to set expiration dates for pastes, the ability to have a shareable link for pastes, and a rich text editor to format pastes.
+Additionally, each paste is diesplayed as a card element that a user can click on to expand the text in the paste to see the full length of what is stored. The text can also be quite lengthy as our platform supports up to 10,000 characters per paste. Lastly, the site handles expired pastes accordingly so there will not be unintended breaches in infromation.
+There is more indepth information on the projects main README file found <a href="https://github.com/Archana90663/New_PasteBin">here</a>.
+</p>
+<br>
+<!--<h1>Who We Are</h1>
+<p>
+
+</p>-->
