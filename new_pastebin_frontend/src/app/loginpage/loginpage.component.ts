@@ -17,7 +17,6 @@ export class LoginpageComponent implements OnInit {
   public socialUser: SocialUser = new SocialUser;
   isLoggedin: boolean = false;  
 
-  // private loggedIn = new BehaviorSubject<boolean>(localStorage.getItem("isLoggedIn") === "true");
   
   constructor(
     private formBuilder: FormBuilder, 
@@ -31,10 +30,8 @@ export class LoginpageComponent implements OnInit {
     this.socialAuthService.authState.subscribe(user=>{
       this.socialUser = user;
       this.isLoggedin = true;
-      
+      localStorage.setItem('userID', user.id);
     });
-    
-    // this.router.navigateByUrl('/');    
       
   }  
 
@@ -70,6 +67,9 @@ export class LoginpageComponent implements OnInit {
   logOut(): void {
     this.socialAuthService.signOut();
     this.isLoggedin = false;
+    this.httpClient.get('http://localhost:8080/api/logout')
+    // localStorage.removeItem('userID');
+
   }
 
   Testlogin(): SocialUser{
