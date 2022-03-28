@@ -80,4 +80,22 @@ describe('SubmitpageComponent', () => {
     expect(res).toBeFalsy();
   });
 
+  it('Return TRUE as user is not logged in but makes an "Unlisted" paste', () =>{
+    const paste = new Paste("","","Hello World","","","This is body","unlisted");
+    const res = component.chooseTagTest(paste);
+    expect(res).toBeTruthy();
+  });
+
+  it('Return TRUE as user is not logged in but makes a "Public" paste', () =>{
+    const paste = new Paste("","","Hello World","","","This is body","public");
+    const res = component.chooseTagTest(paste);
+    expect(res).toBeTruthy();
+  });
+
+  it('Return FALSE as user is not logged in but makes a "Private" paste', () =>{
+    const paste = new Paste("","","Hello World","","","This is body","private");
+    const res = component.chooseTagTest(paste);
+    expect(res).toBeFalsy();
+  });
+
 });

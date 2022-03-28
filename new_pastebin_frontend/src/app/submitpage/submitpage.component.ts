@@ -92,4 +92,18 @@ export class SubmitpageComponent implements OnInit {
     return value;
   }
 
+  chooseTagTest(paste: Paste):boolean{
+    this.socialUser.id = "";
+    var value = false;
+    if(paste.tag === "public" || paste.tag === "unlisted"){
+      value = true;
+    }
+    else{
+      value = false;
+    }
+    return value;
+    
+
+  }
+
 }
