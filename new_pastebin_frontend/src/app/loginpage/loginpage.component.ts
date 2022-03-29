@@ -30,7 +30,7 @@ export class LoginpageComponent implements OnInit {
     this.socialAuthService.authState.subscribe(user=>{
       this.socialUser = user;
       this.isLoggedin = true;
-      sessionStorage.setItem('userID', user.id);
+      localStorage.setItem('userID', user.id);
     });
       
   }  
@@ -68,7 +68,7 @@ export class LoginpageComponent implements OnInit {
     this.socialAuthService.signOut();
     this.isLoggedin = false;
     this.httpClient.get('http://localhost:8080/api/logout')
-    sessionStorage.removeItem('userID');
+    localStorage.removeItem('userID');
 
   }
 

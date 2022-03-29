@@ -48,11 +48,6 @@ export class SubmitpageComponent implements OnInit {
   }
     this.httpClient.post<any>("http://localhost:8080/api/submitText", payload, {withCredentials: true}).subscribe(
       response => {
-        let data = {
-          'payload' : payload,
-          'responseid' : response.id
-        }
-        sessionStorage.setItem('data', JSON.stringify(data));
         this.showMessage("TEXT POSTED")
         this.router.navigateByUrl('/textpage?id='+response.id);
       },
