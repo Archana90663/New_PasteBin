@@ -22,10 +22,19 @@ export class TextpageComponent implements OnInit {
     this.getText()
   }
   getText(){
+    console.log("storage ID: " + sessionStorage.getItem('userID'));
     this.activatedRoute.queryParams.subscribe(params => {
       let id = params['id'];
       this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(
       response => {
+        let data = JSON.parse(sessionStorage.getItem('data') || "{}");
+        console.log(data.responseid);
+        console.log(response.id);
+        if(data.responseid === response.id){
+          response.userID = data.payload.userID;
+          console.log("changed!");
+          sessionStorage.removeItem(data);
+        }
         this.paste = response
         console.log(this.paste)
       },

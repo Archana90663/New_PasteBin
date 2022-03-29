@@ -16,6 +16,7 @@
 
   <!--{{ (isLoggedin) }}-->
   <div *ngIf="isLoggedin === true">
+    <p>Logged: {{isLoggedin}}</p>
     <button mat-raised-button color="primary" type="button" (click)="logOut()" class="btn btn-primary">
       <mat-icon>logout</mat-icon>
       <span class="button-text">Logout from Google</span>

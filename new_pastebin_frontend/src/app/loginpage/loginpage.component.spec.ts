@@ -25,6 +25,7 @@ describe('LoginpageComponent', () => {
         ReactiveFormsModule,
         FormsModule,
         RouterTestingModule,
+        
       ],
       providers: [{
         provide: 'SocialAuthServiceConfig',
