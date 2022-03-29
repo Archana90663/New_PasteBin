@@ -35,12 +35,12 @@ export class SubmitpageComponent implements OnInit {
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
       this.logged = true;
-      localStorage.setItem('userID', user.id);
+      // localStorage.setItem('userID', user.id);
       // console.log("id: "+ user.id)
     })
   }
   postText(){
-  const getID= localStorage.getItem('userID')
+  const getID= sessionStorage.getItem('userID')
   console.log(getID)
   const payload:SubmitTextPayload = {"userID":String(getID),"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
   if(this.textModel.expire_at != ""){
@@ -48,6 +48,11 @@ export class SubmitpageComponent implements OnInit {
   }
     this.httpClient.post<any>("http://localhost:8080/api/submitText", payload, {withCredentials: true}).subscribe(
       response => {
+        let data = {
+          'payload' : payload,
+          'responseid' : response.id
+        }
+        sessionStorage.setItem('data', JSON.stringify(data));
         this.showMessage("TEXT POSTED")
         this.router.navigateByUrl('/textpage?id='+response.id);
       },
@@ -93,17 +98,17 @@ export class SubmitpageComponent implements OnInit {
   }
 
   chooseTagTest(paste: Paste):boolean{
-    this.socialUser.id = "";
     var value = false;
-    if(paste.tag === "public" || paste.tag === "unlisted"){
+    if(paste.userID === "" && (paste.tag === "public" || paste.tag === "unlisted")){
+      value = true;
+    }
+    else if(paste.userID != "" && (paste.tag === "public" || paste.tag === "unlisted" || paste.tag === "private")){
       value = true;
     }
     else{
       value = false;
     }
     return value;
-    
-
   }
 
 }

@@ -16,14 +16,13 @@ export class NavbarComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.auth.authState.subscribe(user=>{
-      if(user){
-        this.logged = true;
-      }
-      else{
-        this.logged = false;
-      }
-    });
+    const id = sessionStorage.getItem('userID');
+    if(id != null){
+      this.logged = true;
+    }
+    else{
+      this.logged = false;
+    }
 
   }
 
