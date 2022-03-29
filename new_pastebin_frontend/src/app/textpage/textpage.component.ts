@@ -22,7 +22,7 @@ export class TextpageComponent implements OnInit {
     this.getText()
   }
   getText(){
-    console.log("storage ID: " + localStorage.getItem('userID'));
+    console.log("storage ID: " + sessionStorage.getItem('userID'));
     this.activatedRoute.queryParams.subscribe(params => {
       let id = params['id'];
       this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(

@@ -36,7 +36,7 @@ export class SubmitpageComponent implements OnInit {
       this.socialUser = user;
       this.logged = true;
       // localStorage.setItem('userID', user.id);
-      // console.log("id: "+ user.id)
+      console.log("id: "+ sessionStorage.getItem('userID'));
     })
   }
   postText(){
@@ -62,6 +62,7 @@ export class SubmitpageComponent implements OnInit {
   }
   showMessage(message: string) {
     this.snackBar.open(message, "OK");
+    console.log("snackbar user id: " + sessionStorage.getItem('userID'));
   }
 
   onChange(tag: string, isChecked: boolean){
