@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
 
   logged:boolean = false;
 
+
   constructor(private auth: SocialAuthService) {
    }
 
