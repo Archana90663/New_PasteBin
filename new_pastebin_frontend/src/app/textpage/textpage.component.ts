@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Paste } from '../types/pastestype';
 import { ActivatedRoute, Router } from '@angular/router';
 import getExpireInText from '../util/getExireIn'
+import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 
 @Component({
   selector: 'app-textpage',
@@ -11,16 +12,25 @@ import getExpireInText from '../util/getExireIn'
 })
 export class TextpageComponent implements OnInit {
   paste!: Paste;
+  public socialUser: SocialUser = new SocialUser;
+  isLoggedin: boolean = false;
   getExpireIn = getExpireInText
   map = new Map();
   
   constructor(
     private httpClient: HttpClient,
     private activatedRoute: ActivatedRoute,
+    private socialAuthService: SocialAuthService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.socialAuthService.authState.subscribe(user=>{
+      this.socialUser = user;
+      this.isLoggedin = true;
+      // localStorage.setItem('userID', this.socialUser.id);
+    });
+
     if(localStorage.getItem('map') === null){
       this.map = new Map();
     }
@@ -60,6 +70,7 @@ export class TextpageComponent implements OnInit {
 
 
     deleteText(){
+      console.log("Inside delete")
       this.activatedRoute.queryParams.subscribe(params => {
         let id = params['id'];
         this.httpClient.post<any>("http://localhost:8080/api/deletePost",{"id":id}).subscribe(
