@@ -21,6 +21,8 @@ interface SubmitTextPayload{
 })
 export class SubmitpageComponent implements OnInit {
   public socialUser: SocialUser = new SocialUser;
+  map = new Map();
+
   constructor(
     private httpClient: HttpClient,
     private snackBar: MatSnackBar,
@@ -36,11 +38,21 @@ export class SubmitpageComponent implements OnInit {
       this.socialUser = user;
       this.logged = true;
       // localStorage.setItem('userID', user.id);
-      console.log("id: "+ sessionStorage.getItem('userID'));
-    })
+      console.log("id: "+ localStorage.getItem('userID'));
+      if(localStorage.getItem('map') === null){
+        this.map = new Map();
+      }
+      else{
+        let jsonObject = JSON.parse(localStorage.getItem('map') || '{}');
+        for (var value in jsonObject) {  
+           this.map.set(value,jsonObject[value])  
+        }
+      }
+    });
   }
+  
   postText(){
-  const getID= sessionStorage.getItem('userID')
+  const getID= localStorage.getItem('userID')
   console.log(getID)
   const payload:SubmitTextPayload = {"userID":String(getID),"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
   if(this.textModel.expire_at != ""){
@@ -48,6 +60,14 @@ export class SubmitpageComponent implements OnInit {
   }
     this.httpClient.post<any>("http://localhost:8080/api/submitText", payload, {withCredentials: true}).subscribe(
       response => {
+        let paste = new Paste(response.id, payload.userID, payload.title, "", (new Date(Date.parse(this.textModel.expire_at))).toISOString(), payload.body, payload.tag);
+        this.map.set(response.id, paste);
+        let jsonObject:any = {};  
+        this.map.forEach((value, key) => {  
+        jsonObject[key] = value  
+});
+        localStorage.setItem('map', JSON.stringify(jsonObject));
+        console.log(JSON.stringify(jsonObject));
         this.showMessage("TEXT POSTED")
         this.router.navigateByUrl('/textpage?id='+response.id);
       },
