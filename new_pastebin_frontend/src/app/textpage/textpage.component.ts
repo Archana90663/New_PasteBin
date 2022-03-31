@@ -50,8 +50,14 @@ export class TextpageComponent implements OnInit {
       let id = params['id'];
       this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(
       response => {
-        this.paste = response
-        console.log(this.paste)
+        if(this.map.has(id)){
+          console.log("map has paste");
+          this.paste = this.map.get(id);
+        }
+        else{
+          this.paste = response;
+        }
+        // console.log(this.paste)
       },
       error => {
         if(error.status == 404){
@@ -62,9 +68,6 @@ export class TextpageComponent implements OnInit {
         }
       }
     );
-    if(!this.map.has(this.paste)){
-      this.paste = this.map.get(id);
-    }
     console.log(this.paste);
   });
     
