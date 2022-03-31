@@ -1,11 +1,12 @@
 describe('Tests Non-Logged in User Paste Permissions', function () {
-  /*it('Creates an Unlisted Paste', function () {
-    cy.visit('http://localhost:4200/submitpage')
+  it('Checks that a Non-Logged in user has limited paste permissions', function () {
+    // Verify User not logged in
+    cy.visit('http://localhost:4200/loginpage')
 
-    // Fill out the title of the paste
-    cy.get('#mat-input-0').type('This is an unlisted paste').should("have.value", "This is an unlisted paste")
+    // If button asks to Continue with Google then user is logged out
+    cy.get('button').contains("Continue With Google")
 
-    // Fill out the body of the paste
+    /*/ Fill out the body of the paste
     cy.get('#richtexteditor_1007234207_0').type('This is the body')
 
     // Fill out the date of the paste
@@ -19,6 +20,6 @@ describe('Tests Non-Logged in User Paste Permissions', function () {
     cy.get('#submitButton').click()
 
     // Refresh page to prove persistance
-    cy.reload()
-  })*/
+    cy.reload()*/
+  })
 })
