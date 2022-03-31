@@ -15,5 +15,5 @@
         {{paste.body}}
       </p>
     </mat-card-content>
-    <p><button mat-raised-button color="warn" (click)="deleteText()" *ngIf="paste.userID === socialUser.id">Delete</button></p>
+    <p><button mat-raised-button color="warn" (click)="deleteText()" *ngIf="paste.userID === socialUser.id" #deleteButton>Delete</button></p>
   </mat-card>
