@@ -48,21 +48,23 @@ export class TextpageComponent implements OnInit {
     console.log("storage ID: " + localStorage.getItem('userID'));
     this.activatedRoute.queryParams.subscribe(params => {
       let id = params['id'];
-    //   this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(
-    //   response => {
-    //     this.paste = response
-    //     console.log(this.paste)
-    //   },
-    //   error => {
-    //     if(error.status == 404){
-    //       this.router.navigateByUrl('/404');
-    //     }
-    //     else if(error.status == 410){
-    //       this.router.navigateByUrl('/expiredpage');
-    //     }
-    //   }
-    // );
-    this.paste = this.map.get(id);
+      this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(
+      response => {
+        this.paste = response
+        console.log(this.paste)
+      },
+      error => {
+        if(error.status == 404){
+          this.router.navigateByUrl('/404');
+        }
+        else if(error.status == 410){
+          this.router.navigateByUrl('/expiredpage');
+        }
+      }
+    );
+    if(!this.map.has(this.paste)){
+      this.paste = this.map.get(id);
+    }
     console.log(this.paste);
   });
     
