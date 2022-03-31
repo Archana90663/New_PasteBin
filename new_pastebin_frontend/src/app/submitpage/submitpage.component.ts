@@ -60,7 +60,7 @@ export class SubmitpageComponent implements OnInit {
   }
     this.httpClient.post<any>("http://localhost:8080/api/submitText", payload, {withCredentials: true}).subscribe(
       response => {
-        let paste = new Paste(response.id, payload.userID, payload.title, "", (new Date(Date.parse(this.textModel.expire_at))).toISOString(), payload.body, payload.tag);
+        let paste = new Paste(response.id, payload.userID, payload.title, new Date().toISOString(), (new Date(Date.parse(this.textModel.expire_at))).toISOString(), payload.body, payload.tag);
         this.map.set(response.id, paste);
         let jsonObject:any = {};  
         this.map.forEach((value, key) => {  

@@ -17,6 +17,7 @@ export class HomepageComponent implements OnInit {
 
   user_name: string = '';
   logged:boolean = false;
+  map = new Map();
 
   getExpireIn = getExpireInText
   constructor(
@@ -25,6 +26,15 @@ export class HomepageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('map') === null){
+      this.map = new Map();
+    }
+    else{
+      let jsonObject = JSON.parse(localStorage.getItem('map') || '{}');
+      for (var value in jsonObject) {  
+         this.map.set(value,jsonObject[value])  
+      }
+    }
     this.getPastes();
     this.auth.authState.subscribe(user =>{
       if(user){
