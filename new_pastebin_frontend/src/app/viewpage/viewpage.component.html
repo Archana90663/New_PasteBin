@@ -11,8 +11,8 @@
             
             <mat-card-content>
                 <br>
-                <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
-                <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
+                <mat-card-subtitle><mat-icon class="today-icon-display">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="today-icon-display">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
                 <mat-card-subtitle >Post tag: {{paste.tag}}</mat-card-subtitle>
       <mat-card-title>{{paste.title}}</mat-card-title>
               <p>
