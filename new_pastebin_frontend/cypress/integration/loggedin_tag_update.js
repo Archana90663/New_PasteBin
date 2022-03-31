@@ -5,5 +5,11 @@ describe('Tests Logged in User Paste Permissions', function () {
     cy.pause()
     cy.get('button').contains("Continue With Google").should('not.exist')
 
+    // Verify we have all options available in pastes
+    cy.visit('http://localhost:4200/submitpage')
+    cy.get('#mat-select-0').click()
+    cy.contains('Public')
+    cy.contains('Private')
+    cy.contains('Unlisted')
   })
 })
