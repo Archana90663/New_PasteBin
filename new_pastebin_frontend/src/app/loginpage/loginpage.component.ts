@@ -31,7 +31,6 @@ export class LoginpageComponent implements OnInit {
       this.socialUser = user;
       this.isLoggedin = true;
       localStorage.setItem('userID', this.socialUser.id);
-
     });
       
   }  
