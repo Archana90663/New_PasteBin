@@ -16,6 +16,8 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
+const {GoogleSocialLogin} = require('cypress-social-logins').plugins
+
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
@@ -25,6 +27,22 @@ module.exports = (on, config) => {
   config.env.googleClientSecret = process.env.REACT_APP_GOOGLE_CLIENT_SECRET
 
   // plugins code ...
+  on('task', {
+    customLogin(options) {
+      async function typeUsername({page, options} = {}) {
+        await page.waitForSelector('input[id="username"]')
+        await page.type('input[id="username"]', options.username)
+      }
+
+      async function typePassword({page, options} = {}) {
+        await page.waitForSelector('input[id="password"]')
+        await page.type('input[id="password"]', options.password)
+        await page.click('button[id="_submit"]')
+      }
+
+      return baseLoginConnect(typeUsername, typePassword, null, options)
+    }
+  })
 
   return config
 }
