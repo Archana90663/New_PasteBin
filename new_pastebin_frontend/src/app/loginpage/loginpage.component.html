@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="custom-card">
     <div *ngIf="isLoggedin === false">
-    <button mat-raised-button color="primary" #button1 class="btn btn-block google-sign-in" (click)="loginWithGoogle()">
+    <button mat-raised-button color="primary" #button1 id="loginbutton" class="btn btn-block google-sign-in" (click)="loginWithGoogle()">
       <mat-icon>login</mat-icon>
       <span class="button-text">Continue With Google</span>
     </button>
