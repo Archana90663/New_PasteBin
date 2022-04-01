@@ -88,6 +88,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/signup", a.userRegister).Methods("POST")
 	a.r.HandleFunc("/api/verifyLogin", a.verifyLogin).Methods("GET")
 	a.r.HandleFunc("/api/allUserTexts", a.allUserTexts).Methods("GET")
+	a.r.HandleFunc("/api/deleteText", a.deleteText).Methods("POST")
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
