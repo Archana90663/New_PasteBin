@@ -18,6 +18,8 @@ export class HomepageComponent implements OnInit {
   user_name: string = '';
   logged:boolean = false;
   map = new Map();
+  mapHas: string[]=[];
+
 
   getExpireIn = getExpireInText
   constructor(
@@ -46,12 +48,30 @@ export class HomepageComponent implements OnInit {
         this.user_name = '';
       }
     });
+    
   }
 
   getPastes(){
     this.httpClient.get<any>("http://localhost:8080/api/allTexts").subscribe(
       response => {
         this.pastes = response.texts
+        this.pastes.forEach(paste=>{
+          this.mapHas.push(paste.id);
+        })
+        console.log(this.mapHas);
+        for(let entry of this.map.entries()){
+          var key = entry[0];
+          if(!this.mapHas.includes(key)){
+            this.map.delete(key);
+          }
+        }
+        let jsonObject:any = {};  
+            this.map.forEach((value, key) => {  
+            jsonObject[key] = value  
+          });
+            localStorage.setItem('map', JSON.stringify(jsonObject));
+            console.log(this.map);
+        this.mapHas = [];
         console.log(this.pastes)
       }
     );
