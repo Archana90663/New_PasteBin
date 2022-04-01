@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Paste } from '../types/pastestype';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from "@angular/material/snack-bar";
 import getExpireInText from '../util/getExireIn'
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 
@@ -21,6 +22,7 @@ export class TextpageComponent implements OnInit {
     private httpClient: HttpClient,
     private activatedRoute: ActivatedRoute,
     private socialAuthService: SocialAuthService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
@@ -75,13 +77,14 @@ export class TextpageComponent implements OnInit {
 
 
     deleteText(){
-      console.log("Inside delete")
       this.activatedRoute.queryParams.subscribe(params => {
         let id = params['id'];
-        this.httpClient.post<any>("http://localhost:8080/api/deletePost",{"id":id}).subscribe(
-        response => {
-          this.paste = response
-          console.log(this.paste)
+        console.log(id);
+        this.httpClient.post<any>("http://localhost:8080/api/deleteText",{"id":id}).subscribe(
+          response => {
+          console.log(response)
+          this.showMessage("TEXT DELETED")
+          this.router.navigateByUrl('/');
         },
         error => {
           if(error.status == 404){
@@ -94,6 +97,11 @@ export class TextpageComponent implements OnInit {
       );
     });
       
+      }
+
+      showMessage(message: string) {
+        this.snackBar.open(message, "OK");
+        console.log("snackbar user id: " + sessionStorage.getItem('userID'));
       }
 }
 

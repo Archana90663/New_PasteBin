@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"encoding/json"
+	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -88,6 +89,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/signup", a.userRegister).Methods("POST")
 	a.r.HandleFunc("/api/verifyLogin", a.verifyLogin).Methods("GET")
 	a.r.HandleFunc("/api/allUserTexts", a.allUserTexts).Methods("GET")
+	a.r.HandleFunc("/api/deleteText", a.deleteText).Methods("POST")
 	spa := spaHandler{staticFS: static, staticPath: "static", indexPath: "index.html"}
 	a.r.PathPrefix("/").Handler(spa)
 
@@ -386,4 +388,19 @@ func GetIP(r *http.Request) string {
 		return forwarded
 	}
 	return r.RemoteAddr
+}
+
+func (a *App) deleteText(w http.ResponseWriter, r *http.Request) {
+	var req getTextRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if err != nil {
+		sendErr(w, http.StatusBadRequest, "ID not sent properly")
+	}
+	isDelete := deleteText(a.db, req.Id)
+	log.Println(isDelete)
+	if isDelete {
+		fmt.Println("Paste Deleted")
+	} else {
+		log.Print("app.go Could not delete")
+	}
 }
