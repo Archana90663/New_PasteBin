@@ -81,6 +81,7 @@ export class TextpageComponent implements OnInit {
           response => {
           console.log(response)
           this.showMessage("TEXT DELETED")
+          this.router.navigateByUrl('/');
         },
         error => {
           if(error.status == 404){
