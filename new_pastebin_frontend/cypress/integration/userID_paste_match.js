@@ -13,5 +13,6 @@ describe('Checks if a paste userID is the same as the user that created it', fun
         cy.visit('http://localhost:4200')
         cy.contains('Welcome to PasteBin 2.0!')
         cy.contains('Shiba Inu')
+        cy.contains('This is a test public paste')
     })
 })
