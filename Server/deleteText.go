@@ -8,15 +8,13 @@ import (
 
 func deleteText(db *gorm.DB, id string) bool {
 	var textObject Text
-
-	// error := db.Where("Id =?", id).Delete(&Text{})
 	errorGet := db.Where("id = ?", id).First(&textObject)
 
 	if errorGet != nil {
 		log.Println(errorGet)
 	}
 
-	error := db.Where("Id =?", id).Delete(&Text{})
+	error := db.Delete(&textObject)
 
 	if error.Error != nil {
 		log.Print(error.Error)
