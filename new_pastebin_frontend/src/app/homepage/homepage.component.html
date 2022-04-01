@@ -15,7 +15,7 @@
     </div>
     <br>
     <br>
-    <mat-form-field appearance="fill" style="float: right">
+    <mat-form-field appearance="fill" style="float: right;">
       <mat-label>Filter</mat-label>
       <mat-select>
         <mat-option #option1 [value]="'Newest'" (click)="onChange('newest', option1.selected)">
@@ -32,7 +32,7 @@
     <div class="m-3">
       <div class="wrap">
         <mat-form-field>
-        <div class="search" id="searchbar">
+        <div class="search" id="searchbar" >
           <input type="text" matInput [(ngModel)]="term" class="searchTerm" placeholder="Search">
           
         </div>
@@ -89,7 +89,6 @@
                 <mat-card-subtitle>{{socialUser.email.split('@')[0]}}</mat-card-subtitle>
               </mat-card-header>
               <mat-divider inset></mat-divider>
-              
               <mat-card-content>
                   <br>
                   <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
@@ -131,28 +130,4 @@
         </div>
       </div>
 
-    <!-- <div style="margin-top: 30px;"*ngFor="let paste of pastes">      
-        <mat-card class="pb-text-listing-card" matRipple>
-            <mat-card-header>
-              <div mat-card-avatar class="pb-text-avatar-image"></div>
-              <mat-card-title>Shiba Inu</mat-card-title>
-              <mat-card-subtitle>@shb</mat-card-subtitle>
-            </mat-card-header>
-            <mat-divider inset></mat-divider>
-            
-            <mat-card-content>
-                <br>
-                <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
-                <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
-                <mat-card-subtitle >Post tag: {{paste.tag}}</mat-card-subtitle>
-      <mat-card-title>{{paste.title}}</mat-card-title>
-              <p>
-                {{paste.body}}
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:paste.id}">READ</button>
-            </mat-card-actions>
-          </mat-card>
-        </div> -->
 </body>

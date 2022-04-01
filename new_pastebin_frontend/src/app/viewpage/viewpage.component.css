@@ -1,2 +1,9 @@
-mat-card { background-color: #dad3e7; }
-.today-icon-display { vertical-align: bottom; transform: scale(.75); }
+mat-card {
+  background-color: white;
+}
+.today-icon-display {
+  vertical-align: bottom;
+  transform: scale(0.75);
+}
+
+/* #dad3e7; */
