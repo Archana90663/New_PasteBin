@@ -85,6 +85,11 @@ If you try to open the link of an expired paste, it will display an error messag
 
 ![](https://i.imgur.com/iQwPj6L.gif)
 
+## Login to PasteBin
+Users have the ability to login to our application using the Google Login API. This is for users who want to create private pastes as well
+
+![](https://imgur.com/a/6UpIwXB.gif)
+
 ## How to build the app
 If your target machine is not supported by the executable in the releases section, first you will have to build the app.
 First make sure you have all the requirements installed.
