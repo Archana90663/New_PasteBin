@@ -1,18 +1,18 @@
 .pb-text-avatar-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
-  .pg-subtitle-icon{
-    vertical-align: text-top;
-    font-size: 16px;
-  }
-  .pb-text-listing-card{
-      margin-bottom: 20px;
-  }
-  .pb-text-listing-card { 
-    transition: all .2s ease-in-out; 
-  }
-  .pb-text-listing-card:hover { 
-    transform: scale(1.005); 
-    box-shadow: 0px 4px 8px -1px rgb(0 0 0 / 30%);
-  }
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+.pg-subtitle-icon {
+  vertical-align: text-top;
+  font-size: 16px;
+}
+.pb-text-listing-card {
+  margin-bottom: 20px;
+}
+.pb-text-listing-card {
+  transition: all 0.2s ease-in-out;
+}
+.pb-text-listing-card:hover {
+  transform: scale(1.005);
+  box-shadow: 0px 4px 8px -1px rgb(0 0 0 / 30%);
+}
