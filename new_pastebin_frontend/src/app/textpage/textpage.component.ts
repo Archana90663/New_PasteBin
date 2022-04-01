@@ -53,7 +53,6 @@ export class TextpageComponent implements OnInit {
       this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(
       response => {
         if(this.map.has(id)){
-          console.log("map has paste");
           this.paste = this.map.get(id);
         }
         else{
@@ -83,6 +82,13 @@ export class TextpageComponent implements OnInit {
         this.httpClient.post<any>("http://localhost:8080/api/deleteText",{"id":id}).subscribe(
           response => {
           console.log(response)
+          if(this.map.has(id)){
+            this.map.delete(id);
+            let jsonObject:any = {};  
+            this.map.forEach((value, key) => {  
+            jsonObject[key] = value  
+    });
+            localStorage.setItem('map', JSON.stringify(jsonObject));          }
           this.showMessage("TEXT DELETED")
           this.router.navigateByUrl('/');
         },

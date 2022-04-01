@@ -24,12 +24,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe(user =>{
+      this.socialUser = user;
       if(user != null){
         this.logged = true;
       }
       else{
         this.logged = false;
       }
+      localStorage.setItem('userID', this.socialUser.id);
     });
 
   }

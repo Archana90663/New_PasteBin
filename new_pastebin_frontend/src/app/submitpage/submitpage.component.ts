@@ -67,7 +67,6 @@ export class SubmitpageComponent implements OnInit {
         jsonObject[key] = value  
 });
         localStorage.setItem('map', JSON.stringify(jsonObject));
-        console.log(JSON.stringify(jsonObject));
         this.showMessage("TEXT POSTED")
         this.router.navigateByUrl('/textpage?id='+response.id);
       },
