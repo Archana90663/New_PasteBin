@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Paste } from '../types/pastestype';
 import getExpireInText from '../util/getExireIn'
-import { SocialAuthService} from 'angularx-social-login';
+import { SocialAuthService, SocialUser } from 'angularx-social-login';
 
 
 @Component({
@@ -20,14 +20,27 @@ export class HomepageComponent implements OnInit {
   map = new Map();
   mapHas: string[]=[];
 
+  public socialUser: SocialUser = new SocialUser;
 
   getExpireIn = getExpireInText
   constructor(
+    private socialAuthService: SocialAuthService,
     private httpClient: HttpClient,
     private auth: SocialAuthService
     ) { }
 
   ngOnInit(): void {
+    this.socialAuthService.authState.subscribe(user =>{
+      this.socialUser = user;
+      if(user != null){
+        this.logged = true;
+      }
+      else{
+        this.logged = false;
+      }
+      localStorage.setItem('userID', this.socialUser.id);
+    });
+    
     if(localStorage.getItem('map') === null){
       this.map = new Map();
     }
