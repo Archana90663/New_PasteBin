@@ -59,7 +59,7 @@ export class NavbarComponent implements OnInit {
         }
       );
     });
-    
+    this.logged = true;
     this.router.navigateByUrl('/');
     console.log("ID: " + localStorage.getItem('userID'));
   }
@@ -68,6 +68,7 @@ export class NavbarComponent implements OnInit {
     this.socialAuthService.signOut();
     this.httpClient.get('http://localhost:8080/api/logout')
     localStorage.removeItem('userID');
+    this.logged = false;
     console.log("ID: " + localStorage.getItem('userID'));
     this.router.navigateByUrl('/');
   }
