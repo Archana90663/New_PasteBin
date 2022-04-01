@@ -62,6 +62,12 @@ export class NavbarComponent implements OnInit {
     console.log("ID: " + localStorage.getItem('userID'));
   }
 
- 
+  logOut(): void {
+    this.socialAuthService.signOut();
+    this.httpClient.get('http://localhost:8080/api/logout')
+    localStorage.removeItem('userID');
+    console.log("ID: " + localStorage.getItem('userID'));
+    this.router.navigateByUrl('/');
+  }
 
 }
