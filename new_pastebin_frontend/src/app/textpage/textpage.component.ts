@@ -66,6 +66,8 @@ export class TextpageComponent implements OnInit {
         }
         else if(error.status == 410){
           this.router.navigateByUrl('/expiredpage');
+        } else if(error.status == 401){
+          this.router.navigateByUrl('/pageaccessdenied');
         }
       }
     );
