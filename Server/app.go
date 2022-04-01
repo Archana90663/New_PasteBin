@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"encoding/json"
+	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -387,4 +388,19 @@ func GetIP(r *http.Request) string {
 		return forwarded
 	}
 	return r.RemoteAddr
+}
+
+func (a *App) deleteText(w http.ResponseWriter, r *http.Request) {
+	var req getTextRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if err != nil {
+		sendErr(w, http.StatusBadRequest, "ID not sent properly")
+	}
+	isDelete := deleteText(a.db, req.Id)
+	log.Println(isDelete)
+	if isDelete {
+		fmt.Println("Paste Deleted")
+	} else {
+		log.Print("app.go Could not delete")
+	}
 }
