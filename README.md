@@ -88,7 +88,32 @@ If you try to open the link of an expired paste, it will display an error messag
 ## Login to PasteBin
 Users have the ability to login to our application using the Google Login API. This is for users who want to create private pastes as well
 
-![](https://imgur.com/a/6UpIwXB)
+![](https://i.imgur.com/FSh3SSe.gif)
+
+## Logout of PasteBin
+Users can also logout and the navbar gets updated accordingly
+
+![](https://i.imgur.com/qia0Lav.gif)
+
+## View Account Profile
+Users can view their account profile in PasteBin 2.0. It consists of their profile picture, name, email, and username
+
+![](https://i.imgur.com/41WRq28.gif)
+
+## View User's Pastes
+Users can view all the pastes they've created in the past (as long as they haven't expired yet)
+
+![](https://i.imgur.com/8g7rl7N.gif)
+
+## Delete Paste
+Users have the ability to delete their pastes (as long as they haven't expired yet)
+
+![](https://i.imgur.com/4dgFACD.gif)
+
+## About Page
+We have created an about page that summarizes what our application is about, how it's different from the original PasteBin, and information about the developers.
+
+![](https://i.imgur.com/Q1FpzxU.gif)
 
 ## How to build the app
 If your target machine is not supported by the executable in the releases section, first you will have to build the app.
