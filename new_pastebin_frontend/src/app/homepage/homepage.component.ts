@@ -30,17 +30,32 @@ export class HomepageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.socialAuthService.authState.subscribe(user =>{
-      this.socialUser = user;
-      if(user != null){
-        this.logged = true;
-      }
-      else{
-        this.logged = false;
-      }
-      localStorage.setItem('userID', this.socialUser.id);
-    });
-    
+    var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
+    console.log(loggedInStatus);
+    if(loggedInStatus === true){
+      this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+      this.logged = true;
+      console.log(this.socialUser);
+      this.user_name = this.socialUser.firstName;
+    }
+    else{
+      this.logged = false;
+      this.user_name = '';
+      console.log("Looged out");
+
+    }
+    // this.socialAuthService.authState.subscribe(user =>{
+    //   this.socialUser = user;
+    //   if(user != null){
+    //     this.logged = true;
+    //   }
+    //   else{
+    //     this.logged = false;
+    //   }
+    //   localStorage.setItem('userID', this.socialUser.id);
+    // });
+    localStorage.setItem('userID', this.socialUser.id);
+
     if(localStorage.getItem('map') === null){
       this.map = new Map();
     }
@@ -50,17 +65,19 @@ export class HomepageComponent implements OnInit {
          this.map.set(value,jsonObject[value])  
       }
     }
+    
+    console.log("homepage username: " + this.user_name);
     this.getPastes();
-    this.auth.authState.subscribe(user =>{
-      if(user){
-        this.logged = true;
-        this.user_name = user.firstName;
-      }
-      else{
-        this.logged = false;
-        this.user_name = '';
-      }
-    });
+    // this.auth.authState.subscribe(user =>{
+    //   if(user){
+    //     this.logged = true;
+    //     this.user_name = user.firstName;
+    //   }
+    //   else{
+    //     this.logged = false;
+    //     this.user_name = '';
+    //   }
+    // });
     
   }
 
