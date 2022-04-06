@@ -31,19 +31,18 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit(): void {
     var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
-    console.log(loggedInStatus);
     if(loggedInStatus === true){
       this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
       this.logged = true;
       console.log(this.socialUser);
       this.user_name = this.socialUser.firstName;
+      
     }
     else{
       this.logged = false;
       this.user_name = '';
-      console.log("Looged out");
-
     }
+
     // this.socialAuthService.authState.subscribe(user =>{
     //   this.socialUser = user;
     //   if(user != null){
@@ -66,7 +65,7 @@ export class HomepageComponent implements OnInit {
       }
     }
     
-    console.log("homepage username: " + this.user_name);
+
     this.getPastes();
     // this.auth.authState.subscribe(user =>{
     //   if(user){

@@ -62,6 +62,7 @@ export class LoginpageComponent implements OnInit {
       this.httpClient.post<any>("http://localhost:8080/api/login", {"idToken": this.socialUser.idToken}, {headers: headers, withCredentials: true}).subscribe(
         res=>{
           console.log("logged: " + res);
+          window.location.reload();
         }
       );
       this.httpClient.get<any>("http://localhost:8080/api/verifyLogin", {withCredentials:true}).subscribe(
@@ -69,14 +70,14 @@ export class LoginpageComponent implements OnInit {
           console.log("response: " + response.loggedIn);
         }
       );
+      
     });
     
-    this.router.navigateByUrl('/');
+    
     localStorage.setItem('loggedInStatus', 'true');
     console.log("ID: " + localStorage.getItem('userID'));
     // this.isLoggedin = true;
-
-
+    this.router.navigateByUrl('/');
   }
 
   logOut(): void {

@@ -64,6 +64,7 @@ export class NavbarComponent implements OnInit {
       this.httpClient.post<any>("http://localhost:8080/api/login", {"idToken": this.socialUser.idToken}, {headers: headers, withCredentials: true}).subscribe(
         res=>{
           console.log("logged: " + res);
+          window.location.reload();
         }
       );
       this.httpClient.get<any>("http://localhost:8080/api/verifyLogin", {withCredentials:true}).subscribe(
@@ -73,10 +74,10 @@ export class NavbarComponent implements OnInit {
       );
     });
     // this.logged = true;
-    this.router.navigateByUrl('/');
-    console.log(this.socialUser);
     localStorage.setItem('loggedInStatus', 'true');
     console.log("ID: " + localStorage.getItem('userID'));
+    this.router.navigateByUrl('/');
+    
   }
 
   logOut(): void {
