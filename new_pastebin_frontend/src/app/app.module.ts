@@ -38,6 +38,7 @@ import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { ViewpageComponent } from './viewpage/viewpage.component';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { PageaccessdeniedComponent } from './pageaccessdenied/pageaccessdenied.component';
+import { SignuppageComponent } from './signuppage/signuppage.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { PageaccessdeniedComponent } from './pageaccessdenied/pageaccessdenied.c
     ViewpageComponent,
     AboutpageComponent,
     PageaccessdeniedComponent,
+    SignuppageComponent,
   ],
   imports: [
     BrowserModule,
