@@ -23,16 +23,28 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.socialAuthService.authState.subscribe(user =>{
-      this.socialUser = user;
-      if(user != null){
-        this.logged = true;
-      }
-      else{
-        this.logged = false;
-      }
-      localStorage.setItem('userID', this.socialUser.id);
-    });
+    var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
+    console.log(loggedInStatus);
+    if(loggedInStatus === true){
+      this.logged = true;
+      this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+      console.log(this.socialUser);
+    }
+    else{
+      this.logged = false;
+    }
+    // this.socialAuthService.authState.subscribe(user =>{
+    //   this.socialUser = user;
+    //   if(user != null){
+    //     this.logged = true;
+    //   }
+    //   else{
+    //     this.logged = false;
+    //   }
+    //   localStorage.setItem('userID', this.socialUser.id);
+    // });
+    localStorage.setItem('userID', this.socialUser.id);
+
 
   }
 
@@ -40,6 +52,7 @@ export class NavbarComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
+      localStorage.setItem('user', JSON.stringify(this.socialUser));
       console.log("ID: " + this.socialUser.id);
 
       let headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -59,8 +72,10 @@ export class NavbarComponent implements OnInit {
         }
       );
     });
-    this.logged = true;
+    // this.logged = true;
     this.router.navigateByUrl('/');
+    console.log(this.socialUser);
+    localStorage.setItem('loggedInStatus', 'true');
     console.log("ID: " + localStorage.getItem('userID'));
   }
 
@@ -69,8 +84,11 @@ export class NavbarComponent implements OnInit {
     this.httpClient.get('http://localhost:8080/api/logout')
     localStorage.removeItem('userID');
     this.logged = false;
+    localStorage.setItem('loggedInStatus', 'false');
+    localStorage.removeItem('user');
     console.log("ID: " + localStorage.getItem('userID'));
     this.router.navigateByUrl('/');
+    window.location.reload();
   }
 
 }

@@ -27,18 +27,30 @@ export class LoginpageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.socialAuthService.authState.subscribe(user=>{
-      this.socialUser = user;
+    var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
+    console.log(loggedInStatus);
+    if(loggedInStatus === true){
       this.isLoggedin = true;
-      localStorage.setItem('userID', this.socialUser.id);
-    });
-      
+      this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+      console.log(this.socialUser);
+    }
+    else{
+      this.isLoggedin = false;
+    }
+    // this.socialAuthService.authState.subscribe(user=>{
+    //   this.socialUser = user;
+    //   this.isLoggedin = true;
+    //   localStorage.setItem('userID', this.socialUser.id);
+    // });
+    localStorage.setItem('userID', this.socialUser.id);
+
   }  
 
   public loginWithGoogle(): void{
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
+      localStorage.setItem('user', JSON.stringify(this.socialUser));
       console.log("ID: " + this.socialUser.id);
 
       let headers = new HttpHeaders({'Content-Type': 'application/json'});
@@ -60,8 +72,9 @@ export class LoginpageComponent implements OnInit {
     });
     
     this.router.navigateByUrl('/');
+    localStorage.setItem('loggedInStatus', 'true');
     console.log("ID: " + localStorage.getItem('userID'));
-    this.isLoggedin = true;
+    // this.isLoggedin = true;
 
 
   }
@@ -71,8 +84,11 @@ export class LoginpageComponent implements OnInit {
     this.isLoggedin = false;
     this.httpClient.get('http://localhost:8080/api/logout')
     localStorage.removeItem('userID');
+    localStorage.setItem('loggedInStatus', 'false');
+    localStorage.removeItem('user');
     console.log("ID: " + localStorage.getItem('userID'));
-
+    this.router.navigateByUrl('/');
+    window.location.reload();
   }
 
   Testlogin(): SocialUser{
