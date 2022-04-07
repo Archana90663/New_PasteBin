@@ -19,12 +19,21 @@ export class ProfilepageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.socialAuthService.authState.subscribe(user =>{
-      this.socialUser = user;
-      console.log("user: " + user.email);
+    var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
+    if(loggedInStatus === true){
       this.isLoggedin = true;
-      console.log("LOGGED: " + this.isLoggedin);
-    });
+      this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+      console.log(this.socialUser);
+    }
+    else{
+      this.isLoggedin = false;
+    }
+    // this.socialAuthService.authState.subscribe(user =>{
+    //   this.socialUser = user;
+    //   console.log("user: " + user.email);
+    //   this.isLoggedin = true;
+    //   console.log("LOGGED: " + this.isLoggedin);
+    // });
   }
 
 }
