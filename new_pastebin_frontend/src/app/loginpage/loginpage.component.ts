@@ -62,12 +62,13 @@ export class LoginpageComponent implements OnInit {
       this.httpClient.post<any>("http://localhost:8080/api/login", {"idToken": this.socialUser.idToken}, {headers: headers, withCredentials: true}).subscribe(
         res=>{
           console.log("logged: " + res);
-          window.location.reload();
         }
       );
       this.httpClient.get<any>("http://localhost:8080/api/verifyLogin", {withCredentials:true}).subscribe(
         response=>{
           console.log("response: " + response.loggedIn);
+          window.location.reload();
+
         }
       );
       
