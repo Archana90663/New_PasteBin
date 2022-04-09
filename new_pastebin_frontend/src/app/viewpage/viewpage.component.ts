@@ -36,10 +36,16 @@ export class ViewpageComponent implements OnInit {
     }
     this.getPastes();
     
-    this.socialAuthService.authState.subscribe(user =>{
-      this.socialUser = user;
-      console.log("user: " + user.email);
-    });
+    var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
+    if(loggedInStatus === true){
+      this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+      console.log(this.socialUser);
+    }
+    
+    // this.socialAuthService.authState.subscribe(user =>{
+    //   this.socialUser = user;
+    //   console.log("user: " + user.email);
+    // });
   }
 
   getPastes(){
