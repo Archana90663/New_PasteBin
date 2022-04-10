@@ -27,11 +27,12 @@ export class TextpageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.socialAuthService.authState.subscribe(user=>{
-      this.socialUser = user;
-      this.isLoggedin = true;
-      // localStorage.setItem('userID', this.socialUser.id);
-    });
+    var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
+    if(loggedInStatus === true){
+      this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+      console.log(this.socialUser);
+    }
+    
 
     if(localStorage.getItem('map') === null){
       this.map = new Map();
