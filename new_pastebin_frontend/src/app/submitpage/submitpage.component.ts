@@ -34,11 +34,16 @@ export class SubmitpageComponent implements OnInit {
   logged:boolean = false;
   title = new FormControl('', [Validators.required]);
   ngOnInit(): void {
-    this.socialAuthService.authState.subscribe(user =>{
-      this.socialUser = user;
+    var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
+    if(loggedInStatus === true){
+      this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
       this.logged = true;
-      // localStorage.setItem('userID', user.id);
-      console.log("id: "+ localStorage.getItem('userID'));
+      console.log(this.socialUser);
+    }
+    else{
+      this.logged = false;
+    }
+    console.log("id: "+ localStorage.getItem('userID'));
       if(localStorage.getItem('map') === null){
         this.map = new Map();
       }
@@ -48,7 +53,6 @@ export class SubmitpageComponent implements OnInit {
            this.map.set(value,jsonObject[value])  
         }
       }
-    });
   }
   
   postText(){
