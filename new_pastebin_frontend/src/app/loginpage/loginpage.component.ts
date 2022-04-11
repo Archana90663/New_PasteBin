@@ -54,11 +54,7 @@ export class LoginpageComponent implements OnInit {
       console.log("ID: " + this.socialUser.id);
 
       let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    this.httpClient.post<any>("http://localhost:8080/api/signup", {"idToken": this.socialUser.idToken, "handle":"blah"}, {headers: headers, withCredentials: true}).subscribe(
-        res=>{
-          console.log("signedup: " + res);
-        }
-      );
+    
       this.httpClient.post<any>("http://localhost:8080/api/login", {"idToken": this.socialUser.idToken}, {headers: headers, withCredentials: true}).subscribe(
         res=>{
           console.log("logged: " + res);
