@@ -9,7 +9,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
+
+	// "strings"
 	"time"
 
 	"github.com/go-co-op/gocron"
@@ -86,7 +87,7 @@ func (a *App) start() {
 	a.r.HandleFunc("/api/login", a.userLogin).Methods("POST")
 	a.r.HandleFunc("/api/userInfo", a.userInfo).Methods("GET")
 	a.r.HandleFunc("/api/logout", a.userLogout).Methods("GET")
-	a.r.HandleFunc("/api/signup", a.userRegister).Methods("POST")
+	// a.r.HandleFunc("/api/signup", a.userRegister).Methods("POST")
 	a.r.HandleFunc("/api/verifyLogin", a.verifyLogin).Methods("GET")
 	a.r.HandleFunc("/api/allUserTexts", a.allUserTexts).Methods("GET")
 	a.r.HandleFunc("/api/deleteText", a.deleteText).Methods("POST")
@@ -142,8 +143,8 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		userId := session.Values["user"]
 		if userId != nil {
 			userIdString = session.Values["user"].(string)
-			userInfo := getUser(a.db, userId.(string))[0]
-			handle = userInfo.Handle
+			// userInfo := getUser(a.db, userId.(string))[0]
+			// handle = userInfo.Handle
 		}
 	}
 	if (text.Tag == "private") && userIdString == "" {
@@ -252,13 +253,20 @@ func (a *App) userLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	user := getUser(a.db, userId.Id)
+	var currUser UserInfo
 	if user == nil {
-		sendErr(w, http.StatusNotFound, "User doesn't exist")
-		return
+		currUser = UserInfo{Id: userId.Id}
+		err = registerUser(a.db, currUser)
+		if err != nil {
+			sendErr(w, http.StatusInternalServerError, err.Error())
+			return
+		}
+	} else {
+		currUser = user[0]
 	}
 	session, err := cookieStore.New(r, cookie)
 	if err == nil {
-		session.Values["user"] = user[0].Id
+		session.Values["user"] = currUser.Id
 		err = session.Save(r, w)
 	}
 	if err != nil {
@@ -296,43 +304,44 @@ func (a *App) userLogout(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusNotFound, "No session found")
 	}
 }
-func (a *App) userRegister(w http.ResponseWriter, r *http.Request) {
-	var req UserRegisterRequest
-	err := json.NewDecoder(r.Body).Decode(&req)
-	if err != nil {
-		sendErr(w, http.StatusInternalServerError, err.Error())
-		return
-	}
-	if req.IdToken == "" {
-		sendErr(w, http.StatusBadRequest, "No Id given")
-		return
-	}
-	if req.Handle == "" {
-		sendErr(w, http.StatusBadRequest, "No handle given")
-		return
-	}
-	userId, err := verifyIdToken(a.db, req.IdToken)
-	if err != nil {
-		sendErr(w, http.StatusUnauthorized, "could not verify given token")
-		return
-	}
-	user := UserInfo{Id: userId.Id, Handle: req.Handle}
-	err = registerUser(a.db, user)
-	if err != nil {
-		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
-			if strings.Contains(err.Error(), "user_infos.id") {
-				sendErr(w, http.StatusMethodNotAllowed, "User already has an account")
-				return
-			}
-			if strings.Contains(err.Error(), "user_infos.handle") {
-				sendErr(w, http.StatusConflict, "Handle is taken")
-				return
-			}
-			sendErr(w, http.StatusInternalServerError, err.Error())
-		}
-	}
 
-}
+// func (a *App) userRegister(w http.ResponseWriter, r *http.Request) {
+// 	var req UserRegisterRequest
+// 	err := json.NewDecoder(r.Body).Decode(&req)
+// 	if err != nil {
+// 		sendErr(w, http.StatusInternalServerError, err.Error())
+// 		return
+// 	}
+// 	if req.IdToken == "" {
+// 		sendErr(w, http.StatusBadRequest, "No Id given")
+// 		return
+// 	}
+// 	if req.Handle == "" {
+// 		sendErr(w, http.StatusBadRequest, "No handle given")
+// 		return
+// 	}
+// 	userId, err := verifyIdToken(a.db, req.IdToken)
+// 	if err != nil {
+// 		sendErr(w, http.StatusUnauthorized, "could not verify given token")
+// 		return
+// 	}
+// 	user := UserInfo{Id: userId.Id, Handle: req.Handle}
+// 	err = registerUser(a.db, user)
+// 	if err != nil {
+// 		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
+// 			if strings.Contains(err.Error(), "user_infos.id") {
+// 				sendErr(w, http.StatusMethodNotAllowed, "User already has an account")
+// 				return
+// 			}
+// 			if strings.Contains(err.Error(), "user_infos.handle") {
+// 				sendErr(w, http.StatusConflict, "Handle is taken")
+// 				return
+// 			}
+// 			sendErr(w, http.StatusInternalServerError, err.Error())
+// 		}
+// 	}
+
+// }
 
 func (a *App) verifyLogin(w http.ResponseWriter, r *http.Request) {
 	session, err := cookieStore.Get(r, cookie)
