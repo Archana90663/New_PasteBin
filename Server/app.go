@@ -137,7 +137,6 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	userIdString := ""
-	handle := ""
 	session, err := cookieStore.Get(r, cookie)
 	if err == nil {
 		userId := session.Values["user"]
@@ -152,7 +151,6 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	text.UserID = userIdString
-	text.Handle = handle
 	err, id := postText(a.db, text, GetIP(r))
 	if err != nil {
 		sendErr(w, http.StatusBadRequest, err.Error())
