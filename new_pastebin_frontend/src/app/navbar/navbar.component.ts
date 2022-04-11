@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
 
   public socialUser: SocialUser = new SocialUser;
   logged:boolean = false;
+  userMap = new Map();
 
   constructor(
     private socialAuthService: SocialAuthService, 
@@ -52,6 +53,24 @@ export class NavbarComponent implements OnInit {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe(user =>{
       this.socialUser = user;
+      if(localStorage.getItem('userMap') === null){
+        this.userMap = new Map();
+      }
+      else{
+        let jsonObject = JSON.parse(localStorage.getItem('userMap') || '{}');
+        for (var value in jsonObject) {  
+           this.userMap.set(value,jsonObject[value])  
+        }
+      }
+      if(!this.userMap.has(this.socialUser.id)){
+        this.userMap.set(this.socialUser.id, this.socialUser);
+      }
+      let jsonObject:any = {};  
+      this.userMap.forEach((value, key) => {  
+      jsonObject[key] = value  
+    });
+      localStorage.setItem('userMap', JSON.stringify(jsonObject));
+      console.log(this.userMap);      
       localStorage.setItem('user', JSON.stringify(this.socialUser));
       console.log("ID: " + this.socialUser.id);
 

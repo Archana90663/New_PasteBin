@@ -80,31 +80,33 @@
 
     <h1 style="text-align: center">Pastes</h1>
     
-    <div style="margin-top: 30px;"*ngFor="let paste of pastes">      
-      <div *ngIf="paste.userID === socialUser.id">
+    <div style="margin-top: 30px;"*ngFor="let pastes of this.map.entries()">
+      <div *ngFor="let users of this.userMap.entries()"> 
+             <div *ngIf="users[0] === pastes[1].userID;">
           <mat-card class="pb-text-listing-card" matRipple>
               <mat-card-header>
-                <img mat-card-avatar src="{{socialUser.photoUrl}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
-                <mat-card-title>{{socialUser.name}}</mat-card-title>
-                <mat-card-subtitle>{{socialUser.email.split('@')[0]}}</mat-card-subtitle>
+                <img mat-card-avatar src="{{users[1].photoUrl}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
+                <mat-card-title>{{users[1].name}}</mat-card-title>
+                <mat-card-subtitle>@{{users[1].email.split('@')[0]}}</mat-card-subtitle>
               </mat-card-header>
               <mat-divider inset></mat-divider>
               <mat-card-content>
                   <br>
-                  <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
-                  <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
-                  <mat-card-subtitle >Post tag: {{paste.tag}}</mat-card-subtitle>
-        <mat-card-title>{{paste.title}}</mat-card-title>
+                  <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{pastes[1].created_at | date}}</mat-card-subtitle>
+                  <mat-card-subtitle *ngIf="pastes[1].expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(this.map.get(pastes[0]).expire_at)}}</mat-card-subtitle>
+                  <mat-card-subtitle >Post tag: {{pastes[1].tag}}</mat-card-subtitle>
+        <mat-card-title>{{pastes[1].title}}</mat-card-title>
                 <p>
-                  {{paste.body}}
+                  {{pastes[1].body}}
                 </p>
               </mat-card-content>
               <mat-card-actions>
-                <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:paste.id}">READ</button>
+                <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:pastes[1].id}">READ</button>
               </mat-card-actions>
             </mat-card>
+          </div>
         </div>
-        <div *ngIf="paste.userID != socialUser.id">
+        <div *ngIf="!this.userMap.has(pastes[1].userID)">
           <mat-card class="pb-text-listing-card" matRipple>
             <mat-card-header>
               <div mat-card-avatar class="pb-text-avatar-image"></div>
@@ -115,16 +117,16 @@
             
             <mat-card-content>
                 <br>
-                <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
-                <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
-                <mat-card-subtitle >Post tag: {{paste.tag}}</mat-card-subtitle>
-      <mat-card-title>{{paste.title}}</mat-card-title>
+                <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{pastes[1].created_at | date}}</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="pastes[1].expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(this.map.get(pastes[0]).expire_at)}}</mat-card-subtitle>
+                <mat-card-subtitle >Post tag: {{pastes[1].tag}}</mat-card-subtitle>
+      <mat-card-title>{{pastes[1].title}}</mat-card-title>
               <p>
-                {{paste.body}}
+                {{pastes[1].body}}
               </p>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:paste.id}">READ</button>
+              <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:pastes[1].id}">READ</button>
             </mat-card-actions>
           </mat-card>
         </div>

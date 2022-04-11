@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Paste } from '../types/pastestype';
 import getExpireInText from '../util/getExireIn'
@@ -8,6 +8,7 @@ import { SocialAuthService, SocialUser } from 'angularx-social-login';
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
@@ -19,6 +20,7 @@ export class HomepageComponent implements OnInit {
   logged:boolean = false;
   map = new Map();
   mapHas: string[]=[];
+  userMap = new Map();
 
   public socialUser: SocialUser = new SocialUser;
 
@@ -41,6 +43,17 @@ export class HomepageComponent implements OnInit {
     else{
       this.logged = false;
       this.user_name = '';
+    }
+
+    if(localStorage.getItem('userMap') === null){
+      this.userMap = new Map();
+    }
+    else{
+      let jsonObject = JSON.parse(localStorage.getItem('userMap') || '{}');
+      for (var value in jsonObject) {  
+         this.userMap.set(value,jsonObject[value])  
+      }
+      console.log(this.userMap);
     }
 
     // this.socialAuthService.authState.subscribe(user =>{
