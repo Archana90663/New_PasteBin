@@ -8,8 +8,7 @@ import (
 )
 
 type UserInfo struct {
-	Id     string `json:"id"`
-	Handle string `json:"handle" gorm:"uniqueIndex"`
+	Id string `json:"id"`
 }
 type UserInfoRequest struct {
 	IdToken string `json:"idToken"`
