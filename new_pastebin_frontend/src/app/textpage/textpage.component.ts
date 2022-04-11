@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Paste } from '../types/pastestype';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-soc
 @Component({
   selector: 'app-textpage',
   templateUrl: './textpage.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./textpage.component.css']
 })
 export class TextpageComponent implements OnInit {
@@ -17,6 +18,7 @@ export class TextpageComponent implements OnInit {
   isLoggedin: boolean = false;
   getExpireIn = getExpireInText
   map = new Map();
+  userMap = new Map();
   
   constructor(
     private httpClient: HttpClient,
@@ -30,9 +32,17 @@ export class TextpageComponent implements OnInit {
     var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
     if(loggedInStatus === true){
       this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
-      console.log(this.socialUser);
     }
-    
+    if(localStorage.getItem('userMap') === null){
+      this.userMap = new Map();
+    }
+    else{
+      let jsonObject = JSON.parse(localStorage.getItem('userMap') || '{}');
+      for (var value in jsonObject) {  
+         this.userMap.set(value,jsonObject[value])  
+      }
+      console.log(this.userMap);
+    }
 
     if(localStorage.getItem('map') === null){
       this.map = new Map();
