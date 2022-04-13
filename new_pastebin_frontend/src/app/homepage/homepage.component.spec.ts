@@ -72,5 +72,12 @@ describe('HomepageComponent', () => {
     expect(res).toBe("alpha");
   });
 
+  it('Should return true as user remains logged in after refreshing', () => {
+    fixture = TestBed.createComponent(HomepageComponent);
+    component = fixture.componentInstance;
+    const res = component.testRefreshLogin();
+    expect(res).toBeTruthy;
+  });
+
 
 });
