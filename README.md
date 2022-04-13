@@ -21,6 +21,9 @@ The current PasteBin has gotten too bulky and doesn't have any searching capabil
   * Gorm
   * SQLite
 
+## Link to Project Board for all Sprints ##
+https://github.com/Archana90663/New_PasteBin/projects
+
 ## Index
 - [Features](#Features)
 - [How to use](#Exploring-the-repository-of-pastes)
