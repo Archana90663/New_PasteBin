@@ -1,6 +1,6 @@
 # Pastebin 2.0
 
-The current PasteBin has gotten too bulky and doesn't have any searching capabilities. Pastebin 2.0 is a less clunky (minimalistic) version.
+The current PasteBin has gotten too bulky and doesn't have any searching capabilities. PasteBin 2.0 is a less clunky (minimalistic) version. Our application allows users to create pastes which can be any text or lines of code with a set expiry date (a user may choose to create an indefinite expiration date as well). These pastes are then posted on to the homepage for other users to see. The pastes are in the form of cards which contain the title, body, user’s profile picture, user’s handle, and user’s name. Users can also login to the application via Google or they can choose to remain anonymous. Users that do log in can view their account profile page, view their specific pastes, and create private pastes as well. Anonymous users can only choose to create public or unlisted pastes. Additionally, what makes our application unique from the original PasteBin is that we have filter and search capabilities. We’ve implemented a search bar that allows the user to search for a paste (users can either type the title or body of the paste) and a filter box that users can utilize to view pastes in the order of newest, oldest, or alphabetical.
 
 ## Collaborators
 [Archana Dhyani](https://github.com/Archana90663) (Front-end)
