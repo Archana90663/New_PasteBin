@@ -17,3 +17,5 @@ test:
 	npx cypress run --spec 'cypress/integration/pastes_test_spec.js'
 	kill $$(lsof -t -i:4200)
 	kill $$(lsof -t -i:8080)
+test_go:
+	(cd Server; go test)
