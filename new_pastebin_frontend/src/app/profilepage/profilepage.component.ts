@@ -36,4 +36,16 @@ export class ProfilepageComponent implements OnInit {
     // });
   }
 
+  testUserProfile():Boolean{
+    this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+    if(this.socialUser.name != undefined){
+      if(this.socialUser.email != undefined){
+        if(this.socialUser.photoUrl != undefined){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 }
