@@ -157,6 +157,16 @@ export class HomepageComponent implements OnInit {
     });
   }
 
+  testRefreshLogin(): Boolean{
+    this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+    if(this.socialUser != undefined){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   
 
 }
