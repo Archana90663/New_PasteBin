@@ -25,8 +25,6 @@ export class SignuppageComponent implements OnInit {
     });
   }
 
-  get f() { return this.signupForm.controls; }
-
   public signup(): void{
     this.submitted = true;
 
