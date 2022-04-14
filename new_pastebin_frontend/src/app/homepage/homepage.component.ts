@@ -167,6 +167,27 @@ export class HomepageComponent implements OnInit {
     }
   }
 
+  TestUserValid():Boolean{
+    if(this.socialUser != undefined){
+      return true;
+    }
+    return false;
+  }
+
+  TestPastesValid(): Boolean{
+    if(this.pastes.length != 0){
+      return true;
+    }
+    return false;
+  }
+
+  TestPasteMapValid(): Boolean{
+    if(this.map.size != 0){
+      return true;
+    }
+    return false;
+  }
+
   
 
 }

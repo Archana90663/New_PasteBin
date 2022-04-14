@@ -79,5 +79,44 @@ describe('HomepageComponent', () => {
     expect(res).toBeTruthy;
   });
 
+  it('Should return true as user is logged in', () => {
+    fixture = TestBed.createComponent(HomepageComponent);
+    component = fixture.componentInstance;
+    const res = component.TestUserValid();
+    expect(res).toBeTruthy;
+  });
+
+  it('Should return true as pastes array is not empty', () => {
+    fixture = TestBed.createComponent(HomepageComponent);
+    component = fixture.componentInstance;
+    const res = component.TestPastesValid();
+    expect(res).toBeTruthy;
+  });
+
+  it('Should return true as paste map is not empty', () => {
+    fixture = TestBed.createComponent(HomepageComponent);
+    component = fixture.componentInstance;
+    const res = component.TestPasteMapValid();
+    expect(res).toBeTruthy;
+  });
+
+  it('Since filter tag here is null the expected string should be that', () => {
+    fixture = TestBed.createComponent(HomepageComponent);
+    component = fixture.componentInstance;
+    const filter = "";
+    const bool = true;
+    const res = component.onChange(filter, bool);
+    expect(res).toBe("");
+  });
+
+  it('Since filter tag here is null, but is not checked so function shouldnt return anything meaningful', () => {
+    fixture = TestBed.createComponent(HomepageComponent);
+    component = fixture.componentInstance;
+    const filter = "";
+    const bool = false;
+    const res = component.onChange(filter, bool);
+    expect(res).toBe("");
+  });
+
 
 });
