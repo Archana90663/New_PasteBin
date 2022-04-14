@@ -136,4 +136,32 @@ export class SubmitpageComponent implements OnInit {
     return value;
   }
 
+  TestUserValid():Boolean{
+    if(this.socialUser != undefined){
+      return true;
+    }
+    return false;
+  }
+
+  TestPasteTittle(paste: Paste): Boolean{
+    if(paste.title != ""){
+      return true;
+    }
+    return false;
+  }
+
+  TestPasteBody(paste: Paste): Boolean{
+    if(paste.body != ""){
+      return true;
+    }
+    return false;
+  }
+
+  TestExpiryDate(paste: Paste):Boolean{
+    if(paste.expire_at != undefined){
+      return true;
+    }
+    return false;
+  }
+
 }

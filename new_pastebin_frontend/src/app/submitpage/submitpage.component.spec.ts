@@ -104,6 +104,47 @@ describe('SubmitpageComponent', () => {
     expect(res).toBeTruthy();
   });
 
+  it('Return TRUE as user is logged in', () =>{
+    const res = component.TestUserValid();
+    expect(res).toBeTruthy();
+  });
+
+  it('Return TRUE as paste title is not null', () =>{
+    const paste = new Paste("","1234","Hello World","","","This is body","public");
+    const res = component.TestPasteTittle(paste);
+    expect(res).toBeTruthy();
+  });
+
+  it('Return FALSE as paste title is null', () =>{
+    const paste = new Paste("","1234","","","","This is body","public");
+    const res = component.TestPasteTittle(paste);
+    expect(res).toBeFalsy();
+  });
+
+  it('Return TRUE as paste body is not null', () =>{
+    const paste = new Paste("","1234","Hello World","","","This is body","public");
+    const res = component.TestPasteBody(paste);
+    expect(res).toBeTruthy();
+  });
+
+  it('Return FALSE as paste body is null', () =>{
+    const paste = new Paste("","1234","Hello World","","","","public");
+    const res = component.TestPasteBody(paste);
+    expect(res).toBeFalsy();
+  });
+
+  it('Return TRUE as paste expiration date is not null and is not set', () =>{
+    const paste = new Paste("","1234","Hello World","","","This is body","public");
+    const res = component.TestExpiryDate(paste);
+    expect(res).toBeTruthy();
+  });
+
+  it('Return TRUE as paste expiration date is not null and is set', () =>{
+    const paste = new Paste("","1234","Hello World","","12","This is body","public");
+    const res = component.TestExpiryDate(paste);
+    expect(res).toBeTruthy();
+  });
+
   
 
 });
