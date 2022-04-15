@@ -10,6 +10,7 @@ import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { ViewpageComponent } from './viewpage/viewpage.component';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { PageaccessdeniedComponent } from './pageaccessdenied/pageaccessdenied.component';
+import { SignuppageComponent } from './signuppage/signuppage.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'viewpage', component: ViewpageComponent},
   {path: 'aboutpage', component:AboutpageComponent},
   {path: 'pageaccessdenied', component:PageaccessdeniedComponent},
+  {path: 'signuppage', component:SignuppageComponent},
   { path: '**', pathMatch: 'full', component: PagenotfoundComponent },
 ];
 
@@ -34,5 +36,6 @@ export const routingComponents=[
   HomepageComponent,
   AboutpageComponent,
   SubmitpageComponent,
-  TextpageComponent
+  TextpageComponent,
+  SignuppageComponent
 ];
