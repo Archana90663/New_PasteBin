@@ -61,4 +61,26 @@ export class ViewpageComponent implements OnInit {
     );
   }
 
+  TestUserValid():Boolean{
+    this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+    if(this.socialUser != undefined){
+      return true;
+    }
+    return false;
+  }
+
+  TestPastesValid():Boolean{
+    if(this.pastes.length === 0){
+      return true;
+    }
+    return false;
+  }
+
+  TestMapValid(): Boolean{
+    if(localStorage.getItem('map') === null){
+      return true;
+    }
+    return false;
+  }
+
 }
