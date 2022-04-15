@@ -85,6 +85,9 @@ export class SubmitpageComponent implements OnInit {
           this.showMessage(error.error.error)
           
         }
+        if(error.status == 500){
+          this.showMessage(error.error.error)
+        }
       }
     );
     console.log(payload)
