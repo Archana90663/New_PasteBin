@@ -48,4 +48,12 @@ export class ProfilepageComponent implements OnInit {
     return false;
   }
 
+  TestUserValid(): Boolean{
+    this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+    if(this.socialUser != undefined){
+      return true;
+    }
+    return false;
+  }
+
 }

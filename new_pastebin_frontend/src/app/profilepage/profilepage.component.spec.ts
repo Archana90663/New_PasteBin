@@ -59,4 +59,11 @@ describe('ProfilepageComponent', () => {
     expect(res).toBeTruthy;
   });
 
+  it('Should return true as user is not undefined', () => {
+    fixture = TestBed.createComponent(ProfilepageComponent);
+    component = fixture.componentInstance;
+    const res = component.TestUserValid();
+    expect(res).toBeTruthy;
+  });
+
 });
