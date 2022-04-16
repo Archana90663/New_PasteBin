@@ -107,5 +107,21 @@ export class LoginpageComponent implements OnInit {
     return this.isLoggedin;
   }
 
+  TestUserValid(): boolean{
+    this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
+    if(this.socialUser != undefined){
+      return true;
+    }
+    return false;
+  }
+
+  TestUserID(): boolean{
+    var id = localStorage.getItem('userID');
+    if(id != undefined){
+      return true;
+    }
+    return false;
+  }
+
 
 }
