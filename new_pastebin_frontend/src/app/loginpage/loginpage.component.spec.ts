@@ -112,6 +112,20 @@ describe('LoginpageComponent', () => {
     expect(res).toBe(true);
   });
 
+  it('Should return true as user is valid', () => {
+    fixture = TestBed.createComponent(LoginpageComponent);
+    component = fixture.componentInstance;
+    const value = component.TestUserValid();
+    expect(value).toBe(true);
+  });
+
+  it('Should return true as user id is valid', () => {
+    fixture = TestBed.createComponent(LoginpageComponent);
+    component = fixture.componentInstance;
+    const value = component.TestUserID();
+    expect(value).toBe(true);
+  });
+
 
 
 
