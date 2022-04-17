@@ -26,3 +26,6 @@ test_postman:
 	npx newman run pastebin_tests.postman_collection.json
 	sleep 1
 	kill $$(lsof -t -i:8080)
+close:
+	kill $$(lsof -t -i:4200)
+	kill $$(lsof -t -i:8080)
