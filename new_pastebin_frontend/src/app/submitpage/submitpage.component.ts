@@ -5,7 +5,12 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import {Router} from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
-
+import {
+  MonacoEditorComponent,
+  MonacoEditorConstructionOptions,
+  MonacoEditorLoaderService,
+  MonacoStandaloneCodeEditor
+} from '@materia-ui/ngx-monaco-editor';
 
 interface SubmitTextPayload{
   "userID": string,
@@ -20,6 +25,10 @@ interface SubmitTextPayload{
   styleUrls: ['./submitpage.component.css']
 })
 export class SubmitpageComponent implements OnInit {
+
+  editorOptions: MonacoEditorConstructionOptions  = {theme: 'vs-dark', language: 'javascript'};
+  code: string = 'function x() {\nconsole.log("Hello world!");\n}';
+    
   public socialUser: SocialUser = new SocialUser;
   map = new Map();
 

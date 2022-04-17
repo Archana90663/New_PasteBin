@@ -39,6 +39,7 @@ import { ViewpageComponent } from './viewpage/viewpage.component';
 import { AboutpageComponent } from './aboutpage/aboutpage.component';
 import { PageaccessdeniedComponent } from './pageaccessdenied/pageaccessdenied.component';
 import { SignuppageComponent } from './signuppage/signuppage.component';
+import { MonacoEditorModule, MONACO_PATH } from '@materia-ui/ngx-monaco-editor';
 
 
 @NgModule({
@@ -80,7 +81,10 @@ import { SignuppageComponent } from './signuppage/signuppage.component';
     MatSelectModule,
     Ng2SearchPipeModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    BrowserModule,
+    FormsModule,
+    MonacoEditorModule
   ],
   providers: [
     {
@@ -96,6 +100,10 @@ import { SignuppageComponent } from './signuppage/signuppage.component';
           }
         ]
       } as SocialAuthServiceConfig,
+    },
+    {
+      provide: MONACO_PATH,
+      useValue: 'https://unpkg.com/monaco-editor@0.31.1/min/vs',
     }
   ],
   bootstrap: [AppComponent]
