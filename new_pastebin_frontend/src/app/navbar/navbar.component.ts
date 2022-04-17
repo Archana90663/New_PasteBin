@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { BehaviorSubject } from 'rxjs';
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 
 @Component({
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private socialAuthService: SocialAuthService, 
     private httpClient: HttpClient,
+    private snackBar: MatSnackBar,
     private router: Router,
   ) { }
 
@@ -89,6 +91,15 @@ export class NavbarComponent implements OnInit {
         response=>{
           console.log("response: " + response.loggedIn);
           window.location.reload();
+        },
+        error => {
+          if(error.status == 401){
+            this.router.navigateByUrl('/pageaccessdenied');
+          } else if(error.status == 400){
+            this.showMessage(error.error.error)
+          } else if(error.status == 500){
+            this.showMessage(error.error.error)
+          }
         }
       );
     });
@@ -97,6 +108,10 @@ export class NavbarComponent implements OnInit {
     console.log("ID: " + localStorage.getItem('userID'));
     this.router.navigateByUrl('/');
     
+  }
+  showMessage(message: string) {
+    this.snackBar.open(message, "OK");
+    console.log("snackbar user id: " + sessionStorage.getItem('userID'));
   }
 
   logOut(): void {
