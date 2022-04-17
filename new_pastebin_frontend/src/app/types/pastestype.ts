@@ -6,6 +6,7 @@ export class Paste{
         public created_at: string,
         public expire_at: string,
         public body: string,
-        public tag: string
+        public tag: string,
+        public language: string
     ){ }
 }

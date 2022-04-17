@@ -27,9 +27,18 @@
         <br>
 
             <!-- <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor> -->
+            <mat-form-field appearance="fill">
+              <mat-label>Language</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let lang of langs" [value]="lang" (click)="onLangChange(lang)">
+                  {{lang}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <br>
             <div class="editor-container" fxLayout="column">
-            <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="textModel.body"></ngx-monaco-editor>
+            <ngx-monaco-editor (init)="editorInit($event)" [options]="editorOptions" [(ngModel)]="textModel.body"></ngx-monaco-editor>
             </div>
             <br>
             <mat-divider></mat-divider>
