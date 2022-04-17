@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import getExpireInText from '../util/getExireIn'
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { MonacoEditorConstructionOptions, MonacoStandaloneCodeEditor } from '@materia-ui/ngx-monaco-editor';
 
 @Component({
   selector: 'app-textpage',
@@ -13,6 +14,15 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-soc
   styleUrls: ['./textpage.component.css']
 })
 export class TextpageComponent implements OnInit {
+  editorOptions: MonacoEditorConstructionOptions  = {theme: 'vs-dark', language: 'javascript', readOnly: true};
+  editor: MonacoStandaloneCodeEditor | undefined;
+  // code: string = 'function x() {\nconsole.log("Hello world!");\n}';
+  editorInit(editor: MonacoStandaloneCodeEditor) {
+    // Programatic content selection example
+    this.editor = editor;
+    this.getText()
+    console.log("abcd");
+  }
   paste!: Paste;
   public socialUser: SocialUser = new SocialUser;
   isLoggedin: boolean = false;
@@ -65,9 +75,11 @@ export class TextpageComponent implements OnInit {
       response => {
         if(this.map.has(id)){
           this.paste = this.map.get(id);
+          this.editor?.getModel()?.setValue(this.paste.body)
         }
         else{
           this.paste = response;
+          this.editor?.getModel()?.setValue(this.paste.body)
         }
       },
       error => {

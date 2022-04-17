@@ -27,7 +27,6 @@ interface SubmitTextPayload{
 export class SubmitpageComponent implements OnInit {
 
   editorOptions: MonacoEditorConstructionOptions  = {theme: 'vs-dark', language: 'javascript'};
-  code: string = 'function x() {\nconsole.log("Hello world!");\n}';
     
   public socialUser: SocialUser = new SocialUser;
   map = new Map();
@@ -67,7 +66,7 @@ export class SubmitpageComponent implements OnInit {
   postText(){
   const getID= localStorage.getItem('userID')
   console.log(getID)
-  const payload:SubmitTextPayload = {"userID":String(getID),"title":String(this.textModel.title).replace(/<[^>]+>/gm, ''),"body":String(this.textModel.body).replace(/<[^>]+>/gm, ''), "tag": this.tagGlobal}
+  const payload:SubmitTextPayload = {"userID":String(getID),"title":String(this.textModel.title),"body":String(this.textModel.body), "tag": this.tagGlobal}
   if(this.textModel.expire_at != ""){
     payload.expire_at =  (new Date(Date.parse(this.textModel.expire_at))).toISOString()
   }
