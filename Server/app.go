@@ -258,16 +258,15 @@ func (a *App) userLogin(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "No Id given")
 		return
 	}
-	userId, err := verifyIdToken(a.db, req.IdToken)
+	userInfo, err := verifyIdToken(a.db, req.IdToken)
 	if err != nil {
 		sendErr(w, http.StatusUnauthorized, "could not verify given token")
 		return
 	}
-	user := getUser(a.db, userId.Id)
+	user := getUser(a.db, userInfo.Id)
 	var currUser UserInfo
 	if user == nil {
-		currUser = UserInfo{Id: userId.Id}
-		err = registerUser(a.db, currUser)
+		err = registerUser(a.db, userInfo)
 		if err != nil {
 			sendErr(w, http.StatusInternalServerError, err.Error())
 			return
@@ -294,6 +293,7 @@ func (a *App) userInfo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	userId := session.Values["user"]
+
 	if userId == nil {
 		sendErr(w, http.StatusUnauthorized, "Not logged in")
 		return
