@@ -13,6 +13,7 @@ import {
 } from '@materia-ui/ngx-monaco-editor';
 
 interface SubmitTextPayload{
+  language: string;
   "userID": string,
   "title": string,
   "body": string,
@@ -25,9 +26,17 @@ interface SubmitTextPayload{
   styleUrls: ['./submitpage.component.css']
 })
 export class SubmitpageComponent implements OnInit {
-
-  editorOptions: MonacoEditorConstructionOptions  = {theme: 'vs-dark', language: 'javascript'};
-    
+  editor: MonacoStandaloneCodeEditor | undefined;
+  editorInit(editor: MonacoStandaloneCodeEditor) {
+    // Programatic content selection example
+    this.editor = editor;
+  }
+  editorOptions: MonacoEditorConstructionOptions  = {theme: 'vs-dark', language: ''};
+  onLangChange(lang: string){
+    this.textModel.language = lang;
+    monaco.editor.setModelLanguage(this?.editor?.getModel()!, lang);
+  }
+  langs = ['abap', 'aes', 'apex', 'azcli', 'bat', 'bicep', 'c', 'cameligo', 'clojure', 'coffeescript', 'cpp', 'csharp', 'csp', 'css', 'dart', 'dockerfile', 'ecl', 'elixir', 'flow9', 'freemarker2', 'freemarker2.tag-angle.interpolation-bracket', 'freemarker2.tag-angle.interpolation-dollar', 'freemarker2.tag-auto.interpolation-bracket', 'freemarker2.tag-auto.interpolation-dollar', 'freemarker2.tag-bracket.interpolation-bracket', 'freemarker2.tag-bracket.interpolation-dollar', 'fsharp', 'go', 'graphql', 'handlebars', 'hcl', 'html', 'ini', 'java', 'javascript', 'json', 'julia', 'kotlin', 'less', 'lexon', 'liquid', 'lua', 'm3', 'markdown', 'mips', 'msdax', 'mysql', 'objective-c', 'pascal', 'pascaligo', 'perl', 'pgsql', 'php', 'pla', 'plaintext', 'postiats', 'powerquery', 'powershell', 'proto', 'pug', 'python', 'qsharp', 'r', 'razor', 'redis', 'redshift', 'restructuredtext', 'ruby', 'rust', 'sb', 'scala', 'scheme', 'scss', 'shell', 'sol', 'sparql', 'sql', 'st', 'swift', 'systemverilog', 'tcl', 'twig', 'typescript', 'vb', 'verilog', 'xml', 'yaml']
   public socialUser: SocialUser = new SocialUser;
   map = new Map();
 
@@ -37,7 +46,7 @@ export class SubmitpageComponent implements OnInit {
     private socialAuthService: SocialAuthService,
     private router: Router
   ) { }
-  textModel = new Paste("","","","","","","")
+  textModel = new Paste("","","","","","","", "")
   tagGlobal: string="";
   logged:boolean = false;
   title = new FormControl('', [Validators.required]);
@@ -66,7 +75,7 @@ export class SubmitpageComponent implements OnInit {
   postText(){
   const getID= localStorage.getItem('userID')
   console.log(getID)
-  const payload:SubmitTextPayload = {"userID":String(getID),"title":String(this.textModel.title),"body":String(this.textModel.body), "tag": this.tagGlobal}
+  const payload:SubmitTextPayload = {"userID":String(getID),"title":String(this.textModel.title),"body":String(this.textModel.body), "tag": this.tagGlobal, "language": this.textModel.language}
   if(this.textModel.expire_at != ""){
     payload.expire_at =  (new Date(Date.parse(this.textModel.expire_at))).toISOString()
   }
@@ -74,10 +83,10 @@ export class SubmitpageComponent implements OnInit {
       response => {
         var paste;
         if(this.textModel.expire_at != ""){
-          paste = new Paste(response.id, payload.userID, payload.title, new Date().toISOString(), (new Date(Date.parse(this.textModel.expire_at))).toISOString(), payload.body, payload.tag);
+          paste = new Paste(response.id, payload.userID, payload.title, new Date().toISOString(), (new Date(Date.parse(this.textModel.expire_at))).toISOString(), payload.body, payload.tag, payload.language);
         }
         else{
-          paste = new Paste(response.id, payload.userID, payload.title, new Date().toISOString(), '', payload.body, payload.tag);
+          paste = new Paste(response.id, payload.userID, payload.title, new Date().toISOString(), '', payload.body, payload.tag, payload.language);
         }
         this.map.set(response.id, paste);
         let jsonObject:any = {};  
