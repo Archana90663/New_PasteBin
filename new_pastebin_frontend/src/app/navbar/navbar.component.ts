@@ -54,56 +54,35 @@ export class NavbarComponent implements OnInit {
   login() {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe(user =>{
-      this.socialUser = user;
-      if(localStorage.getItem('userMap') === null){
-        this.userMap = new Map();
-      }
-      else{
-        let jsonObject = JSON.parse(localStorage.getItem('userMap') || '{}');
-        for (var value in jsonObject) {  
-           this.userMap.set(value,jsonObject[value])  
-        }
-      }
-      if(!this.userMap.has(this.socialUser.id)){
-        this.userMap.set(this.socialUser.id, this.socialUser);
-      }
-      let jsonObject:any = {};  
-      this.userMap.forEach((value, key) => {  
-      jsonObject[key] = value  
-    });
-      localStorage.setItem('userMap', JSON.stringify(jsonObject));
-      console.log(this.userMap);      
-      localStorage.setItem('user', JSON.stringify(this.socialUser));
+      this.socialUser = user; 
+      
       console.log("ID: " + this.socialUser.id);
 
       let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    this.httpClient.post<any>("http://localhost:8080/api/signup", {"idToken": this.socialUser.idToken, "handle":"blah"}, {headers: headers, withCredentials: true}).subscribe(
-        res=>{
-          console.log("signedup: " + res);
-        }
-      );
+
       this.httpClient.post<any>("http://localhost:8080/api/login", {"idToken": this.socialUser.idToken}, {headers: headers, withCredentials: true}).subscribe(
         res=>{
-          console.log("logged: " + res);
-        },
-        error => {
-          if(error.status == 401){
-            this.router.navigateByUrl('/pageaccessdenied');
-          } else if(error.status == 400){
-            this.showMessage(error.error.error)
-          } else if(error.status == 500){
-            this.showMessage(error.error.error)
-          } else if(error.status == 500){
-            this.showMessage(error.error.error)
-          }
-        }
-      );
-      this.httpClient.get<any>("http://localhost:8080/api/verifyLogin", {withCredentials:true}).subscribe(
+          this.httpClient.get<any>("http://localhost:8080/api/verifyLogin", {withCredentials:true}).subscribe(
         response=>{
           console.log("response: " + response.loggedIn);
-          window.location.reload();
+          if(response.loggedIn){
+            localStorage.setItem('loggedInStatus', 'true');
+            localStorage.setItem('user', JSON.stringify(this.socialUser));
+            localStorage.setItem('userID', this.socialUser.id);
+            this.logged = true
+            console.log("ID: " + localStorage.getItem('userID'));
+          }else{
+            localStorage.setItem('loggedInStatus', 'false');
+            localStorage.removeItem('user');
+            localStorage.removeItem('userID');
+            this.logged = false
+          }
         },
         error => {
+          localStorage.setItem('loggedInStatus', 'false');
+            localStorage.removeItem('user');
+            localStorage.removeItem('userID');
+            this.logged = false
           if(error.status == 401){
             this.router.navigateByUrl('/pageaccessdenied');
           } else if(error.status == 400){
@@ -113,11 +92,28 @@ export class NavbarComponent implements OnInit {
           }
         }
       );
+        },
+        error => {
+          localStorage.setItem('loggedInStatus', 'false');
+            localStorage.removeItem('user');
+            localStorage.removeItem('userID');
+            this.logged = false
+          if(error.status == 401){
+            this.router.navigateByUrl('/pageaccessdenied');
+          } else if(error.status == 400){
+            this.showMessage(error.error.error)
+          } else if(error.status == 500){
+            this.showMessage(error.error.error)
+          } else if(error.status == 500){
+            this.showMessage(error.error.error)
+          }
+        }
+      );
+      
     });
     // this.logged = true;
-    localStorage.setItem('loggedInStatus', 'true');
-    console.log("ID: " + localStorage.getItem('userID'));
-    this.router.navigateByUrl('/');
+    
+    //this.router.navigateByUrl('/');
     
   }
   showMessage(message: string) {
@@ -126,15 +122,14 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut(): void {
+    console.log("logging out")
     this.socialAuthService.signOut();
-    this.httpClient.get('http://localhost:8080/api/logout')
+    this.httpClient.get<any>("http://localhost:8080/api/logout", {withCredentials: true}).subscribe();
     localStorage.removeItem('userID');
-    this.logged = false;
     localStorage.setItem('loggedInStatus', 'false');
     localStorage.removeItem('user');
-    console.log("ID: " + localStorage.getItem('userID'));
-    this.router.navigateByUrl('/');
-    window.location.reload();
+    localStorage.removeItem('userID');
+    this.logged = false
   }
 
 }
