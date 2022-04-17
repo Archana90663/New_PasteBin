@@ -14,11 +14,11 @@
         
         
 
-        <a *ngIf="logged === false" mat-button [routerLink]="'/loginpage'" (click)="login()">Login</a>
+        <a *ngIf="logged === false" mat-button (click)="login()">Login</a>
         <!--<a mat-button onclick="location.assign('/loginpage').then(document.getElementById('loginbutton').click();)">clickMe</a>-->
         <a *ngIf="logged === true" mat-button [routerLink]="'/profilepage'">Account Profile</a>
         <a *ngIf="logged === true" mat-button [routerLink]="'/viewpage'">View Pastes</a>
-        <a *ngIf="logged === true" mat-button [routerLink]="'/loginpage'" (click)="logOut()">Logout</a>
+        <a *ngIf="logged === true" mat-button (click)="logOut()">Logout</a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
