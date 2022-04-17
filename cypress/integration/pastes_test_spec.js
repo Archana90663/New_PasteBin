@@ -6,7 +6,7 @@ describe('Pastes Test', function () {
         cy.get('#mat-input-0').type('This is a public paste').should("have.value", "This is a public paste")
 
         // Fill out the body of the paste
-        cy.get('#richtexteditor_1007234207_0').type('This is the body')
+        cy.get('ngx-monaco-editor').type('This is the body')
 
         // Fill out the date of the paste
         cy.get('#mat-input-1').type('2022-04-01T08:30')
@@ -26,7 +26,7 @@ describe('Pastes Test', function () {
         cy.get('#mat-input-0').type('This is a private paste').should("have.value", "This is a private paste")
 
         // Fill out the body of the paste
-        cy.get('#richtexteditor_1007234207_0').type('This is the body')
+        cy.get('ngx-monaco-editor').type('This is the body')
 
         // Fill out the date of the paste
         cy.get('#mat-input-1').type('2022-04-02T08:30')
@@ -49,7 +49,7 @@ describe('Pastes Test', function () {
         cy.get('#mat-input-0').type('This is an unlisted paste').should("have.value", "This is an unlisted paste")
 
         // Fill out the body of the paste
-        cy.get('#richtexteditor_1007234207_0').type('This is the body')
+        cy.get('ngx-monaco-editor').type('This is the body')
 
         // Fill out the date of the paste
         cy.get('#mat-input-1').type('2022-04-03T08:30')

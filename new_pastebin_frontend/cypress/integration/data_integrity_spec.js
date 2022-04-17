@@ -3,7 +3,7 @@ describe('Tests Paste Visibility Integrity', function () {
         // Create the paste
         cy.visit('http://localhost:4200/submitpage')
         cy.get('#mat-input-0').type('Public Paste Integrity Test')
-        cy.get('#richtexteditor_1007234207_0').type('This is the body')
+        cy.get('ngx-monaco-editor').type('This is the body')
         cy.get('#mat-input-1').type('2022-06-03T08:30')
         cy.get('#mat-select-0').click()
         cy.contains('Public').click()
@@ -18,7 +18,7 @@ describe('Tests Paste Visibility Integrity', function () {
         // Create the paste
         cy.visit('http://localhost:4200/submitpage')
         cy.get('#mat-input-0').type('Unlisted Paste Integrity Test')
-        cy.get('#richtexteditor_1007234207_0').type('This is the body')
+        cy.get('ngx-monaco-editor').type('This is the body')
         cy.get('#mat-input-1').type('2022-06-03T08:30')
         cy.get('#mat-select-0').click()
         cy.contains('Unlisted').click()
