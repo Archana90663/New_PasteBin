@@ -85,6 +85,17 @@ export class NavbarComponent implements OnInit {
       this.httpClient.post<any>("http://localhost:8080/api/login", {"idToken": this.socialUser.idToken}, {headers: headers, withCredentials: true}).subscribe(
         res=>{
           console.log("logged: " + res);
+        },
+        error => {
+          if(error.status == 401){
+            this.router.navigateByUrl('/pageaccessdenied');
+          } else if(error.status == 400){
+            this.showMessage(error.error.error)
+          } else if(error.status == 500){
+            this.showMessage(error.error.error)
+          } else if(error.status == 500){
+            this.showMessage(error.error.error)
+          }
         }
       );
       this.httpClient.get<any>("http://localhost:8080/api/verifyLogin", {withCredentials:true}).subscribe(
