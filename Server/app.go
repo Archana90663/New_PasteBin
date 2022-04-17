@@ -136,6 +136,19 @@ func (a *App) addText(w http.ResponseWriter, r *http.Request) {
 		sendErr(w, http.StatusBadRequest, "Post does not have an appropriate tag")
 		return
 	}
+	langs := [...]string{"abap", "aes", "apex", "azcli", "bat", "bicep", "c", "cameligo", "clojure", "coffeescript", "cpp", "csharp", "csp", "css", "dart", "dockerfile", "ecl", "elixir", "flow9", "freemarker2", "freemarker2.tag-angle.interpolation-bracket", "freemarker2.tag-angle.interpolation-dollar", "freemarker2.tag-auto.interpolation-bracket", "freemarker2.tag-auto.interpolation-dollar", "freemarker2.tag-bracket.interpolation-bracket", "freemarker2.tag-bracket.interpolation-dollar", "fsharp", "go", "graphql", "handlebars", "hcl", "html", "ini", "java", "javascript", "json", "julia", "kotlin", "less", "lexon", "liquid", "lua", "m3", "markdown", "mips", "msdax", "mysql", "objective-c", "pascal", "pascaligo", "perl", "pgsql", "php", "pla", "plaintext", "postiats", "powerquery", "powershell", "proto", "pug", "python", "qsharp", "r", "razor", "redis", "redshift", "restructuredtext", "ruby", "rust", "sb", "scala", "scheme", "scss", "shell", "sol", "sparql", "sql", "st", "swift", "systemverilog", "tcl", "twig", "typescript", "vb", "verilog", "xml", "yaml"}
+	if text.Language != "" {
+		valid := false
+		for _, ele := range langs {
+			if text.Language == ele {
+				valid = true
+			}
+		}
+		if !valid {
+			sendErr(w, http.StatusBadRequest, "Invalid language")
+			return
+		}
+	}
 	userIdString := ""
 	session, err := cookieStore.Get(r, cookie)
 	if err == nil {
