@@ -16,6 +16,7 @@ type TextView struct {
 	Expire_at  *time.Time `json:"expire_at"`
 	TextLength int        `json:"TextLength"`
 	Tag        string     `json:"tag"`
+	Language   string     `json:"language"`
 }
 type getTextRequest struct {
 	Id string `json:"id"`
