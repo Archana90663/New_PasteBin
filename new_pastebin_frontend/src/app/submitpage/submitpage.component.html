@@ -26,7 +26,11 @@
         <mat-divider></mat-divider>
         <br>
 
-            <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor>
+            <!-- <ejs-richtexteditor [(ngModel)]="textModel.body"></ejs-richtexteditor> -->
+            <br>
+            <div class="editor-container" fxLayout="column">
+            <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="textModel.body"></ngx-monaco-editor>
+            </div>
             <br>
             <mat-divider></mat-divider>
             <br>
