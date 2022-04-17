@@ -14,9 +14,11 @@
         <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
 <mat-card-title>{{paste.title}}</mat-card-title>
-      <p>
-        {{paste.body}}
-      </p>
+<div *ngIf="paste !== undefined">
+        <div class="editor-container" fxLayout="column">
+        <ngx-monaco-editor [options]="editorOptions" (init)="editorInit($event)"></ngx-monaco-editor>
+        </div>
+        </div>
     </mat-card-content>
     <p><button mat-raised-button color="warn" (click)="deleteText()" *ngIf="paste.userID === socialUser.id" #deleteButton>Delete</button></p>
   </mat-card>
@@ -38,9 +40,9 @@
         <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
 <mat-card-title>{{paste.title}}</mat-card-title>
-      <p>
-        {{paste.body}}
-      </p>
+<div class="editor-container" fxLayout="column">
+  <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="paste.body"></ngx-monaco-editor>
+  </div>
     </mat-card-content>
     <p><button mat-raised-button color="warn" (click)="deleteText()" *ngIf="paste.userID === socialUser.id" #deleteButton>Delete</button></p>
   </mat-card>
