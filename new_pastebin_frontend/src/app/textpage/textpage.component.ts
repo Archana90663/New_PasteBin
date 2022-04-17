@@ -76,10 +76,12 @@ export class TextpageComponent implements OnInit {
         if(this.map.has(id)){
           this.paste = this.map.get(id);
           this.editor?.getModel()?.setValue(this.paste.body)
+          monaco.editor.setModelLanguage(this?.editor?.getModel()!, this.paste.language);
         }
         else{
           this.paste = response;
           this.editor?.getModel()?.setValue(this.paste.body)
+          monaco.editor.setModelLanguage(this?.editor?.getModel()!, this.paste.language);
         }
       },
       error => {
