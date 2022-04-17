@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Paste } from '../types/pastestype';
+import { Paste, PasteView } from '../types/pastestype';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import getExpireInText from '../util/getExireIn'
@@ -23,12 +23,10 @@ export class TextpageComponent implements OnInit {
     this.getText()
     console.log("abcd");
   }
-  paste!: Paste;
+  paste!: PasteView;
   public socialUser: SocialUser = new SocialUser;
   isLoggedin: boolean = false;
   getExpireIn = getExpireInText
-  map = new Map();
-  userMap = new Map();
   
   constructor(
     private httpClient: HttpClient,
@@ -43,28 +41,6 @@ export class TextpageComponent implements OnInit {
     if(loggedInStatus === true){
       this.socialUser = JSON.parse(localStorage.getItem('user') || '{}');
     }
-    if(localStorage.getItem('userMap') === null){
-      this.userMap = new Map();
-    }
-    else{
-      let jsonObject = JSON.parse(localStorage.getItem('userMap') || '{}');
-      for (var value in jsonObject) {  
-         this.userMap.set(value,jsonObject[value])  
-      }
-      console.log(this.userMap);
-    }
-
-    if(localStorage.getItem('map') === null){
-      this.map = new Map();
-    }
-    else{
-      let jsonObject = JSON.parse(localStorage.getItem('map') || '{}');
-      for (var value in jsonObject) {  
-         this.map.set(value,jsonObject[value])  
-      }
-    }
-    console.log(typeof(this.map));
-    console.log(this.map);
     this.getText()
   }
   getText(){
@@ -73,16 +49,10 @@ export class TextpageComponent implements OnInit {
       let id = params['id'];
       this.httpClient.post<any>("http://localhost:8080/api/getText",{"id":id}, {withCredentials: true}).subscribe(
       response => {
-        if(this.map.has(id)){
-          this.paste = this.map.get(id);
-          this.editor?.getModel()?.setValue(this.paste.body)
-          monaco.editor.setModelLanguage(this?.editor?.getModel()!, this.paste.language);
-        }
-        else{
-          this.paste = response;
-          this.editor?.getModel()?.setValue(this.paste.body)
-          monaco.editor.setModelLanguage(this?.editor?.getModel()!, this.paste.language);
-        }
+        this.paste = response;
+        this.editor?.getModel()?.setValue(this.paste.body)
+        monaco.editor.setModelLanguage(this?.editor?.getModel()!, this.paste.language);
+        console.log(response)
       },
       error => {
         if(error.status == 404){
@@ -115,13 +85,6 @@ export class TextpageComponent implements OnInit {
         this.httpClient.post<any>("http://localhost:8080/api/deleteText",{"id":id}).subscribe(
           response => {
           console.log(response)
-          if(this.map.has(id)){
-            this.map.delete(id);
-            let jsonObject:any = {};  
-            this.map.forEach((value, key) => {  
-            jsonObject[key] = value  
-    });
-            localStorage.setItem('map', JSON.stringify(jsonObject));          }
           this.showMessage("TEXT DELETED")
           this.router.navigateByUrl('/');
         },
