@@ -1,11 +1,10 @@
 <!-- <div *ngIf="paste.userID===socialUser.id"> -->
-<div *ngFor = "let users of this.userMap.entries()">
-  <div *ngIf="paste.userID != 'undefined' && paste.userID === users[0]">
+  <div *ngIf="paste && paste.userID != ''">
   <mat-card class="pb-text-listing-card" matRipple>
     <mat-card-header>
-      <img mat-card-avatar src="{{users[1].photoUrl}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
-      <mat-card-title>{{users[1].name}}</mat-card-title>
-      <mat-card-subtitle>{{users[1].email.split('@')[0]}}</mat-card-subtitle>
+      <img mat-card-avatar src="{{paste.picture}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
+      <mat-card-title>{{paste.name}}</mat-card-title>
+      <mat-card-subtitle>{{paste.email.split('@')[0]}}</mat-card-subtitle>
     </mat-card-header>
     <mat-divider inset></mat-divider>
     
@@ -14,7 +13,7 @@
         <mat-card-subtitle><mat-icon class="pg-subtitle-icon">today</mat-icon>{{paste.created_at | date}}</mat-card-subtitle>
         <mat-card-subtitle *ngIf="paste.expire_at != null"><mat-icon class="pg-subtitle-icon">query_builder</mat-icon>Expires in: {{getExpireIn(paste.expire_at)}}</mat-card-subtitle>
 <mat-card-title>{{paste.title}}</mat-card-title>
-<div *ngIf="paste !== undefined">
+<div *ngIf="paste && paste !== undefined">
         <div class="editor-container" fxLayout="column">
         <ngx-monaco-editor [options]="editorOptions" (init)="editorInit($event)"></ngx-monaco-editor>
         </div>
@@ -23,10 +22,9 @@
     <p><button mat-raised-button color="warn" (click)="deleteText()" *ngIf="paste.userID === socialUser.id" #deleteButton>Delete</button></p>
   </mat-card>
   </div>
-</div>
 <!-- </div> -->
 <!-- <div *ngIf="paste.userID != socialUser.id"> -->
-<div *ngIf="!this.userMap.has(paste.userID) || paste.userID === 'undefined'">
+<div *ngIf="paste.userID == ''">
   <mat-card class="pb-text-listing-card" matRipple>
     <mat-card-header>
       <div mat-card-avatar class="pb-text-avatar-image"></div>
