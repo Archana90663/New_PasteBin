@@ -27,6 +27,7 @@ type Text struct {
 	UserCountry string     `json:"UserCountry"`
 	TextLength  int        `json:"TextLength"`
 	Tag         string     `json:"tag"`
+	Language    string     `json:"language"`
 }
 
 func postText(db *gorm.DB, text Text, ip string) (error, string) {
