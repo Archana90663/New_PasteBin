@@ -16,6 +16,7 @@ test:
 	(cd Server; go run -tags testing . )& (cd new_pastebin_frontend; ng serve) & npx wait-on http://localhost:4200
 	npx newman run pastebin_tests.postman_collection.json
 	npx cypress run --spec 'cypress/integration/pastes_test_spec.js'
+	sleep 1
 	kill $$(lsof -t -i:4200)
 	kill $$(lsof -t -i:8080)
 test_go:
@@ -23,4 +24,5 @@ test_go:
 test_postman:
 	(cd Server; go run -tags testing . ) & npx wait-on http://localhost:8080
 	npx newman run pastebin_tests.postman_collection.json
+	sleep 1
 	kill $$(lsof -t -i:8080)
