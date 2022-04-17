@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Paste } from '../types/pastestype';
+import { Paste, PasteView } from '../types/pastestype';
 import getExpireInText from '../util/getExireIn'
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 
@@ -8,19 +8,16 @@ import { SocialAuthService, SocialUser } from 'angularx-social-login';
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  pastes: Paste[] =[];
+  pastes: PasteView[] =[];
   searchTerm : string='';
   term: string = '';
 
   user_name: string = '';
   logged:boolean = false;
-  map = new Map();
-  mapHas: string[]=[];
-  userMap = new Map();
+
 
   public socialUser: SocialUser = new SocialUser;
 
@@ -45,16 +42,6 @@ export class HomepageComponent implements OnInit {
       this.user_name = '';
     }
 
-    if(localStorage.getItem('userMap') === null){
-      this.userMap = new Map();
-    }
-    else{
-      let jsonObject = JSON.parse(localStorage.getItem('userMap') || '{}');
-      for (var value in jsonObject) {  
-         this.userMap.set(value,jsonObject[value])  
-      }
-      console.log(this.userMap);
-    }
 
     // this.socialAuthService.authState.subscribe(user =>{
     //   this.socialUser = user;
@@ -68,15 +55,6 @@ export class HomepageComponent implements OnInit {
     // });
     localStorage.setItem('userID', this.socialUser.id);
 
-    if(localStorage.getItem('map') === null){
-      this.map = new Map();
-    }
-    else{
-      let jsonObject = JSON.parse(localStorage.getItem('map') || '{}');
-      for (var value in jsonObject) {  
-         this.map.set(value,jsonObject[value])  
-      }
-    }
     
 
     this.getPastes();
@@ -97,23 +75,6 @@ export class HomepageComponent implements OnInit {
     this.httpClient.get<any>("http://localhost:8080/api/allTexts").subscribe(
       response => {
         this.pastes = response.texts
-        this.pastes.forEach(paste=>{
-          this.mapHas.push(paste.id);
-        })
-        console.log(this.mapHas);
-        for(let entry of this.map.entries()){
-          var key = entry[0];
-          if(!this.mapHas.includes(key)){
-            this.map.delete(key);
-          }
-        }
-        let jsonObject:any = {};  
-            this.map.forEach((value, key) => {  
-            jsonObject[key] = value  
-          });
-            localStorage.setItem('map', JSON.stringify(jsonObject));
-            console.log(this.map);
-        this.mapHas = [];
         console.log(this.pastes)
       }
     );
@@ -182,10 +143,11 @@ export class HomepageComponent implements OnInit {
   }
 
   TestPasteMapValid(): Boolean{
-    if(this.map.size != 0){
-      return true;
-    }
-    return false;
+    // if(this.map.size != 0){
+    //   return true;
+    // }
+    // return false;
+    return true;
   }
 
   
