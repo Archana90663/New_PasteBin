@@ -180,3 +180,7 @@ Then we run the powershell script :- `run.ps1`
 
 ## Back-End
 Refer [this](https://github.com/Archana90663/New_PasteBin/wiki/Routes) for the API documentation
+
+## Cypress Testing Demo Video
+https://user-images.githubusercontent.com/25017260/163854629-c8e852cc-d46a-4ba5-a2a3-586cd4e5135e.mp4
+
