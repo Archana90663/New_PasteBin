@@ -28,10 +28,16 @@ describe('General Tests for Homepage Component', function () {
     })
 
     it('Checks Paste UserID is right', function () {
-        // Will create a paste and verify the user in the homepage
+        // Visits Anonymous paste to verify UserID is correct
+        cy.visit('http://localhost:4200/textpage?id=9c29ba69-ed40-4dfb-96a3-891f1c7ff16d')
+        cy.contains("Shiba Inu")
     })
 
     it('Checks Search Works Properly', function () {
         // Will search for a paste created in the home page
+        cy.visit('http://localhost:4200/')
+        cy.get('#searchbar').type("aaa")
+        cy.get('#searchbarsubmit').click()
+        cy.contains("aaa")
     })
 })
