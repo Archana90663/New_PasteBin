@@ -41,5 +41,14 @@ describe('General Tests for Submitpage Component', function () {
 
     it('Selects Different Syntax Highlighting', function () {
         // Will scroll through different highlighting options
+        cy.visit('http://localhost:4200/submitpage')
+        cy.get('#mat-select-0').click()
+        cy.contains('python').click()
+        cy.get('#mat-select-0').click()
+        cy.contains('apex').click()
+        cy.get('#mat-select-0').click()
+        cy.contains('ruby').click()
+        cy.get('#mat-select-0').click()
+        cy.contains('swift').click()
     })
 })
