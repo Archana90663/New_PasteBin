@@ -21,5 +21,11 @@ describe('General Tests for Textpage Component', function () {
 
     it('Checks Text Page Has Proper Info', function () {
         // Visit Paste Page
+        cy.visit('http://localhost:4200/textpage?id=f076270d-bb4b-4097-b216-29cba8832ab1')
+        cy.contains("Shiba Inu") // Username
+        cy.contains("@shb") // UserID
+        cy.contains("Apr 18, 2022") // Date
+        cy.contains("Text Page Test") // Title
+        cy.contains(print('Text Page Test Body')) // Body
     })
 })
