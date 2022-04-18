@@ -16,10 +16,15 @@ describe('General Tests for Homepage Component', function () {
 
     it('Check User Login Status', function () {
         // Look at the welcome message in the home page
+        cy.visit('http://localhost:4200')
+        cy.contains("Welcome to PasteBin 2.0!")
     })
 
     it('Checks Logged out User Functions', function () {
         // Sees if a logged out user can make a private paste
+        cy.visit('http://localhost:4200/submitpage')
+        cy.get('#mat-select-value-3').click()
+        cy.contains('Private').should("not.exist")
     })
 
     it('Checks Paste UserID is right', function () {
