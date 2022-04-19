@@ -83,7 +83,7 @@ While creating the paste, there is a DateTime field where you can select the exp
 ## How to share the created paste
 Once the paste is created you will be redirected to the page of that particular text, where you simply copy the link and share it.
 
-![](https://i.imgur.com/Z8T9jDz.gif)
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/7314590/164043755-82afb466-bd55-4982-b3a1-cbf137e7aedc.gif)
 
 You can also share a paste you open from the homepage in a similar way.
 ## What if you try to open an expired paste link
