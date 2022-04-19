@@ -79,6 +79,9 @@ While creating the paste, there is a DateTime field where you can select the exp
 
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/7314590/164042938-c83e42ef-7b11-4e00-9e35-6975915ffa93.gif)
 
+### How to add syntax highlighting to paste
+While creating the paste, use the language dropdown to select the language for syntax highlighting
+![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/7314590/164049319-093d2a20-f0bd-42b0-91a2-61f1099c65dd.gif)
 
 ## How to share the created paste
 Once the paste is created you will be redirected to the page of that particular text, where you simply copy the link and share it.
