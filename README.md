@@ -77,7 +77,7 @@ The expiry must not be before the current time.<br/>
 ### How to add expiry to paste<br/>
 While creating the paste, there is a DateTime field where you can select the expiry.<br/>
 
-![](https://i.imgur.com/7es49O7.gif)
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/7314590/164042938-c83e42ef-7b11-4e00-9e35-6975915ffa93.gif)
 
 
 ## How to share the created paste
