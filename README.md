@@ -184,6 +184,26 @@ Then we run the powershell script :- `run.ps1`
 ## Back-End
 Refer [this](https://github.com/Archana90663/New_PasteBin/wiki/Routes) for the API documentation
 
+## Testing
+To run tests for the app open your terminal and run the following
+```
+cd New_PasteBin
+make install
+make test
+```
+This will run all frontend and backend tests.
+If you want only want to run the backend golang test, open your terminal and run the following
+```
+cd New_PasteBin
+make install
+make test_go
+```
+If you want only want to run the backend postman test, open your terminal and run the following
+```
+cd New_PasteBin
+make install
+make test_postman
+```
 ## Cypress Testing Demo Video
 https://user-images.githubusercontent.com/25017260/163854629-c8e852cc-d46a-4ba5-a2a3-586cd4e5135e.mp4
 
