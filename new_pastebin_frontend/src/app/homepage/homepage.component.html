@@ -47,7 +47,7 @@
             <div *ngIf="paste.userID != ''">
               <mat-card class="pb-text-listing-card" matRipple>
                   <mat-card-header>
-                    <img mat-card-avatar src="{{paste.picture}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
+                    <img referrerpolicy="no-referrer" mat-card-avatar src="{{paste.picture}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
                     <mat-card-title>{{paste.name}}</mat-card-title>
                     <mat-card-subtitle>@{{paste.email.split('@')[0]}}</mat-card-subtitle>
                   </mat-card-header>
@@ -107,7 +107,7 @@
           <div *ngIf="paste.userID != ''">
           <mat-card class="pb-text-listing-card" matRipple>
               <mat-card-header>
-                <img mat-card-avatar src="{{paste.picture}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
+                <img referrerpolicy="no-referrer" mat-card-avatar src="{{paste.picture}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
                 <mat-card-title>{{paste.name}}</mat-card-title>
                 <mat-card-subtitle>@{{paste.email.split('@')[0]}}</mat-card-subtitle>
               </mat-card-header>
