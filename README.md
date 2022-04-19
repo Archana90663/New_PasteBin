@@ -65,7 +65,7 @@ A user can interact with each of the previewed pastes by clicking on the `READ` 
 
 Simply click the `new paste` button on the navbar, and fill the form.
 
-![](https://i.imgur.com/ArnBlJA.gif)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/7314590/164041535-2f215665-1f1a-4e5a-b680-0a9610908b1b.gif)
 
 >*Constraints for pastes*:-<br/>
 The title must not be empty.<br/>
