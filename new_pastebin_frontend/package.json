@@ -25,6 +25,7 @@
     "@materia-ui/ngx-monaco-editor": "^6.0.0",
     "@syncfusion/ej2-angular-richtexteditor": "^19.4.48",
     "angularx-social-login": "^4.0.1",
+    "cypress-social-logins": "^1.14.0",
     "moment": "^2.29.1",
     "monaco-editor": "^0.33.0",
     "ng2-search-filter": "^0.5.1",
