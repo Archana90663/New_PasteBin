@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
-import { Paste } from '../types/pastestype';
+import { Paste, PasteView } from '../types/pastestype';
 import { HttpClient } from '@angular/common/http';
 import getExpireInText from '../util/getExireIn'
 
@@ -15,7 +15,6 @@ export class ViewpageComponent implements OnInit {
   public socialUser: SocialUser = new SocialUser;
   pastes: Paste[] = [];
   getExpireIn = getExpireInText
-  map = new Map();
 
 
   constructor(
@@ -25,15 +24,7 @@ export class ViewpageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('map') === null){
-      this.map = new Map();
-    }
-    else{
-      let jsonObject = JSON.parse(localStorage.getItem('map') || '{}');
-      for (var value in jsonObject) {  
-         this.map.set(value,jsonObject[value])  
-      }
-    }
+
     this.getPastes();
     
     var loggedInStatus = JSON.parse(localStorage.getItem('loggedInStatus') || 'false');
@@ -52,11 +43,6 @@ export class ViewpageComponent implements OnInit {
     this.httpClient.get<any>("http://localhost:8080/api/allTexts").subscribe(
       response => {
         this.pastes = response.texts
-        for(let paste of this.pastes){
-          if(this.map.has(paste.id)){
-            paste.userID = this.map.get(paste.id).userID;
-          }
-        }
       }
     );
   }
