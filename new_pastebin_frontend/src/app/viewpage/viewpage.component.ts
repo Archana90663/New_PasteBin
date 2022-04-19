@@ -13,7 +13,7 @@ import getExpireInText from '../util/getExireIn'
 export class ViewpageComponent implements OnInit {
 
   public socialUser: SocialUser = new SocialUser;
-  pastes: Paste[] = [];
+  pastes: PasteView[] = [];
   getExpireIn = getExpireInText
 
 
@@ -40,8 +40,7 @@ export class ViewpageComponent implements OnInit {
   }
 
   getPastes(){
-    this.httpClient.get<any>("http://localhost:8080/api/allTexts").subscribe(
-      response => {
+    this.httpClient.get<any>("http://localhost:8080/api/allUserTexts", {withCredentials: true}).subscribe(      response => {
         this.pastes = response.texts
       }
     );

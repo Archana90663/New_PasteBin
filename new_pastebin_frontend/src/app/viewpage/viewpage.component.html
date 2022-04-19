@@ -1,11 +1,10 @@
 <div style="margin-top: 30px;" *ngFor="let paste of pastes">
-    <div *ngIf="paste.userID === socialUser.id">
         <mat-card class="pb-text-listing-card" matRipple>
             <mat-card-header>
-              <img mat-card-avatar src="{{socialUser.photoUrl}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
+              <img mat-card-avatar src="{{paste.picture}}" style="object-fit: cover; margin-bottom: 10px;border-radius:50%; width:45px; height:45px;">
               <!--<div mat-card-avatar class="pb-text-avatar-image"></div>-->
-              <mat-card-title>{{socialUser.name}}</mat-card-title>
-              <mat-card-subtitle>{{socialUser.email.split('@')[0]}}</mat-card-subtitle>
+              <mat-card-title>{{paste.name}}</mat-card-title>
+              <mat-card-subtitle>{{paste.email.split('@')[0]}}</mat-card-subtitle>
             </mat-card-header>
             <mat-divider inset></mat-divider>
             
@@ -23,6 +22,5 @@
               <button mat-button [routerLink]="['/textpage']" [queryParams]="{id:paste.id}">READ</button>
             </mat-card-actions>
           </mat-card>
-    </div>      
     
 </div>
