@@ -15,7 +15,7 @@ test:
 	(cd Server; go test)
 	(cd Server; go run -tags testing . )& (cd new_pastebin_frontend; ng serve || (kill $$(lsof -t -i:4200);kill $$(lsof -t -i:8080))) & npx wait-on http://localhost:4200
 	npx newman run pastebin_tests.postman_collection.json || (kill $$(lsof -t -i:4200);kill $$(lsof -t -i:8080))
-	npx cypress run --spec 'cypress/integration/pastes_test_spec.js' || (kill $$(lsof -t -i:4200);kill $$(lsof -t -i:8080))
+	(cd new_pastebin_frontend; npx cypress run --spec cypress/integration/*) || (kill $$(lsof -t -i:4200);kill $$(lsof -t -i:8080))
 	sleep 1
 	(kill $$(lsof -t -i:4200);kill $$(lsof -t -i:8080))
 test_go:
