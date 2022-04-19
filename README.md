@@ -59,7 +59,7 @@ The cards each contain the `user` who made the paste, their `@`, and other metad
 ## Open a paste
 A user can interact with each of the previewed pastes by clicking on the `READ` button within each of the cards to open the paste. 
 
-![](https://i.imgur.com/KAvN5bm.gif)
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/7314590/164042182-da9c2a44-7d28-45eb-b687-b0150a771a2b.gif)
 
 ## Create a paste
 
