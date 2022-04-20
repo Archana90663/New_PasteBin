@@ -89,11 +89,11 @@ export class TextpageComponent implements OnInit {
           this.router.navigateByUrl('/');
         },
         error => {
-          if(error.status == 404){
-            this.router.navigateByUrl('/404');
+          if(error.status == 400){
+            this.showMessage(error.error.error)
           }
-          else if(error.status == 410){
-            this.router.navigateByUrl('/expiredpage');
+          else if(error.status == 500){
+            this.showMessage(error.error.error)
           }
         }
       );
@@ -103,7 +103,7 @@ export class TextpageComponent implements OnInit {
 
       showMessage(message: string) {
         this.snackBar.open(message, "OK");
-        console.log("snackbar user id: " + sessionStorage.getItem('userID'));
+        // console.log("snackbar user id: " + sessionStorage.getItem('userID'));
       }
 }
 
