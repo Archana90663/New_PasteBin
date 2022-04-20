@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { Paste, PasteView } from '../types/pastestype';
+import { MatSnackBar } from "@angular/material/snack-bar";  
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import getExpireInText from '../util/getExireIn'
 
@@ -13,6 +15,7 @@ import getExpireInText from '../util/getExireIn'
 export class ViewpageComponent implements OnInit {
 
   public socialUser: SocialUser = new SocialUser;
+
   pastes: PasteView[] = [];
   getExpireIn = getExpireInText
 
@@ -20,6 +23,8 @@ export class ViewpageComponent implements OnInit {
   constructor(
     private socialAuthService: SocialAuthService,
     private httpClient: HttpClient,
+    private snackBar: MatSnackBar,
+    private router: Router
 
   ) { }
 
@@ -40,8 +45,17 @@ export class ViewpageComponent implements OnInit {
   }
 
   getPastes(){
-    this.httpClient.get<any>("http://localhost:8080/api/allUserTexts", {withCredentials: true}).subscribe(      response => {
+    this.httpClient.get<any>("http://localhost:8080/api/allUserTexts", {withCredentials: true}).subscribe(      
+      response => {
         this.pastes = response.texts
+      },
+      error => {
+        if(error.status == 401){
+          this.router.navigateByUrl('/pageaccessdenied');
+        } 
+        else if(error.status == 500){
+          this.showMessage(error.error.error)
+        }
       }
     );
   }
@@ -66,6 +80,11 @@ export class ViewpageComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  showMessage(message: string) {
+    this.snackBar.open(message, "OK");
+    console.log("snackbar user id: " + sessionStorage.getItem('userID'));
   }
 
 }
