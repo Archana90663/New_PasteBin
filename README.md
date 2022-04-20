@@ -204,6 +204,9 @@ cd New_PasteBin
 make install
 make test_postman
 ```
+## Demo Video of the project
+https://user-images.githubusercontent.com/47272414/164332346-2b0c299a-65d4-4e2b-bbd2-201f5b8bdb88.mp4
+
 ## Cypress Testing Demo Video
 https://user-images.githubusercontent.com/25017260/163854629-c8e852cc-d46a-4ba5-a2a3-586cd4e5135e.mp4
 
