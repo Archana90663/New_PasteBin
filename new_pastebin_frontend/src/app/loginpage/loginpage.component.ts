@@ -107,7 +107,13 @@ export class LoginpageComponent implements OnInit {
   logOut(): void {
     this.socialAuthService.signOut();
     this.isLoggedin = false;
-    this.httpClient.get('http://localhost:8080/api/logout')
+    this.httpClient.get<any>("http://localhost:8080/api/logout").subscribe(
+      error => {
+        if(error.status == 404){
+          this.router.navigateByUrl('/404');
+        }
+      }
+    );
     localStorage.removeItem('userID');
     localStorage.setItem('loggedInStatus', 'false');
     localStorage.removeItem('user');

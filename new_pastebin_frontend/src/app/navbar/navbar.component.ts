@@ -124,7 +124,13 @@ export class NavbarComponent implements OnInit {
   logOut(): void {
     console.log("logging out")
     this.socialAuthService.signOut();
-    this.httpClient.get<any>("http://localhost:8080/api/logout", {withCredentials: true}).subscribe();
+    this.httpClient.get<any>("http://localhost:8080/api/logout", {withCredentials: true}).subscribe(
+      error => {
+        if(error.status == 404){
+          this.router.navigateByUrl('/404');
+        }
+      }
+    );
     localStorage.removeItem('userID');
     localStorage.setItem('loggedInStatus', 'false');
     localStorage.removeItem('user');
